@@ -95,8 +95,8 @@ description: "Hyperbeam virtual computers can run numerous applications"
 | `ublock`                  | boolean          | false         | Flag to install the UBlock Origin extension on the cloud browser                                                                                                                                                                               |
 | `extension.field`         | string           | unset         | Field of the multipart form that contains the path to your custom Chrome extension. See “Install custom Chrome extension” below (Max Size 1MB)                                                                                                 |
 | `webgl`                   | boolean          | false         | Enables WebGL. Some games and interactive activities require WebGL                                                                                                                                                                             |
-| `width`                   | number           | 1280          | Width of the browser in pixels. If set, height must be set as well. Width must be:<br>- Divisible by 4<br>- Greater than or equal 540<br>The max number of pixels (width height) is capped at 1920 1080                                                 |
-| `height`                  | number           | 720           | Height of the browser in pixels. If set, width must be set as well. Height must be:<br>- Divisible by 4<br>- Greater than or equal 540<br>The max number of pixels (width height) is capped at 1920 1080                                                |
+| `width`                   | number           | 1280          | Width of the browser in pixels. If set, height must be set as well. Width must be:<br />- Divisible by 4<br />- Greater than or equal 540<br />The max number of pixels (width height) is capped at 1920 1080                                  |
+| `height`                  | number           | 720           | Height of the browser in pixels. If set, width must be set as well. Height must be:<br />- Divisible by 4<br />- Greater than or equal 540<br />The max number of pixels (width height) is capped at 1920 1080                                 |
 | `fps`                     | number           | 24            | Integer frame rate of the browser. Must be in the range [24, 60]                                                                                                                                                                               |
 | `hide_cursor`             | boolean          | false         | Hides the system cursor. Useful if you want to implement a multi-cursor user interface.                                                                                                                                                        |
 
@@ -120,9 +120,9 @@ description: "Hyperbeam virtual computers can run numerous applications"
 
 <RequestSimple method="POST">/android</RequestSimple>
 
-| Property            | Type   | Default | Description                                                                                     |
-| ------------------- | ------ | ------- | ----------------------------------------------------------------------------------------------- |
-| `app_id`            | string | unset   | The Google playstore application ID. If app_id is not set, then the home screen will be loaded. |
+| Property | Type   | Default | Description                                                                                     |
+| -------- | ------ | ------- | ----------------------------------------------------------------------------------------------- |
+| `app_id` | string | unset   | The Google playstore application ID. If app_id is not set, then the home screen will be loaded. |
 
 **Example response**
 
