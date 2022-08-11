@@ -1,0 +1,82 @@
+{
+  "name": "Hyperbeam",
+  "logo": "/logo.svg",
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#a888ff",
+    "light": "#c4b5fd",
+    "dark": "#7c3aed",
+    "ultraLight": "#ddd6fe",
+    "ultraDark": "#5b21b6"
+  },
+  "topbarCtaButton": {
+    "name": "Use Hyperbeam",
+    "url": "https://hyperbeam.com/dashboard"
+  },
+  "topbarLinks": [
+    {
+      "name": "Community",
+      "url": "https://discord.gg/D78RsGfQjq"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Community",
+      "icon": "discord",
+      "color": "#4f46e5",
+      "url": "https://discord.gg/D78RsGfQjq"
+    },
+    {
+      "name": "Contact Us",
+      "icon": "envelope",
+      "color": "#0284c7",
+      "url": "mailto:founders@hyperbeam.com"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Home",
+      "pages": [
+        "introduction",
+        "features",
+        "getting-started"
+      ]
+    },
+    {
+      "group": "Dispatch API",
+      "pages": [
+        "dispatch-overview",
+        "start-session",
+        "authenticating-participants",
+        "ending-session",
+        "get-sessions",
+        "get-session",
+        "install-chrome-extension"
+      ]
+    },
+    {
+      "group": "Session API",
+      "pages": [
+        "session-overview",
+        "set-user-permission",
+        "removing-users"
+      ]
+    },
+    {
+      "group": "Client SDK",
+      "pages": [
+        "web"
+      ]
+    }
+  ],
+  "footerSocials": [
+    {
+      "type": "website",
+      "url": "https://hyperbeam.dev"
+    },
+    {
+      "type": "discord",
+      "url": "https://discord.gg/D78RsGfQjq"
+    }
+  ]
+}

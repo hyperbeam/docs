@@ -1,0 +1,16 @@
+---
+title: "Removing Users"
+---
+
+<RequestSimple method="DELETE">/users/:user_id</RequestSimple>
+
+## Programmatic control
+
+### cURL
+
+```bash
+curl -X DELETE -H 'Authorization: Bearer <your-admin-token>' \
+    <embed_url>/users/<user_id>
+```
+
+Removing a user will disconnect the user from the cloud computer session. To ensure the user is unable to return, use webhook authentication and deny access if the user attempts to reconnect.

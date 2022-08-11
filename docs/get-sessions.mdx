@@ -1,0 +1,42 @@
+---
+title: "Get Active Sessions"
+---
+
+<RequestSimple method="GET">/vm?after_id=session_id</RequestSimple>
+
+| Param      | Type   | Description                                                                      |
+| ---------- | ------ | -------------------------------------------------------------------------------- |
+| `after_id` | string | Optional query parameter. Maximum number of results per request is fixed to 100. |
+
+## Get Active Sessions
+
+### cURL
+
+```bash
+curl -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm
+```
+
+### Example response
+
+```json
+{
+  "results": [
+    {
+      "id": "1bd96bee-088e-4ec5-ae55-7fec00b73efa",
+      "creation_date": "2006-01-02T15:04:05Z07:00"
+    },
+    {
+      "id": "c5772689-2255-4e59-8cea-b846cda7ad4e",
+      "creation_date": "2006-01-03T15:04:05Z07:00"
+    }
+  ],
+  "next": "c5772689-2255-4e59-8cea-b846cda7ad4e"
+}
+```
+
+| Property                | Type   | Description                                                                                                   |
+| ----------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| `results.creation_date` | string | The start time of the cloud computer session. Formatted according to RFC3339 (e.g. 2006-01-02T15:04:05Z07:00) |
+| `results.id`            | string | The ID of the cloud com session                                                                               |
+| `next`                  | string | The value after_id should be set to for pagination                                                            |

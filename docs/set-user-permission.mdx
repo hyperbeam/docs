@@ -1,0 +1,16 @@
+---
+title: "Set User Permission"
+---
+
+<RequestSimple method="POST">/setPermissions</RequestSimple>
+
+## Set user permissions
+
+### cURL
+
+```bash
+curl -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm
+```
+
+The request body mirrors the function signature of setPermissions(userId, permissions) from the [web SDK](https://www.npmjs.com/package/@hyperbeam/web#setting-permissions)

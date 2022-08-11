@@ -1,0 +1,75 @@
+---
+title: "Overview"
+description: "Initiate a virtual machine instance"
+---
+
+export const classes = {
+  custom: (
+    <table className="w-full text-left border-collapse">
+      <colgroup>
+        <col className="w-1/4" />
+        <col className="w-1/4" />
+        <col className="w-1/2" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th className="sticky top-0 bg-white text-sm leading-6 font-semibold text-slate-700 p-0 dark:bg-slate-900 dark:text-slate-300">
+            <div className="py-2 px-2 border-b border-slate-200 dark:border-slate-400/20">Environment</div>
+          </th>
+          <th className="sticky top-0 bg-white text-sm leading-6 font-semibold text-slate-700 p-0 dark:bg-slate-900 dark:text-slate-300">
+            <div className="py-2 pl-2 border-b border-slate-200 dark:border-slate-400/20">Endpoint</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody className="align-baseline">
+        <tr>
+          <td className="py-2 px-2 text-xs">
+            Testing + Production
+          </td>
+          <td translate="no" className="py-2 pl-2 font-mono text-xs leading-6 text-primary whitespace-pre dark:primary-light">
+            https://engine.hyperbeam.com/v0
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  ),
+}
+
+
+## Authentication
+
+Please contact us via Discord or email for an API key.
+
+To authenticate, provide your API as a bearer token in the Authorization header. For example, `Authorization: Bearer BImPtQWrCnb7aceCdlGQ-qniBJFNH2-1tVv7OjoHuQA`
+
+### Simple authentication request
+
+```bash Terminal
+curl -X POST \
+    -H 'Authorization: Bearer BImPtQWrCnb7aceCdlGQ-qniBJFNH2-1tVv7OjoHuQA' \
+    https://engine.hyperbeam.com/v0/vm
+```
+
+## Install custom Chrome extension
+
+### With crx file
+
+```bash
+curl -X POST \
+  -H 'Authorization: Bearer <your-api-key>' \
+  -H 'Content-Type: multipart/form-data' \
+  https://engine.hyperbeam.com/v0/vm \
+  --form 'body={"ublock":true,"extension":{"field":"ex"}}' \
+  --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
+```
+
+### With zip file
+
+```bash
+curl -X POST \
+  -H 'Authorization: Bearer <your-api-key>' \
+  -H 'Content-Type: multipart/form-data' \
+  https://engine.hyperbeam.com/v0/vm \
+  --form 'body={"ublock":true,"extension":{"field":"ex"}}' \
+  --form 'ex=@/tmp/ext.zip;type=application/zip'
+```

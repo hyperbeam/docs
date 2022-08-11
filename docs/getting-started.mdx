@@ -1,0 +1,85 @@
+---
+title: Getting Started
+description: Create a virtual computer
+---
+
+## Using the command line
+
+Run the following commands in the terminal to start a virtual computer session running Chromium
+
+```bash Terminal
+curl -X POST -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm
+```
+
+You will get a response similar to the one below.
+
+```json
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54",
+  "embed_url": "https://vwdrccwgpv181powg61ggyvy.hyperbeam.com/Uvloy2c5QZeD1yMF_l1vVA?token=c8iw3SmQglOU0ugfLr3dWY2LalSKI_WOGUldEt8knbw",
+  "admin_token": "51JOZEEcMp4trCwbpTS3jjQc0lSmeAZpPfxioDqe73U"
+}
+```
+
+You can visit the **embed_url** in your browser to access the virtual computer.
+
+To manage the session, you can [end a virtual computer](/ending-session) session or [list all active sessions](/get-sessions).
+
+---
+
+## Creating a simple application
+
+Below is a simple application featuring a NodeJS backend that hits the REST API to start the virtual computer, and a frontend that leverages the [NPM package](https://www.npmjs.com/package/@hyperbeam/web) to programmatically control it.
+
+Check out our [hello-world example on GitHub](https://github.com/hyperbeam/hello-world) for the full example.
+
+### Server-side code
+
+```js Node.JS
+const express = require("express");
+const axios = require("axios");
+const app = express();
+let computer;
+
+// Get a virtual computer object. If no object exists, create it.
+app.get("/computer", async (req, res) => {
+  if (computer) {
+    res.send(computer);
+    return;
+  }
+  const resp = await axios.post(
+    "https://engine.hyperbeam.com/v0/vm",
+    {},
+    {
+      headers: { Authorization: `Bearer ${process.env.HB_API_KEY}` },
+    }
+  );
+  computer = resp.data;
+  res.send(computer);
+});
+app.listen(8080, () => console.log("Server start at http://localhost:8080"));
+```
+
+### Client-side code
+
+```html HTML
+<div style="font-family: sans-serif">
+  <button id="gotoYouTubeBtn">Open Youtube.com</button>
+  <p>Current website: <span id="currentSite"></p>
+</div>
+<div id="virtualComputerDiv" style="height:720px;width:1280px"></div>
+<script type="module">
+  import Hyperbeam from "https://unpkg.com/@hyperbeam/web@latest/dist/index.js"
+  const resp = await fetch("/computer")
+  const data = await resp.json()
+  const hb = await Hyperbeam(virtualComputerDiv, data.embed_url)
+  gotoYouTubeBtn.addEventListener("click", () => {
+    hb.tabs.update({ url: "https://youtube.com" }) // Programmatic navigation
+  })
+  hb.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.title)
+      currentSite.innerText = changeInfo.title // Listen to tab changes
+  })
+</script>
+```

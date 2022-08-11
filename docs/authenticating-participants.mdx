@@ -1,0 +1,123 @@
+---
+title: "Authenticating Participants"
+description: "Granting access to cloud computers"
+---
+
+When a user attempts to connect to a cloud computer, we need to identify the user and determine whether they should be granted access.
+
+## Authentication strategies
+
+### Token authentication
+
+- This is the default authentication strategy
+- No additional code is needed
+
+### Webhook authentication
+
+- You need to create an endpoint on your backend (i.e. a webhook)
+- The virtual computer will hit your endpoint when a new user tries to connect
+- Your backend's webhook response controls whether the user is granted access
+- To set the authentication strategy, you provide an authentication object when starting a cloud computer session:
+
+To set the authentication strategy, you provide an authentication object when starting a cloud computer session:
+
+Token authentication (this is the default, if nothing is passed)
+
+```json
+{
+  "auth": {
+    "type": "token"
+  }
+}
+```
+
+Webhook authentication
+
+```json
+{
+    "auth": {
+    "type": "webhook",
+    "value": {
+      "url": "https://yourwebsite.com/webhook/hyperbeam/auth"
+      "bearer": "<cryptographic-key>"
+    }
+  }
+}
+```
+
+### Request body
+
+| Property            | Type   | Description                                                                                    |
+| ------------------- | ------ | ---------------------------------------------------------------------------------------------- |
+| `auth.type`         | string | The authentication strategy type. Valid values are `webhook` and `token`.                      |
+| `auth.value.url`    | string | The endpoint of your webhook for webhook-based authentication.                                 |
+| `auth.value.bearer` | string | A secret cryptographic key you provide to verify the webhook request is coming from Hyperbeam. |
+
+## In-depth
+
+### Token authentication
+
+When using token authentication, a token is added as a query parameter to the cloud computer’s embed URL. This ensures only users that were provided the embed URL have access to the cloud computer—malicious actors cannot gain access via the session ID or brute force.
+
+### Webhook authentication
+
+Start a cloud computer session with webhook authentication
+
+```bash
+curl -X POST -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm \
+    -d '{
+      "auth": {
+        "type": "webhook",
+        "value": {
+          "url": "https://yourwebsite.com/webhook/hyperbeam/auth",
+          "bearer": "<secret-key>"
+        }
+      }
+    }'
+```
+
+You will need to create an endpoint on your backend. The cloud computer will send a request to the endpoint you provided to determine if a user is allowed to connect.
+
+Our request will:
+
+- Set the Authorization header to `Authorization: Bearer <bearer-token>`
+
+  - `<bearer-token >` is the token you provided in the authentication object
+
+- Send a `POST` request with a JSON request body
+
+  - `user_id` is the user's [Hyperbeam identifier](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
+  - `userdata` is the `webhookUserdata` object passed into the Hyperbeam [web SDK](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
+
+```json
+{
+  "user_id": "7411d16b-9451-415e-bb65-7d5ff3202249",
+  "userdata": {}
+}
+```
+
+TL;DR: our request will look like this:
+
+```bash
+curl -X POST -H 'Authorization: Bearer <bearer-token>' \
+    -H 'Content-Type: application/json' \
+    https://yourwebsite.com/webhook/hyperbeam/auth \
+    -d '{"user_id": "7411d16b-9451-415e-bb65-7d5ff3202249", "userdata": {"my_data": "foo"}}'
+```
+
+Testing webhooks is difficult when running your backend locally (e.g. our cloud computers cannot reach `localhost:8080`). We recommend using [ngrok](https://ngrok.com/) to expose your endpoint for testing.
+
+Your webhook must:
+
+- Check that the bearer token in the Authorization header matches the token you provided
+- Parse the request body and determine if the user should be granted access
+
+  - You can use the `user_id` and userdata fields to identify the user
+
+- Send back a `200` status with a JSON response body
+  - To grant user access, send back `{"authorized": true}`
+  - To deny user access, send back `{"authorized": false}`
+  - Any response that doesn't have a 200 status code will deny user access
+  - If the "authorized" key is not set, the user will be denied
+  - You can provide a permissions object in the response to atomically set the [permission values](https://www.npmjs.com/package/@hyperbeam/web#setting-permissions) of the user
