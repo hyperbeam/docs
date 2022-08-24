@@ -1,0 +1,58 @@
+---
+title: "Starting a Console Emulator"
+description: "Intiate a Console Emulator using Hyperbeam"
+api: "POST https://engine.hyperbeam.com/v0/console"
+auth: "bearer"
+---
+
+### Parameters
+
+<Param body="type" type="string" default="''" required>
+
+The console type. nes, snes, n64, and ps1 are supported.
+
+</Param>
+
+<Param body="room_url" type="string" default="''" required>
+
+URL to a legal ROM file, which will be downloaded and loaded into the emulator.
+
+</Param>
+
+<Param body="auth" type="object" default='"auth": {"type": "token"}}'>
+
+The authentication system for the cloud computer. See the “cloud computer authentication” section for more info.
+
+</Param>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54",
+  "embed_url": "https://vwdrccwgpv181powg61ggyvy.hyperbeam.com/Uvloy2c5QZeD1yMF_l1vVA?token=c8iw3SmQglOU0ugfLr3dWY2LalSKI_WOGUldEt8knbw",
+  "admin_token": "51JOZEEcMp4trCwbpTS3jjQc0lSmeAZpPfxioDqe73U"
+}
+```
+
+</ResponseExample>
+
+### Response
+
+<ResponseField name="session_id" type="string">
+
+The ID of the cloud computer session
+
+</ResponseField>
+
+<ResponseField name="embed_url" type="string">
+
+A URL you can load into the [web client](/web) on your website
+
+</ResponseField>
+
+<ResponseField name="admin_token" type="string">
+
+A token that grants access to an exclusive subset of the client-side web SDK. Needed for setting permissions and programmatic navigation
+
+</ResponseField>

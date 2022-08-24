@@ -1,21 +1,27 @@
 ---
 title: "Get Single Session"
+api: "GET https://engine.hyperbeam.com/v0/vm/{session_id}"
+auth: "bearer"
 ---
 
-<RequestSimple method="GET">/vm/:session_id</RequestSimple>
+<Param path="session_id">
 
-## Get Single Sessions
+The ID of the cloud computer session
 
-### cURL
+</Param>
 
-```bash
+<RequestExample>
+
+```bash cURL
 curl -H 'Authorization: Bearer <your-api-key>' \
     https://engine.hyperbeam.com/v0/vm/<session_id>
 ```
 
-### Example response
+</RequestExample>
 
-```json
+<ResponseExample>
+
+```json Response Example
 {
   "session_id": "c5772689-2255-4e59-8cea-b846cda7ad4e",
   "embed_url": "https://96xljbfypmn3ibra366yqapci.hyperbeam.com/AAEjQFOIRnyeb81XbBsHMw?token=VTWsp1KGn4lLySRkUCmmAhsCcqJrPdhTXNS0Y-KPwHU",
@@ -24,9 +30,28 @@ curl -H 'Authorization: Bearer <your-api-key>' \
 }
 ```
 
-| Property           | Type           | Description                                                                                                                                                                                                      |
-| ------------------ | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `session_id`       | string         | The ID of the cloud computer session                                                                                                                                                                             |
-| `embed_url`        | string         | A URL you can load into the [web client](/web) on your website                                                                                                                                                   |
-| `admin_token`      | string         | A token that grants access to the cloud computer API and an exclusive subset of the client-side web API. Needed for setting permissions and programmatic control.                                                |
-| `termination_date` | string or null | The termination time of the cloud computer session. Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g. 2006-01-02T15:04:05Z07:00). null if the session hasn't terminated yet. |
+</ResponseExample>
+
+<ResponseField name="session_id" type="string">
+
+The ID of the cloud computer session
+
+</ResponseField>
+
+<ResponseField name="embed_url" type="string">
+
+A URL you can load into the [web client](/web) on your website
+
+</ResponseField>
+
+<ResponseField name="admin_token" type="string">
+
+A token that grants access to the cloud computer API and an exclusive subset of the client-side web API. Needed for setting permissions and programmatic control.
+
+</ResponseField>
+
+<ResponseField name="termination_date" type="string or null">
+
+The termination time of the cloud computer session. Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g. 2006-01-02T15:04:05Z07:00). null if the session hasn't terminated yet.
+
+</ResponseField>

@@ -1,26 +1,30 @@
 ---
 title: "Ending a Session"
+api: "DELETE https://engine.hyperbeam.com/v0/vm/{session_id}"
+auth: "bearer"
 ---
 
-<RequestSimple method="DELETE">/vm/:session_id</RequestSimple>
+<Param path="session_id" type="string">
 
-## Ending a Session
+The ID of the session that was terminated
 
-### cURL
+</Param>
 
-```bash
+<RequestExample>
+
+```bash cURL
 curl -X DELETE -H 'Authorization: Bearer <your-api-key>' \
-    https://engine.hyperbeam.com/v0/vm/52f968cb-6739-4197-83d7-2305fe5d6f54
+    https://engine.hyperbeam.com/v0/vm/{session_id}
 ```
 
-### Example response
+</RequestExample>
 
-```json
+<ResponseExample>
+
+```json Response Example
 {
   "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54"
 }
 ```
 
-| Property     | Type   | Description                               |
-| ------------ | ------ | ----------------------------------------- |
-| `session_id` | string | The ID of the session that was terminated |
+</ResponseExample>
