@@ -1,16 +1,21 @@
 ---
 title: "Removing Users"
+api: "DELETE https://engine.hyperbeam.com/v0/users/{user_id}"
 ---
 
-<RequestSimple method="DELETE">/users/:user_id</RequestSimple>
+<Param path="user_id" type="string" required>
 
-## Programmatic control
+The ID of the user
 
-### cURL
+</Param>
 
-```bash
+<RequestExample>
+
+```bash cURL
 curl -X DELETE -H 'Authorization: Bearer <your-admin-token>' \
     <embed_url>/users/<user_id>
 ```
+
+</RequestExample>
 
 Removing a user will disconnect the user from the cloud computer session. To ensure the user is unable to return, use webhook authentication and deny access if the user attempts to reconnect.
