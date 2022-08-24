@@ -1,16 +1,35 @@
 ---
-title: "Set User Permission"
+title: "Set User Permissions"
+api: "POST https://engine.hyperbeam.com/v0/setPermissions"
 ---
 
-<RequestSimple method="POST">/setPermissions</RequestSimple>
+### Parameters
 
-## Set user permissions
+<Param body="priority" type="integer" default={0}>
 
-### cURL
+Higher value = higher priority. Users with a higher priority will preempt the control of lower priority users.
 
-```bash
+</Param>
+
+<Param body="idle_timeout" type="integer" default={0}>
+
+Number of milliseconds until a user is considered "idle". Once a user is considered idle, they no longer preempt lower priority users until they interact with the multiplayer browser again.
+
+</Param>
+
+<Param body="control_disabled" type="boolean" default="{control_disable_default}">
+
+If control_disabled = true, all control input (mouse movements, keyboard presses) will be ignored. Note that disabling control does not restrict access to any APIs that require admin tokens.
+
+</Param>
+
+<RequestExample>
+
+```bash cURL
 curl -H 'Authorization: Bearer <your-api-key>' \
-    https://engine.hyperbeam.com/v0/vm
+    https://engine.hyperbeam.com/v0/setPermissions
 ```
+
+</RequestExample>
 
 The request body mirrors the function signature of setPermissions(userId, permissions) from the [web SDK](https://www.npmjs.com/package/@hyperbeam/web#setting-permissions)
