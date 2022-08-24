@@ -36,17 +36,13 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": [
-        "introduction",
-        "features",
-        "getting-started"
-      ]
+      "pages": ["introduction", "features", "getting-started"]
     },
     {
       "group": "Dispatch API",
       "pages": [
         "dispatch-overview",
-        "start-session",
+        "start-chromium-session",
         "authenticating-participants",
         "ending-session",
         "get-sessions",
@@ -56,17 +52,11 @@
     },
     {
       "group": "Session API",
-      "pages": [
-        "session-overview",
-        "set-user-permission",
-        "removing-users"
-      ]
+      "pages": ["session-overview", "set-user-permission", "removing-users"]
     },
     {
       "group": "Client SDK",
-      "pages": [
-        "web"
-      ]
+      "pages": ["web"]
     }
   ],
   "footerSocials": [
