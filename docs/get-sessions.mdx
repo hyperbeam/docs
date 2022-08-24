@@ -1,23 +1,26 @@
 ---
 title: "Get Active Sessions"
+api: "GET https://engine.hyperbeam.com/v0/vm"
 ---
 
-<RequestSimple method="GET">/vm?after_id=session_id</RequestSimple>
+<Param query="after_id" type="string">
 
-| Param      | Type   | Description                                                                      |
-| ---------- | ------ | -------------------------------------------------------------------------------- |
-| `after_id` | string | Optional query parameter. Maximum number of results per request is fixed to 100. |
+Optional query parameter. Maximum number of results per request is fixed to 100.
 
-## Get Active Sessions
+</Param>
 
 ### cURL
 
-```bash
+<RequestExample>
+
+```bash cURL
 curl -H 'Authorization: Bearer <your-api-key>' \
     https://engine.hyperbeam.com/v0/vm
 ```
 
-### Example response
+</RequestExample>
+
+<ResponseExample>
 
 ```json
 {
@@ -35,8 +38,27 @@ curl -H 'Authorization: Bearer <your-api-key>' \
 }
 ```
 
-| Property                | Type   | Description                                                                                                   |
-| ----------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
-| `results.creation_date` | string | The start time of the cloud computer session. Formatted according to RFC3339 (e.g. 2006-01-02T15:04:05Z07:00) |
-| `results.id`            | string | The ID of the cloud com session                                                                               |
-| `next`                  | string | The value after_id should be set to for pagination                                                            |
+</ResponseExample>
+
+### Response
+
+<ResponseField name="results" type="object">
+
+<Expandable>
+
+<ResponseField name="creation_date" type="string">
+  The start time of the cloud computer session. Formatted according to RFC3339
+  (e.g. 2006-01-02T15:04:05Z07:00)
+</ResponseField>
+
+<ResponseField name="id" type="string">
+  The ID of the cloud com session
+</ResponseField>
+
+</Expandable>
+
+</ResponseField>
+
+<ResponseField name="next" type="string">
+  The value after_id should be set to for pagination
+</ResponseField>
