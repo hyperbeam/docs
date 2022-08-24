@@ -1,0 +1,43 @@
+---
+title: "Starting a Android Emulator"
+description: "Intiate a Android Emulator using Hyperbeam"
+api: "POST https://engine.hyperbeam.com/v0/android"
+---
+
+### Parameters
+
+<Param body="app_id" type="string">
+
+The Google playstore application ID. If app_id is not set, then the home screen will be loaded.
+
+</Param>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54",
+  "embed_url": "https://vwdrccwgpv181powg61ggyvy.hyperbeam.com/Uvloy2c5QZeD1yMF_l1vVA?token=c8iw3SmQglOU0ugfLr3dWY2LalSKI_WOGUldEt8knbw",
+  "admin_token": "51JOZEEcMp4trCwbpTS3jjQc0lSmeAZpPfxioDqe73U"
+}
+```
+
+</ResponseExample>
+
+<ResponseField name="session_id" type="string">
+
+The ID of the cloud computer session
+
+</ResponseField>
+
+<ResponseField name="embed_url" type="string">
+
+A URL you can load into the [web client](/web) on your website
+
+</ResponseField>
+
+<ResponseField name="admin_token" type="string">
+
+A token that grants access to an exclusive subset of the client-side web SDK. Needed for setting permissions and programmatic navigation
+
+</ResponseField>

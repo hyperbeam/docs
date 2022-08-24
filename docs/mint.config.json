@@ -43,6 +43,8 @@
       "pages": [
         "dispatch-overview",
         "start-chromium-session",
+        "start-android-emulator-session",
+        "start-console-emulator-session",
         "authenticating-participants",
         "ending-session",
         "get-sessions",
