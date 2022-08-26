@@ -61,14 +61,8 @@
       "pages": ["web"]
     }
   ],
-  "footerSocials": [
-    {
-      "type": "website",
-      "url": "https://hyperbeam.dev"
-    },
-    {
-      "type": "discord",
-      "url": "https://discord.gg/D78RsGfQjq"
-    }
-  ]
+  "footerSocials": {
+    "website": "https://hyperbeam.dev",
+    "discord": "https://discord.gg/D78RsGfQjq"
+  }
 }
