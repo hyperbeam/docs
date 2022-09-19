@@ -4,11 +4,7 @@ api: "GET https://engine.hyperbeam.com/v0/vm/{session_id}"
 auth: "bearer"
 ---
 
-<Param path="session_id">
-
-The ID of the cloud computer session
-
-</Param>
+<Param path="session_id">The ID of the cloud computer session</Param>
 
 <RequestExample>
 
@@ -33,25 +29,21 @@ curl -H 'Authorization: Bearer <your-api-key>' \
 </ResponseExample>
 
 <ResponseField name="session_id" type="string">
-
-The ID of the cloud computer session
-
+  The ID of the cloud computer session
 </ResponseField>
 
 <ResponseField name="embed_url" type="string">
-
-A URL you can load into the [web client](/web) on your website
-
+  A URL you can load into the [web client](/web) on your website
 </ResponseField>
 
 <ResponseField name="admin_token" type="string">
-
-A token that grants access to the cloud computer API and an exclusive subset of the client-side web API. Needed for setting permissions and programmatic control.
-
+  A token that grants access to the cloud computer API and an exclusive subset
+  of the client-side web API. Needed for setting permissions and programmatic
+  control.
 </ResponseField>
 
 <ResponseField name="termination_date" type="string or null">
-
-The termination time of the cloud computer session. Formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g. 2006-01-02T15:04:05Z07:00). null if the session hasn't terminated yet.
-
+  The termination time of the cloud computer session. Formatted according to
+  [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g.
+  2006-01-02T15:04:05Z07:00). null if the session hasn't terminated yet.
 </ResponseField>
