@@ -4,10 +4,10 @@ title: Install Custom Chrome Extension
 
 You can create a custom [Chrome extension](https://chrome.google.com/webstore/category/extensions) and install it on the virtual browser. Both `zip` and `crx` file formats are supported. A few gotchas:
 
-* The content-type is multipart/form-data rather than application/json
-* The body field must be set to the JSON request data
-* The field you passed into {"extension": "foo"} must contain the path to the extension file and the file's MIME type, separated by a semi-colon
-  * For example, {"extension": "a"} and --form 'a=@/path/to/ext.crx;application/x-chrome-extension
+- The content-type is multipart/form-data rather than application/json
+- The body field must be set to the JSON request data
+- The field you passed into `{"extension": "foo"}` must contain the path to the extension file and the file's MIME type, separated by a semi-colon
+  - For example, `{"extension": "a"}` and `--form 'a=@/path/to/ext.crx;application/x-chrome-extension`
 
 ## Install custom Chrome extension
 

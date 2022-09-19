@@ -6,14 +6,14 @@ auth: "bearer"
 ---
 
 ### Request Access
+
 This feature is currently in private beta. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsVFZ4cQ4Q2nHNRhwb6SvmJIekv7fuQVa27zWnk_r5F48B5w/viewform?usp=pp_url&entry.126298931=Android+emulation" target="_blank" rel="noopener noreferrer">Request access here.</a>
 
 ### Parameters
 
 <Param body="app_id" type="string">
-
-The Google playstore application ID. If app_id is not set, then the home screen will be loaded.
-
+  The Google playstore application ID. If app_id is not set, then the home
+  screen will be loaded.
 </Param>
 
 <ResponseExample>
@@ -31,19 +31,14 @@ The Google playstore application ID. If app_id is not set, then the home screen 
 ### Response
 
 <ResponseField name="session_id" type="string">
-
-The ID of the cloud computer session
-
+  The ID of the cloud computer session
 </ResponseField>
 
 <ResponseField name="embed_url" type="string">
-
-A URL you can load into the [web client](/web) on your website
-
+  A URL you can load into the [web client](/web) on your website
 </ResponseField>
 
 <ResponseField name="admin_token" type="string">
-
-A token that grants access to an exclusive subset of the client-side web SDK. Needed for setting permissions and programmatic navigation
-
+  A token that grants access to an exclusive subset of the client-side web SDK.
+  Needed for setting permissions and programmatic navigation
 </ResponseField>
