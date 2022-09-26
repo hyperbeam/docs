@@ -30,7 +30,7 @@ auth: "bearer"
 <RequestExample>
 
 ```bash cURL
-curl -H 'Authorization: Bearer <your-api-key>' \
+curl -X POST -H 'Authorization: Bearer <your-api-key>' \
     <base_url>/v0/setPermissions -d '["<user_id>", {"control_disabled": false, "control_exclusive": true}]'
 ```
 
