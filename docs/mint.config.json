@@ -27,6 +27,11 @@
       "url": "https://discord.gg/D78RsGfQjq"
     },
     {
+      "name": "API Reference",
+      "icon": "rectangle-terminal",
+      "url": "api-reference"
+    },
+    {
       "name": "Contact Us",
       "icon": "envelope",
       "color": "#0284c7",
@@ -59,10 +64,31 @@
     {
       "group": "Client SDK",
       "pages": ["web"]
+    },
+    {
+      "group": "Computers",
+      "pages": [
+        "api-reference/run-web-browser",
+        "api-reference/run-android",
+        "api-reference/run-video-game-emulator",
+        "api-reference/delete-computer",
+        "api-reference/get-computer",
+        "api-reference/list-computers"
+      ]
+    },
+    {
+      "group": "Computer controls",
+      "pages": [
+        "api-reference/update-timeout",
+        "api-reference/reset-inactivity-timeout",
+        "api-reference/kick-user",
+        "api-reference/-user-permissions",
+        "api-reference/update-browser-tabs"
+      ]
     }
   ],
   "footerSocials": {
-    "website": "https://hyperbeam.dev",
+    "website": "https://hyperbeam.com",
     "discord": "https://discord.gg/D78RsGfQjq"
   }
 }

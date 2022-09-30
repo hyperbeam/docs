@@ -1,0 +1,62 @@
+---
+title: "Get Active Sessions"
+api: "GET https://engine.hyperbeam.com/v0/vm"
+auth: "bearer"
+---
+
+<Param query="after_id" type="string">
+  Optional query parameter. Maximum number of results per request is fixed to
+  100.
+</Param>
+
+### cURL
+
+<RequestExample>
+
+```bash cURL
+curl -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "results": [
+    {
+      "id": "1bd96bee-088e-4ec5-ae55-7fec00b73efa",
+      "creation_date": "2006-01-02T15:04:05Z07:00"
+    },
+    {
+      "id": "c5772689-2255-4e59-8cea-b846cda7ad4e",
+      "creation_date": "2006-01-03T15:04:05Z07:00"
+    }
+  ],
+  "next": "c5772689-2255-4e59-8cea-b846cda7ad4e"
+}
+```
+
+</ResponseExample>
+
+### Response
+
+<ResponseField name="results" type="object">
+
+<Expandable>
+  <ResponseField name="creation_date" type="string">
+    The start time of the cloud computer session. Formatted according to RFC3339
+    (e.g. 2006-01-02T15:04:05Z07:00)
+  </ResponseField>
+
+  <ResponseField name="id" type="string">
+    The ID of the cloud com session
+  </ResponseField>
+</Expandable>
+
+</ResponseField>
+
+<ResponseField name="next" type="string">
+  The value after_id should be set to for pagination
+</ResponseField>

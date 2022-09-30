@@ -1,0 +1,111 @@
+---
+title: "Starting a Chromium Session"
+description: "Intiate a Chromium browser using Hyperbeam"
+api: "POST https://engine.hyperbeam.com/v0/vm"
+auth: "bearer"
+---
+
+### Parameters
+
+<Param body="start_url" type="string" default="about:blank">
+  The initial URL that is set in the browser. If unset, and a profile is loaded,
+  tabs from the profile are restored
+</Param>
+
+<Param body="kiosk" type="boolean" default={false}>
+  Flag to enable kiosk mode, which hides the browser navigation UI
+</Param>
+
+<Param body="offline_timeout" type="nullable, number" default={3600}>
+  The seconds after which the session will close when no users are connected. If
+  set to null, the session will never time out. Must be greater than 60
+</Param>
+
+<Param body="control_disable_default" type="boolean" default={false}>
+  If true, users cannot control the browser by default, and need to be manually
+  granted access by an admin user
+</Param>
+
+<Param body="region" type="string" default="NA">
+  The server region: `NA` → North America, `EU` → Europe, `AS` → Asia
+</Param>
+
+<Param body="profile.load" type="string">
+  ID of the session you want to load in the cloud browser (a profile is
+  encrypted browser state from a previous session, with the profile ID being its
+  session_id, see response body). If start_url is unset, tabs from the profile
+  are restored
+</Param>
+
+<Param body="profile.save" type="string">
+  profile.save = true → Save profile
+</Param>
+
+<Param body="ublock" type="boolean" default={false}>
+  Flag to install the UBlock Origin extension on the cloud browser
+</Param>
+
+<Param body="extension.field" type="string">
+  Field of the multipart form that contains the path to your custom Chrome
+  extension. See “Install custom Chrome extension” below (Max Size 1MB)
+</Param>
+
+<Param body="webgl" type="boolean" default={false}>
+  Enables WebGL. Some games and interactive activities require WebGL
+</Param>
+
+<Param body="width" type="number" default={1280}>
+Width of the browser in pixels. If set, height must be set as well. Width must be:
+
+Divisible by 4
+Greater than or equal 540
+
+The max number of pixels (width height) is capped at 1920 1080
+
+</Param>
+
+<Param body="height" type="number" default={720}>
+Height of the browser in pixels. If set, width must be set as well. Height must be:
+
+Divisible by 4
+Greater than or equal 540
+
+The max number of pixels (width height) is capped at 1920 1080
+
+</Param>
+
+<Param body="fps" type="number" default={24}>
+  Integer frame rate of the browser. Must be in the range [24, 60]
+</Param>
+
+<Param body="hide_cursor" type="boolean" default={false}>
+  Hides the system cursor. Useful if you want to implement a multi-cursor user
+  interface.
+</Param>
+
+<ResponseExample>
+
+```json Example response
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54",
+  "embed_url": "https://vwdrccwgpv181powg61ggyvy.hyperbeam.com/Uvloy2c5QZeD1yMF_l1vVA?token=c8iw3SmQglOU0ugfLr3dWY2LalSKI_WOGUldEt8knbw",
+  "admin_token": "51JOZEEcMp4trCwbpTS3jjQc0lSmeAZpPfxioDqe73U"
+}
+```
+
+</ResponseExample>
+
+### Response
+
+<ResponseField name="session_id" type="string">
+  The ID of the cloud computer session
+</ResponseField>
+
+<ResponseField name="embed_url" type="string">
+  A URL you can load into the [web client](/web) on your website
+</ResponseField>
+
+<ResponseField name="admin_token" type="string">
+  A token that grants access to an exclusive subset of the client-side web SDK.
+  Needed for setting permissions and programmatic navigation
+</ResponseField>
