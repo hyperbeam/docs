@@ -2,33 +2,40 @@
 title: Install Custom Chrome Extension
 ---
 
-You can create a custom [Chrome extension](https://chrome.google.com/webstore/category/extensions) and install it on the virtual browser. Both `zip` and `crx` file formats are supported. A few gotchas:
+You can create a custom [Chrome extension](https://chrome.google.com/webstore/category/extensions) and install it on the virtual browser. Both `zip` and `crx` file formats are supported.
 
-- The content-type is multipart/form-data rather than application/json
-- The body field must be set to the JSON request data
-- The field you passed into `{"extension": "foo"}` must contain the path to the extension file and the file's MIME type, separated by a semi-colon
-  - For example, `{"extension": "a"}` and `--form 'a=@/path/to/ext.crx;application/x-chrome-extension`
+For a full example, check out our [Chrome extension example](https://github.com/hyperbeam/examples/tree/master/chrome-extension).
 
-## Install custom Chrome extension
+<CodeGroup>
+```js JavaScript
+function buildForm(extPath, vmConfig) {
+  const formData = new FormData()
+  formData.append("ex", fs.createReadStream(extPath))
+  formData.append("body", JSON.stringify(vmConfig))
+  return formData
+}
 
-### crx file
+const zipPath = path.resolve(__dirname, "./path/to/my/ext.zip")
+const formData = buildForm(zipPath, {
+  extension: {
+    field: "ex"
+  }
+})
 
-```bash
-curl -X POST \
-  -H 'Authorization: Bearer <your-api-key>' \
-  -H 'Content-Type: multipart/form-data' \
-  https://engine.hyperbeam.com/v0/vm \
-  --form 'body={"ublock":true,"extension":{"field":"ex"}}' \
-  --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
+const headers = formData.getHeaders()
+headers["Authorization"] = `Bearer ${process.env.HB_API_KEY}`
+const resp = axios.post('https://engine.hyperbeam.com/v0/vm', formData, {headers})
 ```
 
-### zip file
-
-```bash
+```bash Bash
 curl -X POST \
   -H 'Authorization: Bearer <your-api-key>' \
   -H 'Content-Type: multipart/form-data' \
   https://engine.hyperbeam.com/v0/vm \
   --form 'body={"ublock":true,"extension":{"field":"ex"}}' \
   --form 'ex=@/tmp/ext.zip;type=application/zip'
+  # If using crx rather than zip, make sure to change the MIME-type to x-chrome-extension
+  # --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
+
 ```
+</CodeGroup>
