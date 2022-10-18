@@ -9,22 +9,22 @@ For a full example, check out our [Chrome extension example](https://github.com/
 <CodeGroup>
 ```js JavaScript
 function buildForm(extPath, vmConfig) {
-  const formData = new FormData()
-  formData.append("ex", fs.createReadStream(extPath))
-  formData.append("body", JSON.stringify(vmConfig))
-  return formData
+  const formData = new FormData();
+  formData.append("ex", fs.createReadStream(extPath));
+  formData.append("body", JSON.stringify(vmConfig));
+  return formData;
 }
 
-const zipPath = path.resolve(__dirname, "./path/to/my/ext.zip")
+const zipPath = path.resolve(__dirname, "./path/to/my/ext.zip");
 const formData = buildForm(zipPath, {
   extension: {
     field: "ex"
   }
-})
+});
 
-const headers = formData.getHeaders()
-headers["Authorization"] = `Bearer ${process.env.HB_API_KEY}`
-const resp = axios.post('https://engine.hyperbeam.com/v0/vm', formData, {headers})
+const headers = formData.getHeaders();
+headers["Authorization"] = `Bearer ${process.env.HB_API_KEY}`;
+const resp = axios.post('https://engine.hyperbeam.com/v0/vm', formData, {headers});
 ```
 
 ```bash Bash
