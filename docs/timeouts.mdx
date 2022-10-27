@@ -1,0 +1,72 @@
+---
+title: "Delete a computer"
+description: "Maximize value and minimize costs by shutting down inactive computers 🔌"
+---
+
+import DeleteComputer from "./components/delete-computer.mdx";
+
+## 2 ways to shut down a Hyperbeam computer
+
+### DELETE /v0/vm endpoint
+
+You can manually delete a computer by hitting the `DELETE /v0/vm` endpoint.
+
+<DeleteComputer />
+
+### Configuring timeout values
+
+The easiest way to manage the computer lifecycle is by configuring the computer's timeout values.
+
+For a full example of timeout
+
+#### Default timeout values
+
+If no timeout configuration is specified, the following configuration will be applied:
+
+```json
+{
+  "timeout": {
+    "offline": 3600,
+    "warning": 60
+  }
+}
+```
+
+#### Showing warnings and timeouts to the end-user
+
+```js
+
+
+
+```
+
+#### Changing timeout values
+
+<CodeGroup>
+```js JavaScript
+const axios = require("axios")
+
+function ping(embedUrl, adminToken) {
+  const baseUrl = embedUrl.split("?")[0] // Remove query parameters
+  return axios.post(`${baseUrl}/ping`, {}, {
+    headers: {
+      Authorization: `Bearer ${adminToken}`
+    }
+  })
+}
+```
+
+```bash Bash
+# The base URL is the embed URL with the query parameters removed. Here's an example embed URL:
+# https://1n3gz1hpcnqdu0d7un7mi7olf.hyperbeam.com/D3mZHXIdQDSQWAvTjXnDhA?token=7UUogkcXu0-zFyqKgTpjs4dhaDN-nm0Zd99uEdbddAo
+#
+# And here's the corresponding base URL:
+# https://1n3gz1hpcnqdu0d7un7mi7olf.hyperbeam.com/D3mZHXIdQDSQWAvTjXnDhA
+curl -X POST -H 'Authorization: <your-admin-token>' <your-base-url>/ping
+```
+</CodeGroup>
+
+
+
+
+

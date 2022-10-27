@@ -42,6 +42,7 @@
       "group": "Dispatch API",
       "pages": [
         "dispatch-overview",
+        "timeouts",
         "authenticating-participants",
         "start-chromium-session",
         "start-android-emulator-session",

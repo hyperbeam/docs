@@ -1,0 +1,38 @@
+<Param path="session_id" type="string">
+
+The ID of the session that was terminated
+
+</Param>
+
+<RequestExample>
+
+```bash Bash
+curl -X DELETE -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm/{session_id}
+```
+
+```bash Javascript
+const axios = require('axios');
+
+function deleteComputer(sessionId) {
+  return axios.delete("https://engine.hyperbeam.com/v0/vm", {}, {
+    headers: {
+      Authorization: `Bearer ${process.env.HB_API_KEY}`
+    }
+  });
+}
+
+deleteComputer("<computer-session-id")
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54"
+}
+```
+
+</ResponseExample>
