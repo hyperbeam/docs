@@ -2,6 +2,8 @@
 title: Install Custom Chrome Extension
 ---
 
+## Overview
+
 You can create a custom [Chrome extension](https://chrome.google.com/webstore/category/extensions) and install it on the virtual browser.
 
 To load your extension in Hyperbeam, create an unpacked `zip` or `crx` file. Then, make a request and upload the file using a multipart form. For a full example, check out our [Chrome extension example](https://github.com/hyperbeam/examples/tree/master/chrome-extension).
@@ -32,14 +34,29 @@ curl -X POST \
   -H 'Authorization: Bearer <your-api-key>' \
   -H 'Content-Type: multipart/form-data' \
   https://engine.hyperbeam.com/v0/vm \
-  --form 'body={"ublock":true,"extension":{"field":"ex"}}' \
+  --form 'body={"extension":{"field":"ex"}}' \
   --form 'ex=@/tmp/ext.zip;type=application/zip'
   # If using crx rather than zip, make sure to change the MIME-type to x-chrome-extension
   # --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
 ```
 </CodeGroup>
 
-If your extension is not loading in Hyperbeam, *please* double-check that the `manifest.json` file is a well-formed JSON and is in the root directory. **manifest.json must not be in a subfolder**. The contents of a `zip` file should look like this:
+## References
+
+For more information on creating `zip` Chrome extensions, refer to the [Publish your extension](https://developer.chrome.com/docs/webstore/publish/#create-your-items-zip-file) guide on the Chrome Developers website.
+  
+To learn more about the `crx` format, see [Installing extensions on Linux](https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#packaging). We recommend creating building `crx` extensions with an [unofficial CLI on NPM](https://www.npmjs.com/package/crx#cli-api).
+
+
+## Troubleshooting
+
+<Warning>Do **not** put the `manifest.json` file in a subfolder</Warning>
+
+If your extension is not loading in Hyperbeam, *please* double-check that:
+* The `manifest.json` file is a well-formed JSON
+* The `manifest.json` file is in the root directory
+
+The contents of the `zip` file should look like this:
 
 ```
 hello.html
@@ -48,13 +65,8 @@ manifest.json
 popup.js
 ```
 
-For more information on creating `zip` Chrome extensions, refer to the [Publish your extension](https://developer.chrome.com/docs/webstore/publish/#create-your-items-zip-file) guide on the Chrome Developers website.
   
-To learn more about the `crx` format, see [Installing extensions on Linux](https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#packaging). We recommend creating building `crx` extensions with an [unofficial CLI on NPM](https://www.npmjs.com/package/crx#cli-api).
-  
-<Warning>Do **not** put the `manifest.json` in a subfolder</Warning>
 The following file structure is invalid, **do not do this**:
-
 ```
 extension/
 ├─ hello.html
