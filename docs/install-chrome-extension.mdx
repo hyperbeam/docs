@@ -36,6 +36,29 @@ curl -X POST \
   --form 'ex=@/tmp/ext.zip;type=application/zip'
   # If using crx rather than zip, make sure to change the MIME-type to x-chrome-extension
   # --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
-
 ```
 </CodeGroup>
+
+If your extension is not loading in Hyperbeam, *please* double-check that the `manifest.json` file is a well-formed JSON and is in the root directory. **manifest.json must not be in a subfolder**. The contents of a `zip` file should look like this:
+
+```
+hello.html
+hello_extensions.png
+manifest.json
+popup.js
+```
+
+For more information on creating `zip` Chrome extensions, refer to the [Publish your extension](https://developer.chrome.com/docs/webstore/publish/#create-your-items-zip-file) guide on the Chrome Developers website.
+  
+To learn more about the `crx` format, see [Installing extensions on Linux](https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#packaging). We recommend creating building `crx` extensions with an [unofficial CLI on NPM](https://www.npmjs.com/package/crx#cli-api).
+  
+<Warning>Do **not** put the `manifest.json` in a subfolder</Warning>
+The following file structure is invalid, **do not do this**:
+
+```
+extension/
+├─ hello.html
+├─ hello_extensions.png
+├─ manifest.json
+└─ popup.js
+```
