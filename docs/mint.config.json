@@ -36,7 +36,11 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["introduction", "features", "getting-started"]
+      "pages": [
+        "introduction",
+        "features",
+        "getting-started"
+      ]
     },
     {
       "group": "Dispatch API",
@@ -49,16 +53,23 @@
         "ending-session",
         "get-sessions",
         "get-session",
-        "install-chrome-extension"
+        "install-chrome-extension",
+        "resize-browser-window"
       ]
     },
     {
       "group": "Session API",
-      "pages": ["session-overview", "set-user-permission", "removing-users"]
+      "pages": [
+        "session-overview",
+        "set-user-permission",
+        "removing-users"
+      ]
     },
     {
       "group": "Client SDK",
-      "pages": ["web"]
+      "pages": [
+        "web"
+      ]
     }
   ],
   "footerSocials": {

@@ -1,0 +1,70 @@
+---
+title: "Resize browser window"
+description: "Learn how to set and resize the dimensions of the browser window dynamically."
+---
+
+<a
+  href="https://github.com/hyperbeam/examples/tree/master/resize"
+  target="_blank"
+>
+  <video
+    src="https://i.imgur.com/0E0qKNn.mp4"
+    autoplay="true"
+    muted="true"
+    crossorigin="true"
+    loop="true"
+  ></video>
+</a>
+
+## Server
+
+For a resizable browser window, you need to specify the following properties when [creating a new browser instance](/start-chromium-session).
+
+<Param body="width" type="number" default="1280">
+  The initial width of the browser window in pixels.
+</Param>
+
+<Param body="height" type="number" default="720">
+  The initial height of the browser window in pixels.
+</Param>
+
+<Param body="max_area" type="number" default="1280*720">
+  The maximum browser window area in pixels. <br /> This limits the browser
+  window size when resizing the window.
+</Param>
+
+## Client
+
+To resize the browser window, call the [resize](#hb-resize-width-height) function with the desired width and height.
+
+<Warning>
+  Instead of calling the [resize](#hb-resize-width-height) function on a
+  [drag](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drag_event)
+  event, call it on the
+  [dragend](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragend_event),
+  [mouseup](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event),
+  or
+  [touchend](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchend_event)
+  events. <br />
+  This will prevent unnecessary calls to the server and improve performance.
+</Warning>
+
+### hb.resize(width, height)
+
+The `resize` method on the [Hyperbeam client](https://www.npmjs.com/package/@hyperbeam/web) allows you to resize and reposition the browser window dynamically. This can be useful for creating a custom sized browser window for your app or adapting to different screen sizes.
+
+<Param body="width" type="number" required>
+  The width of the browser window in pixels.
+</Param>
+
+<Param body="height" type="number" required>
+  The height of the browser window in pixels.
+</Param>
+
+### hb.maxArea
+
+The `maxArea` property on the [Hyperbeam client](https://www.npmjs.com/package/@hyperbeam/web) stores the maximum browser window area in pixels. This is the maximum area that the browser window can be resized to, and is set by the `max_area` property when creating a new browser instance.
+
+```js
+console.log(hb.maxArea); // 921600 (1280 * 720)
+```
