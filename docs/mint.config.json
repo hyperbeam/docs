@@ -46,12 +46,15 @@
       "group": "Dispatch API",
       "pages": [
         "dispatch-overview",
+        "authenticating-participants",
         "start-chromium-session",
         "start-android-emulator-session",
         "start-console-emulator-session",
         "ending-session",
         "get-sessions",
-        "get-session"
+        "get-session",
+        "install-chrome-extension",
+        "resize-browser-window"
       ]
     },
     {
@@ -60,14 +63,6 @@
         "session-overview",
         "set-user-permission",
         "removing-users"
-      ]
-    },
-    {
-      "group": "Guides",
-      "pages": [
-        "authenticating-participants",
-        "resize-browser-window",
-        "install-chrome-extension"
       ]
     },
     {
