@@ -81,12 +81,11 @@ You will need to create an endpoint on your backend. The cloud computer will sen
 
 Our request will:
 
-- Set the Authorization header to `Authorization: Bearer <bearer-token>`
-
-  - `<bearer-token >` is the token you provided in the authentication object
-
+- Set the `Authorization` header to `Authorization: Bearer <bearer-token>`
+  - `<bearer-token>` is the token you provided in the authentication object
+- Set the `HB-User-Agent` header to the client's user agent
+- Set the `HB-Connection-IP` header to the client's IP address
 - Send a `POST` request with a JSON request body
-
   - `user_id` is the user's [Hyperbeam identifier](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
   - `userdata` is the `webhookUserdata` object passed into the Hyperbeam [web SDK](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
 
@@ -102,6 +101,8 @@ TL;DR: our request will look like this:
 ```bash
 curl -X POST -H 'Authorization: Bearer <bearer-token>' \
     -H 'Content-Type: application/json' \
+    -H 'HB-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36' \
+    -H 'HB-Connection-IP: 203.0.113.195' \
     https://yourwebsite.com/webhook/hyperbeam/auth \
     -d '{"user_id": "7411d16b-9451-415e-bb65-7d5ff3202249", "userdata": {"my_data": "foo"}}'
 ```
