@@ -68,3 +68,31 @@ The `maxArea` property on the [Hyperbeam client](https://www.npmjs.com/package/@
 ```js
 console.log(hb.maxArea); // 921600 (1280 * 720)
 ```
+
+#### What if I want to resize the browser window to a larger size?
+
+Though you cannot change the maximum browser window area once set, you can still achieve a closer approximation to the desired dimensions by resizing the browser window to the closest allowed dimensions and then scaling the browser window to the desired dimensions while maintaining the same aspect ratio.
+
+```js
+// Desired dimensions (4:3 aspect ratio)
+const desiredWidth = 1600;
+const desiredHeight = 1200;
+
+// Get the maximum area that the browser window can be resized to
+// min(1600 * 1200, 1280 * 720)
+const pixels = Math.min(desiredWidth * desiredHeight, hb.maxArea);
+
+// Calculate the new dimensions with the same aspect ratio
+const aspectRatio = desiredWidth / desiredHeight; // 4:3
+const height = Math.floor(Math.sqrt(pixels / aspectRatio)); // 831
+const width = Math.floor(height * aspectRatio); // 1108
+
+// Resize the browser window to closest allowed dimensions
+hb.resize(width, height); // 1108 * 831
+
+// Scale the browser window to the desired dimensions
+target.style.width = desiredWidth; // 1600
+target.style.height = desiredHeight; // 1200
+```
+
+See it in action at the [resize example](https://github.com/hyperbeam/examples/tree/master/resize).
