@@ -2,14 +2,492 @@
 title: Web
 ---
 
-We provide a [client-side SDK](https://www.npmjs.com/package/@hyperbeam/web) that lets you:
+We provide client-side SDKs that, among other things, let you:
 
 * Control browser navigation programmatically
 * Query browser state and listen to events
 * Manager user control permissions
 
-The library is published on [npm](https://www.npmjs.com/package/@hyperbeam/web) as @hyperbeam/web
+The library is published on [npm as @hyperbeam/web](https://www.npmjs.com/package/@hyperbeam/web)
+
+## Installation
+
+Using npm:
 
 ```bash Terminal
-npm install @hyperbeam/web --save
+$ npm install @hyperbeam/web --save
 ```
+
+Using unpkg:
+
+```js JavaScript
+<script type="module">
+  import Hyperbeam from "https://unpkg.com/@hyperbeam/web@latest/dist/index.js"
+  // ...
+</script>
+```
+
+## API Reference
+
+<AccordionGroup>
+	<Accordion title="⚡ Loading a virtual browser">
+
+		`Hyperbeam(container: HTMLDivElement | HTMLIFrameElement, embedURL: string, opts?: HyperbeamOptions): Promise<HyperbeamClient>`
+
+		Creates a new Hyperbeam client. The container can be either a `div` or an `iframe` element, though it is highly advised to use a `div`. The `embedURL` is retrieved from the [REST API](https://docs.hyperbeam.com/dispatch-overview).
+
+		```js JavaScript
+		// The embedURL is retrieved from the REST API
+		// Documentation for the REST API can be found here:
+		// hyperbeam.support/API-Design-eb9874bd1ef54c22ba7197324ce22231
+		const embedURL = "https://abc.hyperbeam.com/foo?token=bar"
+		const container = document.getElementById("container-id")
+
+		const hb = await Hyperbeam(container, embedURL, {
+			// Number of milliseconds until the request to the multiplayer browser times out.
+			// If the request times out, the returned promise will be rejected.
+			timeout: 5000, // default = 2000
+
+			// An admin token returned from the REST API that will grant this user
+			// access to managing user permissions and programmatic navigation.
+			adminToken: "admin_token_from_rest_api_response",
+
+			// Starting volume of the multiplayer browser
+			volume: 0.2,         // default = 1.0
+
+			// Starting video pause state of the multiplayer browser
+			videoPaused: false,  // default = false
+
+			// delegate global keyboard events to the embed
+			delegateKeyboard: true, // default = true
+
+			// Callback called with the virtual computer's video frame data
+			// For Chromium-based browsers, its type is ImageBitmap
+			// For other browsers, it's a HTMLVideoElement
+			// Most frameworks like Three.js and Babylon.js can handle both types automatically
+			frameCb: (frame) => {},
+
+			// Callback called with an MediaStreamTrack of the virtual computer's audio stream
+			audioTrackCb: (track) => {},
+
+			// Data to be provided to your webhook endpoint if you're using webhook authentication
+			webhookUserdata: {myAppData: {user: "your-app-user-id"}},
+
+			// Callback called when another user moves their mouse cursor on top of the multiplayer browser
+			// Useful for implementing multiplayer cursors
+			onCursor({ x, y, userId }) => {},
+
+			// Callback called when the user disconnects from the multiplayer browser
+			// type is an enum with one of the following values:
+			//   "request"  -> multiplayer browser was manually shut down
+			//   "inactive" -> inactive timeout was triggered
+			//   "absolute" -> absolute timeout was triggered
+			//   "kick"     -> user was kicked from the session
+			onDisconnect({ type }) => {},
+
+			// Callback called when a timeout either surpasses the warning threshold,
+			// or has been reset and is no longer passed the warning threshold.
+			//
+			// type is an enum that refers to the timeout's type tied to the event
+			// possible values are "inactive" and "absolute"
+			//
+			// deadline = null | { delay: number, closeDate: string }
+			// If deadline is null, then the timeout was reset and is no longer
+			// passed the warning threshold. If deadline is set, deadline.delay
+			// is the number of milliseconds until the timeout is triggered,
+			// and closeDate is an RFC3339 formatted string of when the timeout will occur
+			onCloseWarning: ({ type, deadline }) => {},
+
+			// Callback called when the connection state of the video stream has changed
+			// state = "connecting" | "playing" | "reconnecting"
+			//
+			// You can use this to show custom reconnecting UI, and detecting if a user
+			// has a sub-optimal connection to the multiplayer browser
+			onConnectionStateChange: ({ state }) => {}
+		})
+		```
+		The promise returned by the `Hyperbeam` function might be rejected. See example below:
+
+		```js JavaScript
+		import Hyperbeam, {TimedOutError, SessionTerminatedError} from "Hyperbeam"
+
+		async function main() {
+			let hb
+			try {
+				hb = await Hyperbeam(container, embedURL, options)
+			} catch (e) {
+				switch (e.name) {
+					case "TimedOutError":
+						console.log("Request to load the embed URL timed out", e.message)
+						break
+					case "TypeError":
+						console.log("Invalid options passed into the Hyperbeam constructor", e.message)
+						break
+					case "SessionTerminatedError":
+						console.log("Session has already been terminated", e.message)
+						break
+				}
+				// Alternatively, if you can use instanceof
+				// e.g. if (e instanceof TimedOutError) { ... }
+			}
+		}
+
+		main()
+		```
+	</Accordion>
+
+	<Accordion title="💣 Destroying the embed">
+		`hb.destroy()`
+
+		Tears down network connections and browser events. Always call this *before* removing the container element from the page.
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+
+		// destroy on clicking button
+		disconnectBtn.addEventListener("click", () => {
+			hb.destroy()
+		})
+
+		// React
+		componentWillUnmount() {
+			this.hb.destroy()
+		}
+
+		// Vue
+		beforeUnmount() {
+			this.hb.destroy()
+		}
+		```
+	</Accordion>
+
+	<Accordion title="🔉 Setting video volume">
+		`hb.volume = 0.5`
+
+		Sets the volume for the multiplayer browser *locally*. Volume changes only apply to the local user. This setting is *not* persisted on refreshing the page.
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+		// Valid values range from 0.0 to 1.0
+		hb.volume = 0.5        // default = 1.0
+		console.log(hb.volume) // Get the local volume value
+		```
+	</Accordion>
+
+	<Accordion title="🆔 Getting user ID">
+		`hb.userId: string`
+
+		Gets the client's user ID. A "user" is defined as a single connection to the multiplayer browser. If a person has multiple tabs connected to the multiplayer browser, each tab with an active connection will be assigned a different user ID.
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+		console.log(hb.userId) // A unique string identifying the user
+		```
+	</Accordion>
+
+	<Accordion title="⏸️ Pausing video stream">
+		`hb.videoPaused = true`
+
+		Pauses/resumes the video stream for the multiplayer browser *locally*. Useful if only the audio component is of interest and you want to minimize CPU usage.
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+		hb.videoPaused = true       // Pause the video stream
+		hb.videoPaused = false      // Resume the video stream
+		console.log(hb.videoPaused) // Get the video stream pause state
+		```
+	</Accordion>
+
+	<Accordion title="👑 Setting admin token">
+		`hb.adminToken = "adminToken"`
+
+		Sets the client's admin token. The client must have an admin token set to manage user permissions and control the tabs programmatically.
+
+		```js JavaScript
+		// You can provide the admin token during initialization
+		const hb = await Hyperbeam(container, embedURL, {
+			adminToken: "admin_token_from_rest_api_response"
+		})
+
+		// In some situations, you may want to promote the user to
+		// an admin after initialization. For example, promoting a "user" to a "moderator".
+		const hb = await Hyperbeam(container, embedURL)
+		hb.adminToken = "admin_token_from_rest_api_response"
+		```
+	</Accordion>
+
+	<Accordion title="🔐 Setting permissions">
+		`hb.setPermission(userId: string, permissionData: PremissionData): Promise<void>`
+
+		Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions.
+
+		```js JavaScript
+		// You can provide the admin token during initialization
+		const hb = await Hyperbeam(container, embedURL, {
+			adminToken: "admin_token_from_rest_api_response"
+		})
+
+		const targetUserId = "a_user_id"
+
+		// All keys can be omitted: if the key is omitted, then the existing value will be unchanged
+		const permissions = {
+			// Higher value = higher priority
+			// Users with a higher priority will preempt the control of lower priority users.
+			priority: 2,           // default = 0
+
+			// Number of milliseconds until a user is considered "idle". Once a user is considered
+			// idle, they no longer preempt lower priority users until they interact with the
+			// multiplayer browser again.
+			idle_timeout: 3000,    // default = 0
+
+			// If control_disabled = true, all control input (mouse movements, keyboard presses)
+			// will be ignored. Note that disabling control does not restrict access to any
+			// APIs that require admin tokens.
+			control_disabled: true // default = control_disable_default (see REST API)
+		}
+
+		hb.setPermissions(targetUserId, permissions)
+		```
+	</Accordion>
+
+	<Accordion title="🔄 Manual reconnection">
+		`hb.reconnect(): void`
+
+		In situations where you need to troubleshoot the browser disconnecting, adding a manual reconnect button may help for debugging.
+
+		```js JavaScript
+		manualReconnectBtn.addEventListener("click", () => {
+			hb.reconnect()
+		})
+		```
+	</Accordion>
+
+	<Accordion title="📐 Resizing the browser">
+		`hb.resize(width: number, height: number): Promise`
+
+		Resizes the multiplayer browser to the specified width and height, in pixels.
+
+		The arguments must meet the following conditions, otherwise the function will throw a `RangeError`: `width * height` cannot be greater than `hb.maxArea`.
+
+		`hb.maxArea` is the maximum area that can be allocated in pixels.
+
+		```js JavaScript
+		if (width * height > hb.maxArea) {
+			console.log(`width * height must be less than ${hb.maxArea}`)
+		} else {
+			hb.resize(width, height)
+		}
+		```
+
+		You can retrieve the current width and height by reading `hb.width` and `hb.height`.
+	</Accordion>
+
+	<Accordion title="📡 Send events programmatically">
+
+		`hb.sendEvent(event: KeyEvent | MouseEvent | WheelEvent): void`
+
+		Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser.
+
+		```js JavaScript
+		const keyEvent = {
+			type: "keydown", // type can be set to "keydown" and "keyup"
+			// String denoting which key is pressed.
+			// See https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+			key: "A",
+			ctrlKey: true // Boolean indicating if the Ctrl key is pressed. Default is false.
+			metaKey: false // Boolean indicating if the Meta key is pressed. Default is false.
+		}
+
+		const mouseEvent = {
+			type: "mousedown" // type can be set to "mousemove", "mousedown", and "mouseup"
+			x: 0.5, // The mouse's X position as a ratio, with a range of [0, 1]
+			y: 0.5, // The mouse's Y position as a ratio, with a range of [0, 1]
+			// Number that indicates which button was pressed on the mouse. Default is 0.
+			// See https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+			button: 2
+		}
+
+		const wheelEvent = {
+			type: "wheel", // Mouse wheel event, used for scrolling up or down
+			deltaY: 20 // Positive value signifies scrolling down
+		}
+
+		hb.sendEvent(keyEvent) // Send CTRL+A keystroke
+		hb.sendEvent(mouseEvent) // Right-click the center of the screen (0.5, 0.5)
+		hb.sendEvent(wheelEvent) // Scroll down
+		```
+	</Accordion>
+
+	<Accordion title="⌨️ Tighter control over keyboard events">
+		By default, the Hyperbeam client forwards global `keydown` and `keyup` events into the embed when an input element is not in focus *outside* the embed. In some cases, you may want to customize this functionality:
+
+		- Your app has key bindings which conflict with Hyperbeam
+		- You have UI flows such as overlays and tabs which hide the Hyperbeam embed from view
+
+		You can have the Hyperbeam client disregard these events by setting the `delegateKeyboard` option to `false`. Input fields *inside* the embed (e.g. address bar, form fields) will continue to receive input when they are focused.
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL, {
+			delegateKeyboard: false
+		})
+		```
+
+		Moreover, you can combine this with [sending keyboard events programmatically](#send-events-programmatically) to selectively forward keyboard events:
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL, {
+			delegateKeyboard: false
+		})
+
+		function onKeyEvent(e) {
+			const {activeElement} = document
+			if (
+				// by default, events are ignored if an input element is in focus
+				(!activeElement ||
+				(activeElement.nodeName !== "INPUT" &&
+					activeElement.nodeName !== "TEXTAREA" &&
+					!activeElement.isContentEditable)) &&
+
+				// your custom checks go here, for example
+				(e.key === " " || e.key === "Enter")
+			) {
+				hb.sendEvent({
+					type: e.type,
+					key: e.key,
+					ctrlKey: e.ctrlKey,
+					metaKey: e.metaKey,
+				})
+			}
+		}
+		window.addEventListener("keydown", onKeyEvent)
+		window.addEventListener("keyup", onKeyEvent)
+		```
+	</Accordion>
+
+	<Accordion title="🎛️ Control tabs programmatically">
+		Hyperbeam's tab API mirrors Chrome extension tab API, found [here](https://developer.chrome.com/docs/extensions/reference/tabs/#method).
+
+		Rather than calling `chrome.tabs.create({ active: true })`, you will would call `hb.tabs.create({ active: true })`.
+
+		We support the following methods:
+
+		- [tabs.create](https://developer.chrome.com/docs/extensions/reference/tabs/#method-create)
+		- [tabs.detectLanguage](https://developer.chrome.com/docs/extensions/reference/tabs/#method-detectLanguage)
+		- [tabs.discard](https://developer.chrome.com/docs/extensions/reference/tabs/#method-discard)
+		- [tabs.duplicate](https://developer.chrome.com/docs/extensions/reference/tabs/#method-duplicate)
+		- [tabs.get](https://developer.chrome.com/docs/extensions/reference/tabs/#method-get)
+		- [tabs.getZoom](https://developer.chrome.com/docs/extensions/reference/tabs/#method-getZoom)
+		- [tabs.getZoomSettings](https://developer.chrome.com/docs/extensions/reference/tabs/#method-getZoomSettings)
+		- [tabs.goBack](https://developer.chrome.com/docs/extensions/reference/tabs/#method-goBack)
+		- [tabs.goForward](https://developer.chrome.com/docs/extensions/reference/tabs/#method-goForward)
+		- [tabs.group](https://developer.chrome.com/docs/extensions/reference/tabs/#method-group)
+		- [tabs.highlight](https://developer.chrome.com/docs/extensions/reference/tabs/#method-highlight)
+		- [tabs.move](https://developer.chrome.com/docs/extensions/reference/tabs/#method-move)
+		- [tabs.query](https://developer.chrome.com/docs/extensions/reference/tabs/#method-query)
+		- [tabs.reload](https://developer.chrome.com/docs/extensions/reference/tabs/#method-reload)
+		- [tabs.remove](https://developer.chrome.com/docs/extensions/reference/tabs/#method-remove)
+		- [tabs.setZoom](https://developer.chrome.com/docs/extensions/reference/tabs/#method-setZoom)
+		- [tabs.setZoomSettings](https://developer.chrome.com/docs/extensions/reference/tabs/#method-setZoomSettings)
+		- [tabs.ungroup](https://developer.chrome.com/docs/extensions/reference/tabs/#method-ungroup)
+		- [tabs.update](https://developer.chrome.com/docs/extensions/reference/tabs/#method-update)
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+
+		// Create a tab
+		const tab = await hb.tabs.create({ active: true })
+
+		// Duplicate a tab
+		const tab2 = await hb.tabs.duplicate(tab.id)
+
+		// Set the URL of the active tab
+		const updatedTab = await hb.tabs.update({url: "https://hyperbeam.dev/"})
+		```
+	</Accordion>
+
+	<Accordion title="👂 Listen to tab events">
+		Hyperbeam's tab event listener API mirrors Chrome extension tab API, found [here](https://developer.chrome.com/docs/extensions/reference/tabs/#event).
+
+		Rather than calling `chrome.tabs.onCreated.addListener((tab) => {})`, you will would call `hb.tabs.onCreated.addListener((tab) => {})`.
+
+		We support the following events:
+
+		- [tabs.onActivated](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onActivated)
+		- [tabs.onCreated](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onCreated)
+		- [tabs.onHighlighted](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onHighlighted)
+		- [tabs.onMoved](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onMoved)
+		- [tabs.onRemoved](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onRemoved)
+		- [tabs.onReplaced](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onReplaced)
+		- [tabs.onUpdated](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onUpdated)
+		- [tabs.onZoomChange](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onZoomChange)
+
+		```js JavaScript
+		const hb = await Hyperbeam(container, embedURL)
+
+		function onTabCreated(tab) {
+			console.log(tab.id)
+		}
+
+		// Listen for when a new tab is created
+		hb.tabs.onCreated.addListener(onTabCreated)
+
+		// Create a new tab
+		await hb.tabs.create({ active: true })
+
+		// Remove the event listener
+		hb.tabs.onCreated.removeListener(onTabCreated)
+		```
+	</Accordion>
+
+</AccordionGroup>
+
+## Examples
+
+You can save this code snippet as `example.html` and run it in your browser. Make sure you set the embed URL variable to the response data from the [REST API](https://docs.hyperbeam.com/dispatch-overview).
+
+```html HTML
+<div style="font-family: Arial">
+  <button id="reload">Reload</button>
+  <button id="back">Go Back</button>
+  <button id="forward">Go Forward</button>
+  <button id="youtube">Open Youtube.com</button>
+  Volume: <input type="range" min="0" max="100" value="100" id="range">
+  <p>User ID: <span id="userId"></span></p>
+  <p>Current website: <span id="currentSite"></p>
+</div>
+<div id="container" style="height:720px;width:1280px"></div>
+<script type="module">
+  import Hyperbeam from "https://unpkg.com/@hyperbeam/web@latest/dist/index.js"
+  // TODO: Set the embedURL variable
+  const embedURL = "<your-embed-url>"
+  const hb = await Hyperbeam(container, embedURL)
+  userId.innerText = hb.userId
+  reload.addEventListener("click", () => {
+    hb.tabs.reload()
+  })
+  back.addEventListener("click", () => {
+    hb.tabs.goBack()
+  })
+  forward.addEventListener("click", () => {
+    hb.tabs.goForward()
+  })
+  youtube.addEventListener("click", () => {
+    hb.tabs.update({ url: "https://youtube.com" })
+  })
+  range.addEventListener("change", (e) => {
+    hb.volume = e.target.value / 100
+  })
+  hb.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.title) {
+      currentSite.innerText = changeInfo.title
+    }
+  })
+</script>
+```
+
+**Rendering in Three.js:**
+
+See [threejs-example.](https://github.com/hyperbeam/threejs-example)
+
+
+---
