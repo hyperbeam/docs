@@ -16,9 +16,9 @@ auth: "bearer"
   Flag to enable kiosk mode, which hides the browser navigation UI
 </Param>
 
-<Param body="offline_timeout" type="nullable, number" default={3600}>
-  The seconds after which the session will close when no users are connected. If
-  set to null, the session will never time out. Must be greater than 60
+<Param body="offline_timeout" type="number" default={3600}>
+  The seconds after which the session will close when no users are connected.
+  Must be greater than 60.
 </Param>
 
 <Param body="control_disable_default" type="boolean" default={false}>
