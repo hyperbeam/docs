@@ -5,9 +5,7 @@
   "colors": {
     "primary": "#a888ff",
     "light": "#c4b5fd",
-    "dark": "#7c3aed",
-    "ultraLight": "#ddd6fe",
-    "ultraDark": "#5b21b6"
+    "dark": "#7c3aed"
   },
   "topbarCtaButton": {
     "name": "Use Hyperbeam",
@@ -36,11 +34,7 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": [
-        "introduction",
-        "features",
-        "getting-started"
-      ]
+      "pages": ["introduction", "features", "getting-started"]
     },
     {
       "group": "Dispatch API",
@@ -59,17 +53,11 @@
     },
     {
       "group": "Session API",
-      "pages": [
-        "session-overview",
-        "set-user-permission",
-        "removing-users"
-      ]
+      "pages": ["session-overview", "set-user-permission", "removing-users"]
     },
     {
       "group": "Client-Side SDK",
-      "pages": [
-        "web"
-      ]
+      "pages": ["web"]
     }
   ],
   "footerSocials": {
@@ -78,7 +66,7 @@
   },
   "analytics": {
     "amplitude": {
-        "apiKey": "e46b9bf5b5d19f5fd43d1a2b8630aba5"
+      "apiKey": "e46b9bf5b5d19f5fd43d1a2b8630aba5"
     }
   }
 }
