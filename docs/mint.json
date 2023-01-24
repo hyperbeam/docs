@@ -53,7 +53,7 @@
     },
     {
       "group": "Session API",
-      "pages": ["session/session-overview", "session/set-user-permission", "session/removing-users"]
+      "pages": ["session/session-overview", "session/set-user-permission", "session/removing-users", "session/bookmarks"]
     },
     {
       "group": "Client-Side SDK",

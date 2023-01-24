@@ -1,0 +1,14 @@
+---
+title: "Set Bookmarks"
+---
+<RequestExample>
+  ```bash cURL
+  curl --request POST \
+      --url https://engine.hyperbeam.com/bookmarks \
+      --header 'Authorization: Bearer AUTH_VALUE' \
+      --header 'Content-Type: text/html' \
+      --data '@bookmarks.html'
+  ```
+</RequestExample>
+
+The body needs to be an **HTML file** in the [Netscape Bookmark file format](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa753582(v=vs.85)) exported from a web browser like Chrome or Firefox.
