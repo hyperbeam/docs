@@ -83,6 +83,23 @@ The max number of pixels (width height) is capped at 1920 1080
   interface.
 </Param>
 
+<Param body="search_engine" type="string | object" default={"duckduckgo"}>
+  Sets the default search engine that Chromium uses: `“duckduckgo”` | `“ecosia”` | `“google”` | `“startpage”` | `“brave”`
+  <Accordion title="How to use custom search engine">
+    You can use a custom search engine by passing in an object as follows:
+      `{
+        “name”: “foo”,
+        “keyword”: “f”,
+        “url”: “https://foo.com/search?q={searchTerms}”,
+        “suggestions_url”: “https://foo.com/suggest?q={searchTerms}”
+      }`
+  </Accordion>
+</Param>
+
+<Param body="dark" type="boolean" default={false}>
+  Enables dark mode
+</Param>
+
 <ResponseExample>
 
 ```json Example response
