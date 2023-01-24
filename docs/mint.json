@@ -34,30 +34,30 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["introduction", "features", "getting-started"]
+      "pages": ["home/introduction", "home/features", "home/getting-started"]
     },
     {
       "group": "Dispatch API",
       "pages": [
-        "dispatch-overview",
-        "authenticating-participants",
-        "start-chromium-session",
-        "start-android-emulator-session",
-        "start-console-emulator-session",
-        "ending-session",
-        "get-sessions",
-        "get-session",
-        "install-chrome-extension",
-        "resize-browser-window"
+        "dispatch/dispatch-overview",
+        "dispatch/authenticating-participants",
+        "dispatch/start-chromium-session",
+        "dispatch/start-android-emulator-session",
+        "dispatch/start-console-emulator-session",
+        "dispatch/ending-session",
+        "dispatch/get-sessions",
+        "dispatch/get-session",
+        "dispatch/install-chrome-extension",
+        "dispatch/resize-browser-window"
       ]
     },
     {
       "group": "Session API",
-      "pages": ["session-overview", "set-user-permission", "removing-users"]
+      "pages": ["session/session-overview", "session/set-user-permission", "session/removing-users", "session/bookmarks"]
     },
     {
       "group": "Client-Side SDK",
-      "pages": ["web"]
+      "pages": ["client/web"]
     }
   ],
   "footerSocials": {
