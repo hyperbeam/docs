@@ -1,0 +1,31 @@
+---
+title: "FAQ"
+description: "Frequently asked questions from the Hyperbeam community"
+---
+
+## Proxies
+<AccordionGroup>
+	<Accordion title="Is there an IP range I can use to whitelist Hyperbeam servers?">
+    Not at the moment. Hyperbeam uses a variety of server providers which makes it difficult to whitelist Hyperbeam servers based on IP. You can use username/password authentication to ensure traffic originates from Hyperbeam.
+	</Accordion>
+	<Accordion title="Where do I put the credentials in FindProxyForURL?">
+    ```json
+      {
+        "http_proxy": {
+          "pac": "function FindProxyForURL(url, host) {
+            return {‘PROXY 255.255.255.255:12345'}”,
+            "username": "<username>",
+            "password": "<password>"
+          }
+        }
+      }
+    ```
+    Relevant MDN docs: [Proxy Auto-Configuration (PAC) file](https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file)
+    <Warning>
+      Caveats:
+      - Only HTTP traffic is sent through the proxy server. WebRTC traffic is excluded. Hence, there is no functional difference between the use of SOCKS, HTTP or HTTPS protocol on the proxy server.
+      - Authentication is not supported for SOCKS protocol. This is due to it not being implemented by Chrome.
+      - Due to these reasons, we recommend the usage of HTTPS to authenticate and secure communication between Hyperbeam and the proxy server: [HTTPS Proxy Scheme.](https://chromium.googlesource.com/chromium/src/+/HEAD/net/docs/proxy.md#HTTPS-proxy-scheme)
+    </Warning>
+  </Accordion>
+</AccordionGroup>
