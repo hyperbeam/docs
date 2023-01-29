@@ -16,9 +16,36 @@ authMethod: "bearer"
   Flag to enable kiosk mode, which hides the browser navigation UI
 </Param>
 
-<Param body="offline_timeout" type="number" default={3600}>
-  The seconds after which the session will close when no users are connected.
-  Must be greater than 60.
+<Param body="timeout" type="object">
+  Timeouts determine when a session will be automatically terminated.
+  Also, when a timeout (or timeout warning) is triggered, a webhook event will be sent to the URL specified by the `webhook` timeout parameter.
+  <Tip>
+    You can reset these values for live sessions by hitting the \<embed_url\>/timeout endpoint. [See example.](https://github.com/hyperbeam/examples/tree/master/timeout)
+  </Tip>
+  <Expandable>
+      <Param body="absolute" type="number">
+        The amount of time (in seconds) since creation, after which the session will terminate.
+      </Param>
+      <Param body="inactive" type="number">
+        The amount of time (in seconds) since the last user input, after which the session will terminate.
+      </Param>
+      <Param body="offline" type="number" default="3600">
+        The amount of time (in seconds) that no users are connected, after which the session will terminate. Resets when a user connects. Must be greater than 60.
+      </Param>
+      <Param body="warning" type="number" default="60">
+        The amount of time (in seconds) before the session is terminated due to another timeout.
+      </Param>
+      <Param body="webhook" type="object">
+        <Expandable>
+          <Param body="url" type="string">
+            The URL to send the timeout webhook event to.
+          </Param>
+          <Param body="bearer" type="string">
+            The Bearer Token to send with the webhook.
+          </Param>
+        </Expandable>
+      </Param>
+  </Expandable>
 </Param>
 
 <Param body="control_disable_default" type="boolean" default={false}>
