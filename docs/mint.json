@@ -34,7 +34,7 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["home/introduction", "home/features", "home/getting-started"]
+      "pages": ["home/introduction", "home/features", "home/examples", "home/getting-started"]
     },
     {
       "group": "Dispatch API",
@@ -61,6 +61,7 @@
     }
   ],
   "footerSocials": {
+    "github": "https://github.com/hyperbeam",
     "website": "https://hyperbeam.dev",
     "discord": "https://discord.gg/D78RsGfQjq"
   },
