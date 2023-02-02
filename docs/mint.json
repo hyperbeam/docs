@@ -21,13 +21,13 @@
     {
       "name": "Community",
       "icon": "discord",
-      "color": "#4f46e5",
+      "color": "#a888ff",
       "url": "https://discord.gg/D78RsGfQjq"
     },
     {
       "name": "Contact Us",
       "icon": "envelope",
-      "color": "#0284c7",
+      "color": "#a888ff",
       "url": "mailto:founders@hyperbeam.com"
     }
   ],
@@ -37,27 +37,42 @@
       "pages": ["home/introduction", "home/features", "home/examples", "home/getting-started"]
     },
     {
-      "group": "Dispatch API",
+      "group": "Guides",
       "pages": [
-        "dispatch/dispatch-overview",
-        "dispatch/authenticating-participants",
-        "dispatch/start-chromium-session",
-        "dispatch/start-android-emulator-session",
-        "dispatch/start-console-emulator-session",
-        "dispatch/ending-session",
-        "dispatch/get-sessions",
-        "dispatch/get-session",
-        "dispatch/install-chrome-extension",
-        "dispatch/resize-browser-window"
+        "guides/authenticating-participants",
+        "guides/install-chrome-extension",
+        "guides/resize-browser-window"
       ]
     },
     {
-      "group": "Session API",
-      "pages": ["session/session-overview", "session/set-user-permission", "session/removing-users", "session/bookmarks"]
+      "group": "REST API",
+      "pages": [
+        {
+          "group": "Dispatch API",
+          "pages": [
+            "rest-api/dispatch/dispatch-overview",
+            "rest-api/dispatch/start-chromium-session",
+            "rest-api/dispatch/start-android-emulator-session",
+            "rest-api/dispatch/start-console-emulator-session",
+            "rest-api/dispatch/ending-session",
+            "rest-api/dispatch/get-sessions",
+            "rest-api/dispatch/get-session"
+          ]
+        },
+        {
+          "group": "Session API",
+          "pages": [
+            "rest-api/session/session-overview",
+            "rest-api/session/set-user-permission",
+            "rest-api/session/removing-users",
+            "rest-api/session/bookmarks"
+          ]
+        }
+      ]
     },
     {
-      "group": "Client-Side SDK",
-      "pages": ["client/web"]
+      "group": "Client SDKs",
+      "pages": ["client/web-sdk", "client/unity-web-sdk"]
     }
   ],
   "footerSocials": {

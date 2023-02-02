@@ -1,28 +1,19 @@
 ---
-title: "Starting a Console Emulator"
-description: "Intiate a Console Emulator using Hyperbeam"
-api: "POST https://engine.hyperbeam.com/console"
+title: "Starting a Android Emulator"
+description: "Initiate a Android Emulator using Hyperbeam"
+api: "POST https://engine.hyperbeam.com/v0/android"
 authMethod: "bearer"
 ---
 
 ### Request Access
 
-This feature is currently in private beta. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsVFZ4cQ4Q2nHNRhwb6SvmJIekv7fuQVa27zWnk_r5F48B5w/viewform?usp=pp_url" target="_blank" rel="noopener noreferrer">Request access here.</a>
+This feature is currently in private beta. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsVFZ4cQ4Q2nHNRhwb6SvmJIekv7fuQVa27zWnk_r5F48B5w/viewform?usp=pp_url&entry.126298931=Android+emulation" target="_blank" rel="noopener noreferrer">Request access here.</a>
 
 ### Parameters
 
-<Param body="type" type="string" default="''" required>
-  The console type. nes, snes, n64, and ps1 are supported.
-</Param>
-
-<Param body="room_url" type="string" default="''" required>
-  URL to a legal ROM file, which will be downloaded and loaded into the
-  emulator.
-</Param>
-
-<Param body="auth" type="object" default='"auth": {"type": "token"}}'>
-  The authentication system for the cloud computer. See the “cloud computer
-  authentication” section for more info.
+<Param body="app_id" type="string">
+  The Google playstore application ID. If app_id is not set, then the home
+  screen will be loaded.
 </Param>
 
 <ResponseExample>
