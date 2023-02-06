@@ -10,15 +10,13 @@ description: "Frequently asked questions from the Hyperbeam community"
 	</Accordion>
 	<Accordion title="Where do I put the credentials in FindProxyForURL?">
     ```json
-      {
-        "http_proxy": {
-          "pac": "function FindProxyForURL(url, host) {
-            return {‘PROXY 255.255.255.255:12345'}”,
-            "username": "<username>",
-            "password": "<password>"
-          }
-        }
+    {
+      "http_proxy": {
+        "pac": "function FindProxyForURL(url, host) {return {'PROXY 255.255.255.255:12345'}",
+        "username": "<username>",
+        "password": "<password>"
       }
+    }
     ```
     Relevant MDN docs: [Proxy Auto-Configuration (PAC) file](https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file)
     <Warning>
