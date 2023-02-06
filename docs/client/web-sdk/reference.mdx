@@ -1,0 +1,201 @@
+---
+title: Reference
+---
+
+## Initializing the SDK
+
+`Hyperbeam(container, embedURL, options?): Promise<HyperbeamClient>`
+
+Use `Hyperbeam(container, embedURL, options?)` to create an instance of the [HyperbeamClient](/client/web-sdk/reference#the-hyperbeamclient-object) object. The HyperbeamClient object is your entrypoint to the rest of the Hyperbeam web SDK.
+
+```js JavaScript
+const hb = await Hyperbeam(container, embedURL, options)
+```
+
+### Method parameters
+<br />
+<Param body="container" type="HTMLDivElement | HTMLIFrameElement">
+	The container can be either a `div` or an `iframe` element, though it is highly advised to use a `div`.
+</Param>
+
+<Param body="embedURL" type="string">
+	The embedURL is retrieved from the [REST API](/rest-api).
+</Param>
+
+<Param body="options" optional type="HyperbeamOptions Object">
+  Initialization options. All properties are optional.
+  <Expandable>
+      <Param body="adminToken" type="string">
+        An admin token returned from the REST API that will grant this user access to managing user permissions and programmatic navigation.
+      </Param>
+
+      <Param body="timeout" type="number" default="2000">
+        Number of milliseconds until the request to the multiplayer browser times out. If the request times out, the returned promise will be rejected.
+      </Param>
+
+      <Param body="volume" type="number" default="1.0">
+        Starting volume of the multiplayer browser.
+      </Param>
+
+      <Param body="videoPaused" type="boolean" default="false">
+        Starting video pause state of the multiplayer browser.
+      </Param>
+
+      <Param body="delegateKeyboard" type="boolean" default="true">
+        Delegate global keyboard events to the embed.
+      </Param>
+
+      <Param body="webhookUserdata" type="JSONValue">
+        Data to be provided to your webhook endpoint if you're using webhook authentication.
+      </Param>
+
+      <Param body="frameCb" type="(frame: ImageBitmap | HTMLVideoElement) => void">
+        Callback called with the virtual computer's video frame data. For Chromium-based browsers, its type is `ImageBitmap`. For other browsers, it's an `HTMLVideoElement`. Most frameworks like Three.js and Babylon.js can handle both types automatically.
+      </Param>
+
+      <Param body="audioTrackCb" type="(track: MediaStreamTrack) => void">
+    		Callback called with a `MediaStreamTrack` of the virtual computer's audio stream.
+      </Param>
+
+      <Param body="onCursor" type="(e: PeerMouseEvent) => void">
+    		Callback called when another user moves their mouse cursor on top of the multiplayer browser. Useful for implementing multiplayer cursors.
+      </Param>
+
+      <Param body="onDisconnect" type="(e: DisconnectEvent) => void">
+      	Callback called when the user disconnects from the multiplayer browser. `e.type` is an enum with one of the following values:
+				`"request"`  -> multiplayer browser was manually shut down.
+				`"inactive"` -> inactive timeout was triggered.
+				`"absolute"` -> absolute timeout was triggered.
+				`"kick"`     -> user was kicked from the session.
+      </Param>
+
+      <Param body="onCloseWarning" type="(e: CloseWarningEvent) => void">
+    		Callback called when a timeout either surpasses the warning threshold, or has been reset and is no longer passed the warning threshold.
+				`e.type` is an enum that refers to the timeout's type tied to the event. Possible values are `"inactive"` and `"absolute"`.
+				`e.deadline` = `null | { delay: number, closeDate: string }`. If `e.deadline` is `null`, then the timeout was reset and is no longer passed the warning threshold. If `e.deadline` is set, `e.deadline.delay`
+				is the number of milliseconds until the timeout is triggered, and `e.deadline.closeDate` is an RFC3339 formatted string of when the timeout will occur.
+      </Param>
+
+      <Param body="onConnectionStateChange" type="(e: ConnectionStateEvent) => void">
+      	Callback called when the connection state of the video stream has changed. `e.state` = `"connecting" | "playing" | "reconnecting"`.
+				You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the multiplayer browser.
+      </Param>
+  </Expandable>
+</Param>
+
+[See initialization example.](/client/web-sdk/examples#loading-a-virtual-browser)
+
+---
+## The HyperbeamClient object
+
+The HyperbeamClient object allows you to programmatically control the virtual browser, set user permissions, and debug connection issues among other things.
+
+```js JavaScript
+const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, options)
+```
+
+### Properties
+<br />
+<Param body="hb.userId" type="string">
+  The client's user ID. [See example.](/client/web-sdk/examples#getting-user-id)
+</Param>
+
+<Param body="hb.adminToken" type="string">
+ The client’s admin token. [See example.](/client/web-sdk/examples#setting-admin-token)
+</Param>
+
+<Param body="hb.volume" type="number">
+	The local volume of the virtual browser. [See example.](/client/web-sdk/examples#setting-video-volume)
+</Param>
+
+<Param body="hb.width" type="number">
+  The width of the virtual browser in pixels. [See example.](/client/web-sdk/examples#resizing-the-browser)
+</Param>
+
+<Param body="hb.height" type="number">
+  The height of the virtual browser in pixels. [See example.](/client/web-sdk/examples#resizing-the-browser)
+</Param>
+
+<Param body="hb.maxArea" type="number">
+  The maximum virtual browser area that can be allocated in pixels. [See example.](//client/web-sdk/examples#resizing-the-browser)
+</Param>
+
+<Param body="hb.videoPaused" type="boolean">
+  Pauses the video stream of the virtual browser locally. [See example.](/client/web-sdk/examples#pausing-video-stream)
+</Param>
+
+<Param body="hb.tabs" type="Tabs Object">
+  The virtual browser Tabs object. [See example.](/client/web-sdk/examples#control-tabs-programmatically)
+</Param>
+
+
+### Methods
+---
+
+#### `hb.reconnect(): void`
+
+Useful in situations where you need to troubleshoot the browser disconnecting. [See example.](/client/web-sdk/examples#manual-reconnection)
+
+---
+
+#### `hb.destroy(): void`
+
+ Tears down network connections and browser events. Always call this *before* removing the container element from the page. [See example.](/client/web-sdk/examples#destroying-the-embed)
+
+---
+
+#### `hb.setPermissions(userId, permissionData): Promise<void>`
+
+Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client/web-sdk/examples#setting-permissions)
+
+**Method parameters**
+
+<Param body="userId" type="string">
+	The user ID to set permissions for.
+</Param>
+
+<Param body="permissionData" type="object">
+	All keys can be omitted: if the key is omitted, then the existing value will be unchanged.
+	<Expandable>
+		<Param body="priority" type="number" default="0">
+			Higher value = higher priority. Users with a higher priority will preempt the control of lower priority users.
+		</Param>
+		<Param body="idle_timeout" type="number">
+			Number of milliseconds until a user is considered "idle". Once a user is considered idle, they no longer preempt lower priority users until they interact with the multiplayer browser again.
+		</Param>
+		<Param body="control_disabled" type="boolean" default="<control_disable_default>">
+			If control_disabled = true, all control input (mouse movements, keyboard presses) will be ignored. Note that disabling control does not restrict access to any APIs that require admin tokens.
+		</Param>
+	</Expandable>
+</Param>
+
+---
+
+#### `hb.sendEvent(event): void`
+
+Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See example.](/client/web-sdk/examples#send-events-programmatically)
+
+**Method parameters**
+
+<Param body="event" type="KeyEvent | MouseEvent | WheelEvent">
+</Param>
+
+---
+
+#### `hb.resize(width, height): void`
+
+Resizes the multiplayer browser to the specified width and height, in pixels. The arguments must meet the following conditions, otherwise the function will throw a `RangeError: width * height cannot be greater than hb.maxArea`.
+
+`hb.maxArea` is the maximum area that can be allocated in pixels.
+
+[See example.](/client/web-sdk/examples#resizing-the-browser)
+
+**Method parameters**
+
+<Param body="width" type="number">
+	The width of the virtual browser in pixels.
+</Param>
+
+<Param body="height" type="number">
+	The height of the virtual browser in pixels.
+</Param>
