@@ -72,7 +72,17 @@
     },
     {
       "group": "Client SDKs",
-      "pages": ["client/web-sdk", "client/unity-web-sdk"]
+      "pages": [
+        {
+          "group": "Web SDK",
+          "pages": [
+            "client/web-sdk/overview",
+            "client/web-sdk/reference",
+            "client/web-sdk/examples"
+          ]
+        },
+        "client/unity-web-sdk"
+      ]
     }
   ],
   "footerSocials": {
