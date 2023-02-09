@@ -132,6 +132,20 @@ The max number of pixels (width height) is capped at 1920 1080
   session with tag `"A"`, the endpoint will not create a new instance and will instead return the `session_id` and `embed_url` of the existing session.
 </Param>
 
+<Param body="quality" type="object">
+  Used to toggle between **sharp mode** and **smooth mode**.
+  Sharp mode is ideal for situations where reading text is important.
+  Smooth mode is ideal for anything involving movement (e.g. videos, dynamic activities).
+  <Expandable>
+    <Param body="mode" type="string" default='"smooth"'>
+      Possible values are `"smooth"` or `"sharp"`.
+      Sharp mode increases the streaming bitrate, but requires more bandwidth.
+
+      <Warning>Enabling sharp mode triples the required bandwidth. You can view our bandwidth recommendations in the [Streaming FAQ](/home/faq#streaming).</Warning>
+    </Param>
+  </Expandable>
+</Param>
+
 <ResponseExample>
 
 ```json Example response
