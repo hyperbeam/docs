@@ -12,3 +12,7 @@ title: "Set Bookmarks"
 </RequestExample>
 
 The body needs to be an **HTML file** in the [Netscape Bookmark file format](https://learn.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa753582(v=vs.85)) exported from a web browser like Chrome or Firefox.
+
+<Warning>
+  This request does not *overwrite* existing bookmarks. Instead, it *appends* the bookmarks provided in the HTML file to the existing bookmarks.
+</Warning>

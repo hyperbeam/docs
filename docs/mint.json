@@ -81,7 +81,13 @@
             "client/web-sdk/examples"
           ]
         },
-        "client/unity-web-sdk"
+        {
+          "group": "Unity SDKs",
+          "pages": [
+            "client/unity-sdk/unity-webgl-sdk",
+            "client/unity-sdk/unity-desktop-sdk"
+          ]
+        }
       ]
     }
   ],
