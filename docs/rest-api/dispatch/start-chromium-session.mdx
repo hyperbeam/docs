@@ -127,6 +127,11 @@ The max number of pixels (width height) is capped at 1920 1080
   Enables dark mode
 </Param>
 
+<Param body="tag" type="string">
+  The `tag` property enforces uniqueness. If a session with tag `"A"` is already running and you attempt to make another
+  session with tag `"A"`, the endpoint will not create a new instance and will instead return the `session_id` and `embed_url` of the existing session.
+</Param>
+
 <ResponseExample>
 
 ```json Example response
