@@ -131,20 +131,21 @@ const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, option
 
 ### Methods
 ---
-
-#### `hb.reconnect(): void`
+#### <Heading hidden>reconnect</Heading>
+`hb.reconnect(): void`
 
 Useful in situations where you need to troubleshoot the browser disconnecting. [See example.](/client/web-sdk/examples#manual-reconnection)
 
 ---
-
-#### `hb.destroy(): void`
+#### <Heading hidden>destroy</Heading>
+`hb.destroy(): void`
 
  Tears down network connections and browser events. Always call this *before* removing the container element from the page. [See example.](/client/web-sdk/examples#destroying-the-embed)
 
 ---
 
-#### `hb.setPermissions(userId, permissionData): Promise<void>`
+#### <Heading hidden>setPermissions</Heading>
+`hb.setPermissions(userId, permissionData): Promise<void>`
 
 Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client/web-sdk/examples#setting-permissions)
 
@@ -171,7 +172,8 @@ Sets the permission of a user by their ID. The client must have an admin token s
 
 ---
 
-#### `hb.sendEvent(event): void`
+#### <Heading hidden>sendEvent</Heading>
+`hb.sendEvent(event): void`
 
 Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See example.](/client/web-sdk/examples#send-events-programmatically)
 
@@ -181,8 +183,8 @@ Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See exa
 </Param>
 
 ---
-
-#### `hb.resize(width, height): void`
+#### <Heading hidden>resize</Heading>
+`hb.resize(width, height): void`
 
 Resizes the multiplayer browser to the specified width and height, in pixels. The arguments must meet the following conditions, otherwise the function will throw a `RangeError: width * height cannot be greater than hb.maxArea`.
 
