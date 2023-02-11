@@ -439,11 +439,9 @@ hb.tabs.onCreated.removeListener(onTabCreated)
 ---
 ## 🗺️ Optimize server location
 
-The Hyperbeam Web SDK provides a function called `getRegionInfo()` that returns a two-letter continent code. This code refers to the optimal region to spin up a virtual computer based on the client's location.
+To create a session with the optimal server location, you first need to use `getRegionInfo()` on the client to retrieve the optimal region information.
 
-To create a session with the optimal server location, you first need to use `getRegionInfo()` on the client to retrieve the optimal continent code.
-
-From there, you need to send it to your backend to use as an argument for the `region` parameter when [creating a session](/rest-api/dispatch/start-chromium-session) and generating an `embed_url`.
+From there, you need to send the HyperbeamRegionInfo object's `region` value to your backend, and use it as the argument for the `region` parameter when [creating a session](/rest-api/dispatch/start-chromium-session) and generating an `embed_url`.
 
 <Tip>You may also want to cache the region preference in localStorage, since `getRegionInfo()` fires off a web request.</Tip>
 
@@ -453,9 +451,9 @@ From there, you need to send it to your backend to use as an argument for the `r
 import Hyperbeam, {getRegionInfo} from "@hyperbeam/web"
 
 async function createHyperbeam(container) {
-	const region = await getRegionInfo()
+	const regionInfo = await getRegionInfo()
 	// Pass region code to backend to be used during session creation
-	const embedURL = await fetch(`/myapi?region=${region}`, {
+	const embedURL = await fetch(`/myapi?region=${regionInfo.region}`, {
 		method: "POST"
 	})
 	const hb = Hyperbeam(container, embedURL)

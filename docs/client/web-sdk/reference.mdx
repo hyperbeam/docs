@@ -9,6 +9,8 @@ title: Reference
 Use `Hyperbeam(container, embedURL, options?)` to create an instance of the [HyperbeamClient](/client/web-sdk/reference#the-hyperbeamclient-object) object. The HyperbeamClient object is your entrypoint to the rest of the Hyperbeam web SDK.
 
 ```js JavaScript
+import Hyperbeam from "@hyperbeam/web"
+...
 const hb = await Hyperbeam(container, embedURL, options)
 ```
 
@@ -201,3 +203,32 @@ Resizes the multiplayer browser to the specified width and height, in pixels. Th
 <Param body="height" type="number">
 	The height of the virtual browser in pixels.
 </Param>
+
+---
+
+## getRegionInfo
+
+`getRegionInfo(): Promise<HyperbeamRegionInfo>`
+
+The Hyperbeam Web SDK provides a function called `getRegionInfo()` that returns a [HyperbeamRegionInfo](/client/web-sdk/reference#hyperbeamregioninfo) object. This object refers to the optimal region to spin up a virtual computer based on the client’s location.
+
+```js JavaScript
+import {getRegionInfo} from "@hyperbeam/web"
+...
+const regionInfo = await getRegionInfo()
+```
+
+[How to use getRegionInfo to optimize server location.](/client/web-sdk/examples#optimize-server-location)
+
+### HyperbeamRegionInfo
+
+#### Properties
+<br />
+<Param body="region" type="string">
+	Two-letter region code.
+</Param>
+
+<Param body="country" type="string" optional>
+	Country code.
+</Param>
+
