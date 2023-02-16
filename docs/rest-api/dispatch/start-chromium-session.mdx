@@ -57,24 +57,31 @@ authMethod: "bearer"
   The server region: `NA` → North America, `EU` → Europe, `AS` → Asia
 </Param>
 
-<Param body="profile.load" type="string">
-  ID of the session you want to load in the cloud browser (a profile is
-  encrypted browser state from a previous session, with the profile ID being its
-  session_id, see response body). If start_url is unset, tabs from the profile
-  are restored
-</Param>
-
-<Param body="profile.save" type="string">
-  profile.save = true → Save profile
+<Param body="profile" type="object">
+  Used to save and load Chrome profiles including bookmarks, history, passwords, cookies etc.
+  <Expandable>
+    <Param body="load" type="string">
+      ID of the session you want to load in the cloud browser (a profile is
+      encrypted browser state from a previous session, with the profile ID being its
+      `session_id`, see [response body](#response)).
+    </Param>
+    <Param body="save" type="boolean" default="false">
+      `save` = `true` creates a new persisted profile you can load from.
+    </Param>
+  </Expandable>
 </Param>
 
 <Param body="ublock" type="boolean" default={false}>
   Flag to install the UBlock Origin extension on the cloud browser
 </Param>
 
-<Param body="extension.field" type="string">
-  Field of the multipart form that contains the path to your custom Chrome
-  extension. See “Install custom Chrome extension” below (Max Size 1MB)
+<Param body="extension" type="object">
+  Used to [install custom Chrome extensions.](/guides/install-chrome-extension) (Max Size 1MB).
+  <Expandable>
+    <Param body="field" type="string">
+      Contains the path to your custom Chrome extension.
+    </Param>
+  </Expandable>
 </Param>
 
 <Param body="webgl" type="boolean" default={false}>
