@@ -76,16 +76,16 @@
         {
           "group": "Web SDK",
           "pages": [
-            "client/web-sdk/overview",
-            "client/web-sdk/reference",
-            "client/web-sdk/examples"
+            "client-sdk/javascript/overview",
+            "client-sdk/javascript/reference",
+            "client-sdk/javascript/examples"
           ]
         },
         {
           "group": "Unity SDKs",
           "pages": [
-            "client/unity-sdk/unity-webgl-sdk",
-            "client/unity-sdk/unity-desktop-sdk"
+            "client-sdk/unity/unity-webgl-sdk",
+            "client-sdk/unity/unity-desktop-sdk"
           ]
         }
       ]
