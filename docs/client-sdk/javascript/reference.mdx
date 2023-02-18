@@ -6,7 +6,7 @@ title: Reference
 
 `Hyperbeam(container, embedURL, options?): Promise<HyperbeamClient>`
 
-Use `Hyperbeam(container, embedURL, options?)` to create an instance of the [HyperbeamClient](/client/web-sdk/reference#the-hyperbeamclient-object) object. The HyperbeamClient object is your entrypoint to the rest of the Hyperbeam web SDK.
+Use `Hyperbeam(container, embedURL, options?)` to create an instance of the [HyperbeamClient](/client-sdk/javascript/reference#the-hyperbeamclient-object) object. The HyperbeamClient object is your entrypoint to the rest of the Hyperbeam JavaScript SDK.
 
 ```js JavaScript
 import Hyperbeam from "@hyperbeam/web"
@@ -85,7 +85,7 @@ const hb = await Hyperbeam(container, embedURL, options)
   </Expandable>
 </Param>
 
-[See initialization example.](/client/web-sdk/examples#loading-a-virtual-browser)
+[See initialization example.](/client-sdk/javascript/examples#loading-a-virtual-browser)
 
 ---
 ## The HyperbeamClient object
@@ -99,35 +99,35 @@ const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, option
 ### Properties
 <br />
 <Param body="hb.userId" type="string">
-  The client's user ID. [See example.](/client/web-sdk/examples#getting-user-id)
+  The client's user ID. [See example.](/client-sdk/javascript/examples#getting-user-id)
 </Param>
 
 <Param body="hb.adminToken" type="string">
- The client’s admin token. [See example.](/client/web-sdk/examples#setting-admin-token)
+ The client’s admin token. [See example.](/client-sdk/javascript/examples#setting-admin-token)
 </Param>
 
 <Param body="hb.volume" type="number">
-	The local volume of the virtual browser. [See example.](/client/web-sdk/examples#setting-video-volume)
+	The local volume of the virtual browser. [See example.](/client-sdk/javascript/examples#setting-video-volume)
 </Param>
 
 <Param body="hb.width" type="number">
-  The width of the virtual browser in pixels. [See example.](/client/web-sdk/examples#resizing-the-browser)
+  The width of the virtual browser in pixels. [See example.](/client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.height" type="number">
-  The height of the virtual browser in pixels. [See example.](/client/web-sdk/examples#resizing-the-browser)
+  The height of the virtual browser in pixels. [See example.](/client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.maxArea" type="number">
-  The maximum virtual browser area that can be allocated in pixels. [See example.](//client/web-sdk/examples#resizing-the-browser)
+  The maximum virtual browser area that can be allocated in pixels. [See example.](//client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.videoPaused" type="boolean">
-  Pauses the video stream of the virtual browser locally. [See example.](/client/web-sdk/examples#pausing-video-stream)
+  Pauses the video stream of the virtual browser locally. [See example.](/client-sdk/javascript/examples#pausing-video-stream)
 </Param>
 
 <Param body="hb.tabs" type="Tabs Object">
-  The virtual browser Tabs object. [See example.](/client/web-sdk/examples#control-tabs-programmatically)
+  The virtual browser Tabs object. [See example.](/client-sdk/javascript/examples#control-tabs-programmatically)
 </Param>
 
 
@@ -136,20 +136,20 @@ const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, option
 #### <Heading hidden>reconnect</Heading>
 `hb.reconnect(): void`
 
-Useful in situations where you need to troubleshoot the browser disconnecting. [See example.](/client/web-sdk/examples#manual-reconnection)
+Useful in situations where you need to troubleshoot the browser disconnecting. [See example.](/client-sdk/javascript/examples#manual-reconnection)
 
 ---
 #### <Heading hidden>destroy</Heading>
 `hb.destroy(): void`
 
- Tears down network connections and browser events. Always call this *before* removing the container element from the page. [See example.](/client/web-sdk/examples#destroying-the-embed)
+ Tears down network connections and browser events. Always call this *before* removing the container element from the page. [See example.](/client-sdk/javascript/examples#destroying-the-embed)
 
 ---
 
 #### <Heading hidden>setPermissions</Heading>
 `hb.setPermissions(userId, permissionData): Promise<void>`
 
-Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client/web-sdk/examples#setting-permissions)
+Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client-sdk/javascript/examples#setting-permissions)
 
 **Method parameters**
 
@@ -177,7 +177,7 @@ Sets the permission of a user by their ID. The client must have an admin token s
 #### <Heading hidden>sendEvent</Heading>
 `hb.sendEvent(event): void`
 
-Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See example.](/client/web-sdk/examples#send-events-programmatically)
+Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See example.](/client-sdk/javascript/examples#send-events-programmatically)
 
 **Method parameters**
 
@@ -192,7 +192,7 @@ Resizes the multiplayer browser to the specified width and height, in pixels. Th
 
 `hb.maxArea` is the maximum area that can be allocated in pixels.
 
-[See example.](/client/web-sdk/examples#resizing-the-browser)
+[See example.](/client-sdk/javascript/examples#resizing-the-browser)
 
 **Method parameters**
 
@@ -210,7 +210,7 @@ Resizes the multiplayer browser to the specified width and height, in pixels. Th
 
 `getRegionInfo(): Promise<HyperbeamRegionInfo>`
 
-The Hyperbeam Web SDK provides a function called `getRegionInfo()` that returns a [HyperbeamRegionInfo](/client/web-sdk/reference#hyperbeamregioninfo) object. This object refers to the optimal region to spin up a virtual computer based on the client’s location.
+The Hyperbeam Web SDK provides a function called `getRegionInfo()` that returns a [HyperbeamRegionInfo](/client-sdk/javascript/reference#hyperbeamregioninfo) object. This object refers to the optimal region to spin up a virtual computer based on the client’s location.
 
 ```js JavaScript
 import {getRegionInfo} from "@hyperbeam/web"
@@ -218,7 +218,7 @@ import {getRegionInfo} from "@hyperbeam/web"
 const regionInfo = await getRegionInfo()
 ```
 
-[How to use getRegionInfo to optimize server location.](/client/web-sdk/examples#optimize-server-location)
+[How to use getRegionInfo to optimize server location.](/client-sdk/javascript/examples#optimize-server-location)
 
 ### HyperbeamRegionInfo
 
