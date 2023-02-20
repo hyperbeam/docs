@@ -16,7 +16,7 @@ const embedURL = "https://abc.hyperbeam.com/foo?token=bar"
 const container = document.getElementById("container-id")
 
 const hb = await Hyperbeam(container, embedURL, {
-	// Number of milliseconds until the request to the multiplayer browser times out.
+	// Number of milliseconds until the request to the virtual browser times out.
 	// If the request times out, the returned promise will be rejected.
 	timeout: 5000, // default = 2000
 
@@ -24,10 +24,10 @@ const hb = await Hyperbeam(container, embedURL, {
 	// access to managing user permissions and programmatic navigation.
 	adminToken: "admin_token_from_rest_api_response",
 
-	// Starting volume of the multiplayer browser
+	// Starting volume of the virtual browser
 	volume: 0.2,         // default = 1.0
 
-	// Starting video pause state of the multiplayer browser
+	// Starting video pause state of the virtual browser
 	videoPaused: false,  // default = false
 
 	// delegate global keyboard events to the embed
@@ -45,13 +45,13 @@ const hb = await Hyperbeam(container, embedURL, {
 	// Data to be provided to your webhook endpoint if you're using webhook authentication
 	webhookUserdata: {myAppData: {user: "your-app-user-id"}},
 
-	// Callback called when another user moves their mouse cursor on top of the multiplayer browser
+	// Callback called when another user moves their mouse cursor on top of the virtual browser
 	// Useful for implementing multiplayer cursors
 	onCursor({ x, y, userId }) => {},
 
-	// Callback called when the user disconnects from the multiplayer browser
+	// Callback called when the user disconnects from the virtual browser
 	// type is an enum with one of the following values:
-	//   "request"  -> multiplayer browser was manually shut down
+	//   "request"  -> virtual browser was manually shut down
 	//   "inactive" -> inactive timeout was triggered
 	//   "absolute" -> absolute timeout was triggered
 	//   "kick"     -> user was kicked from the session
@@ -74,7 +74,7 @@ const hb = await Hyperbeam(container, embedURL, {
 	// state = "connecting" | "playing" | "reconnecting"
 	//
 	// You can use this to show custom reconnecting UI, and detecting if a user
-	// has a sub-optimal connection to the multiplayer browser
+	// has a sub-optimal connection to the virtual browser
 	onConnectionStateChange: ({ state }) => {}
 })
 ```
@@ -135,7 +135,7 @@ beforeUnmount() {
 ## 🔉 Setting video volume
 `hb.volume = 0.5`
 
-Sets the volume for the multiplayer browser *locally*. Volume changes only apply to the local user. This setting is *not* persisted on refreshing the page.
+Sets the volume for the virtual browser *locally*. Volume changes only apply to the local user. This setting is *not* persisted on refreshing the page.
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL)
@@ -147,7 +147,7 @@ console.log(hb.volume) // Get the local volume value
 ## 🆔 Getting user ID
 `hb.userId: string`
 
-Gets the client's user ID. A "user" is defined as a single connection to the multiplayer browser. If a person has multiple tabs connected to the multiplayer browser, each tab with an active connection will be assigned a different user ID.
+Gets the client's user ID. A "user" is defined as a single connection to the virtual browser. If a person has multiple tabs connected to the virtual browser, each tab with an active connection will be assigned a different user ID.
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL)
@@ -157,7 +157,7 @@ console.log(hb.userId) // A unique string identifying the user
 ## ⏸️ Pausing video stream
 `hb.videoPaused = true`
 
-Pauses/resumes the video stream for the multiplayer browser *locally*. Useful if only the audio component is of interest and you want to minimize CPU usage.
+Pauses/resumes the video stream for the virtual browser *locally*. Useful if only the audio component is of interest and you want to minimize CPU usage.
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL)
@@ -204,7 +204,7 @@ const permissions = {
 
 	// Number of milliseconds until a user is considered "idle". Once a user is considered
 	// idle, they no longer preempt lower priority users until they interact with the
-	// multiplayer browser again.
+	// virtual browser again.
 	idle_timeout: 3000,    // default = 0
 
 	// If control_disabled = true, all control input (mouse movements, keyboard presses)
