@@ -99,6 +99,9 @@
   "analytics": {
     "amplitude": {
       "apiKey": "e46b9bf5b5d19f5fd43d1a2b8630aba5"
+    },
+    "ga4": {
+      "measurementId": "G-LFMF4P54KV"
     }
   }
 }
