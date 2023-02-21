@@ -86,8 +86,8 @@ Our request will:
 - Set the `HB-User-Agent` header to the client's user agent
 - Set the `HB-Connection-IP` header to the client's IP address
 - Send a `POST` request with a JSON request body
-  - `user_id` is the user's [Hyperbeam identifier](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
-  - `userdata` is the `webhookUserdata` object passed into the Hyperbeam [web SDK](https://www.npmjs.com/package/@hyperbeam/web#getting-user-id)
+  - `user_id` is the user's [Hyperbeam identifier](/client-sdk/javascript/examples#getting-user-id)
+  - `userdata` is the `webhookUserdata` object passed into the Hyperbeam [JavaScript SDK](/client-sdk/javascript/overview)
 
 ```json
 {
@@ -121,4 +121,4 @@ Your webhook must:
   - To deny user access, send back `{"authorized": false}`
   - Any response that doesn't have a 200 status code will deny user access
   - If the "authorized" key is not set, the user will be denied
-  - You can provide a permissions object in the response to atomically set the [permission values](https://www.npmjs.com/package/@hyperbeam/web#setting-permissions) of the user
+  - You can provide a permissions object in the response to atomically set the [permission values](/client-sdk/javascript/examples#setting-permissions) of the user

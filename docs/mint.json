@@ -74,7 +74,7 @@
       "group": "Client SDKs",
       "pages": [
         {
-          "group": "Web SDK",
+          "group": "JavaScript SDK",
           "pages": [
             "client-sdk/javascript/overview",
             "client-sdk/javascript/reference",

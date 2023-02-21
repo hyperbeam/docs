@@ -18,7 +18,7 @@ description: "Learn how to set and resize the dimensions of the browser window d
 
 ## Server
 
-For a resizable browser window, you need to specify the following properties when [creating a new browser instance](/start-chromium-session).
+For a resizable browser window, you need to specify the following properties when [creating a new browser instance](/rest-api/dispatch/start-chromium-session).
 
 <Param body="width" type="number" default="1280">
   The initial width of the browser window in pixels.
@@ -51,7 +51,7 @@ To resize the browser window, call the [resize](#hb-resize-width-height) functio
 
 ### hb.resize(width, height)
 
-The `resize` method on the [Hyperbeam client](https://www.npmjs.com/package/@hyperbeam/web) allows you to resize and reposition the browser window dynamically. This can be useful for creating a custom sized browser window for your app or adapting to different screen sizes.
+The `resize` method on the [Hyperbeam client](/client-sdk/javascript/reference#the-hyperbeamclient-object) allows you to resize and reposition the browser window dynamically. This can be useful for creating a custom sized browser window for your app or adapting to different screen sizes.
 
 <Param body="width" type="number" required>
   The width of the browser window in pixels.
@@ -63,7 +63,7 @@ The `resize` method on the [Hyperbeam client](https://www.npmjs.com/package/@hyp
 
 ### hb.maxArea
 
-The `maxArea` property on the [Hyperbeam client](https://www.npmjs.com/package/@hyperbeam/web) stores the maximum browser window area in pixels. This is the maximum area that the browser window can be resized to, and is set by the `max_area` property when creating a new browser instance.
+The `maxArea` property on the [Hyperbeam client](/client-sdk/javascript/reference#the-hyperbeamclient-object) stores the maximum browser window area in pixels. This is the maximum area that the browser window can be resized to, and is set by the `max_area` property when creating a new browser instance.
 
 ```js
 console.log(hb.maxArea); // 921600 (1280 * 720)
