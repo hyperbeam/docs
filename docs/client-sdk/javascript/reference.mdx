@@ -32,15 +32,19 @@ const hb = await Hyperbeam(container, embedURL, options)
       </Param>
 
       <Param body="timeout" type="number" default="2000">
-        Number of milliseconds until the request to the multiplayer browser times out. If the request times out, the returned promise will be rejected.
+        Number of milliseconds until the request to the virtual browser times out. If the request times out, the returned promise will be rejected.
       </Param>
 
       <Param body="volume" type="number" default="1.0">
-        Starting volume of the multiplayer browser.
+        Starting volume of the virtual browser.
       </Param>
 
       <Param body="videoPaused" type="boolean" default="false">
-        Starting video pause state of the multiplayer browser.
+        Starting video pause state of the virtual browser.
+      </Param>
+
+      <Param body="hb.playoutDelay" type="boolean" default="false">
+        Starting playout delay state of the virtual browser. When `playoutDelay` = `true`, input lag increases but smoothness is improved and frame drops are reduced.
       </Param>
 
       <Param body="delegateKeyboard" type="boolean" default="true">
@@ -60,12 +64,12 @@ const hb = await Hyperbeam(container, embedURL, options)
       </Param>
 
       <Param body="onCursor" type="(e: PeerMouseEvent) => void">
-    		Callback called when another user moves their mouse cursor on top of the multiplayer browser. Useful for implementing multiplayer cursors.
+    		Callback called when another user moves their mouse cursor on top of the virtual browser. Useful for implementing multiplayer cursors.
       </Param>
 
       <Param body="onDisconnect" type="(e: DisconnectEvent) => void">
-      	Callback called when the user disconnects from the multiplayer browser. `e.type` is an enum with one of the following values:
-				`"request"`  -> multiplayer browser was manually shut down.
+      	Callback called when the user disconnects from the virtual browser. `e.type` is an enum with one of the following values:
+				`"request"`  -> virtual browser was manually shut down.
 				`"inactive"` -> inactive timeout was triggered.
 				`"absolute"` -> absolute timeout was triggered.
 				`"kick"`     -> user was kicked from the session.
@@ -80,7 +84,7 @@ const hb = await Hyperbeam(container, embedURL, options)
 
       <Param body="onConnectionStateChange" type="(e: ConnectionStateEvent) => void">
       	Callback called when the connection state of the video stream has changed. `e.state` = `"connecting" | "playing" | "reconnecting"`.
-				You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the multiplayer browser.
+				You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the virtual browser.
       </Param>
   </Expandable>
 </Param>
@@ -126,6 +130,10 @@ const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, option
   Pauses the video stream of the virtual browser locally. [See example.](/client-sdk/javascript/examples#pausing-video-stream)
 </Param>
 
+<Param body="hb.playoutDelay" type="boolean">
+  When `playoutDelay` = `true`, input lag increases but smoothness is improved and frame drops are reduced.
+</Param>
+
 <Param body="hb.tabs" type="Tabs Object">
   The virtual browser Tabs object. [See example.](/client-sdk/javascript/examples#control-tabs-programmatically)
 </Param>
@@ -164,7 +172,7 @@ Sets the permission of a user by their ID. The client must have an admin token s
 			Higher value = higher priority. Users with a higher priority will preempt the control of lower priority users.
 		</Param>
 		<Param body="idle_timeout" type="number">
-			Number of milliseconds until a user is considered "idle". Once a user is considered idle, they no longer preempt lower priority users until they interact with the multiplayer browser again.
+			Number of milliseconds until a user is considered "idle". Once a user is considered idle, they no longer preempt lower priority users until they interact with the virtual browser again.
 		</Param>
 		<Param body="control_disabled" type="boolean" default="<control_disable_default>">
 			If control_disabled = true, all control input (mouse movements, keyboard presses) will be ignored. Note that disabling control does not restrict access to any APIs that require admin tokens.
@@ -188,7 +196,7 @@ Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See exa
 #### <Heading hidden>resize</Heading>
 `hb.resize(width, height): void`
 
-Resizes the multiplayer browser to the specified width and height, in pixels. The arguments must meet the following conditions, otherwise the function will throw a `RangeError: width * height cannot be greater than hb.maxArea`.
+Resizes the virtual browser to the specified width and height, in pixels. The arguments must meet the following conditions, otherwise the function will throw a `RangeError: width * height cannot be greater than hb.maxArea`.
 
 `hb.maxArea` is the maximum area that can be allocated in pixels.
 
