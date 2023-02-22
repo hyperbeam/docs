@@ -14,14 +14,16 @@ import Hyperbeam from "@hyperbeam/web"
 const hb = await Hyperbeam(container, embedURL, options)
 ```
 
-### Method parameters
+### Method Parameters
+
 <br />
 <Param body="container" type="HTMLDivElement | HTMLIFrameElement">
-	The container can be either a `div` or an `iframe` element, though it is highly advised to use a `div`.
+  The container can be either a `div` or an `iframe` element, though it is
+  highly advised to use a `div`.
 </Param>
 
 <Param body="embedURL" type="string">
-	The embedURL is retrieved from the [REST API](/rest-api).
+  The embedURL is retrieved from the [REST API](/rest-api).
 </Param>
 
 <Param body="options" optional type="HyperbeamOptions Object">
@@ -69,92 +71,113 @@ const hb = await Hyperbeam(container, embedURL, options)
 
       <Param body="onDisconnect" type="(e: DisconnectEvent) => void">
       	Callback called when the user disconnects from the virtual browser. `e.type` is an enum with one of the following values:
-				`"request"`  -> virtual browser was manually shut down.
-				`"inactive"` -> inactive timeout was triggered.
-				`"absolute"` -> absolute timeout was triggered.
-				`"kick"`     -> user was kicked from the session.
+    			`"request"`  -> virtual browser was manually shut down.
+    			`"inactive"` -> inactive timeout was triggered.
+    			`"absolute"` -> absolute timeout was triggered.
+    			`"kick"`     -> user was kicked from the session.
       </Param>
 
       <Param body="onCloseWarning" type="(e: CloseWarningEvent) => void">
     		Callback called when a timeout either surpasses the warning threshold, or has been reset and is no longer passed the warning threshold.
-				`e.type` is an enum that refers to the timeout's type tied to the event. Possible values are `"inactive"` and `"absolute"`.
-				`e.deadline` = `null | { delay: number, closeDate: string }`. If `e.deadline` is `null`, then the timeout was reset and is no longer passed the warning threshold. If `e.deadline` is set, `e.deadline.delay`
-				is the number of milliseconds until the timeout is triggered, and `e.deadline.closeDate` is an RFC3339 formatted string of when the timeout will occur.
+    			`e.type` is an enum that refers to the timeout's type tied to the event. Possible values are `"inactive"` and `"absolute"`.
+    			`e.deadline` = `null | { delay: number, closeDate: string }`. If `e.deadline` is `null`, then the timeout was reset and is no longer passed the warning threshold. If `e.deadline` is set, `e.deadline.delay`
+    			is the number of milliseconds until the timeout is triggered, and `e.deadline.closeDate` is an RFC3339 formatted string of when the timeout will occur.
       </Param>
 
       <Param body="onConnectionStateChange" type="(e: ConnectionStateEvent) => void">
       	Callback called when the connection state of the video stream has changed. `e.state` = `"connecting" | "playing" | "reconnecting"`.
-				You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the virtual browser.
+    			You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the virtual browser.
       </Param>
+
   </Expandable>
 </Param>
 
 [See initialization example.](/client-sdk/javascript/examples#loading-a-virtual-browser)
 
 ---
+
 ## The HyperbeamClient object
 
 The HyperbeamClient object allows you to programmatically control the virtual browser, set user permissions, and debug connection issues among other things.
 
 ```js JavaScript
-const hb: Promise<HyperbeamClient> = await Hyperbeam(container, embedURL, options)
+const hb: Promise<HyperbeamClient> = await Hyperbeam(
+  container,
+  embedURL,
+  options
+);
 ```
 
 ### Properties
+
 <br />
 <Param body="hb.userId" type="string">
-  The client's user ID. [See example.](/client-sdk/javascript/examples#getting-user-id)
+  The client's user ID. [See
+  example.](/client-sdk/javascript/examples#getting-user-id)
 </Param>
 
 <Param body="hb.adminToken" type="string">
- The client’s admin token. [See example.](/client-sdk/javascript/examples#setting-admin-token)
+  The client’s admin token. [See
+  example.](/client-sdk/javascript/examples#setting-admin-token)
 </Param>
 
 <Param body="hb.volume" type="number">
-	The local volume of the virtual browser. [See example.](/client-sdk/javascript/examples#setting-video-volume)
+  The local volume of the virtual browser. [See
+  example.](/client-sdk/javascript/examples#setting-video-volume)
 </Param>
 
 <Param body="hb.width" type="number">
-  The width of the virtual browser in pixels. [See example.](/client-sdk/javascript/examples#resizing-the-browser)
+  The width of the virtual browser in pixels. [See
+  example.](/client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.height" type="number">
-  The height of the virtual browser in pixels. [See example.](/client-sdk/javascript/examples#resizing-the-browser)
+  The height of the virtual browser in pixels. [See
+  example.](/client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.maxArea" type="number">
-  The maximum virtual browser area that can be allocated in pixels. [See example.](//client-sdk/javascript/examples#resizing-the-browser)
+  The maximum virtual browser area that can be allocated in pixels. [See
+  example.](//client-sdk/javascript/examples#resizing-the-browser)
 </Param>
 
 <Param body="hb.videoPaused" type="boolean">
-  Pauses the video stream of the virtual browser locally. [See example.](/client-sdk/javascript/examples#pausing-video-stream)
+  Pauses the video stream of the virtual browser locally. [See
+  example.](/client-sdk/javascript/examples#pausing-video-stream)
 </Param>
 
 <Param body="hb.playoutDelay" type="boolean">
-  When `playoutDelay` = `true`, input lag increases but smoothness is improved and frame drops are reduced.
+  When `playoutDelay` = `true`, input lag increases but smoothness is improved
+  and frame drops are reduced.
 </Param>
 
 <Param body="hb.tabs" type="Tabs Object">
-  The virtual browser Tabs object. [See example.](/client-sdk/javascript/examples#control-tabs-programmatically)
+  The virtual browser Tabs object. [See
+  example.](/client-sdk/javascript/examples#control-tabs-programmatically)
 </Param>
 
-
 ### Methods
+
 ---
+
 #### <Heading hidden>reconnect</Heading>
+
 `hb.reconnect(): void`
 
 Useful in situations where you need to troubleshoot the browser disconnecting. [See example.](/client-sdk/javascript/examples#manual-reconnection)
 
 ---
+
 #### <Heading hidden>destroy</Heading>
+
 `hb.destroy(): void`
 
- Tears down network connections and browser events. Always call this *before* removing the container element from the page. [See example.](/client-sdk/javascript/examples#destroying-the-embed)
+Tears down network connections and browser events. Always call this _before_ removing the container element from the page. [See example.](/client-sdk/javascript/examples#destroying-the-embed)
 
 ---
 
 #### <Heading hidden>setPermissions</Heading>
+
 `hb.setPermissions(userId, permissionData): Promise<void>`
 
 Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client-sdk/javascript/examples#setting-permissions)
@@ -162,38 +185,50 @@ Sets the permission of a user by their ID. The client must have an admin token s
 **Method parameters**
 
 <Param body="userId" type="string">
-	The user ID to set permissions for.
+  The user ID to set permissions for.
 </Param>
 
 <Param body="permissionData" type="object">
-	All keys can be omitted: if the key is omitted, then the existing value will be unchanged.
-	<Expandable>
-		<Param body="priority" type="number" default="0">
-			Higher value = higher priority. Users with a higher priority will preempt the control of lower priority users.
-		</Param>
-		<Param body="idle_timeout" type="number">
-			Number of milliseconds until a user is considered "idle". Once a user is considered idle, they no longer preempt lower priority users until they interact with the virtual browser again.
-		</Param>
-		<Param body="control_disabled" type="boolean" default="<control_disable_default>">
-			If control_disabled = true, all control input (mouse movements, keyboard presses) will be ignored. Note that disabling control does not restrict access to any APIs that require admin tokens.
-		</Param>
-	</Expandable>
+  All keys can be omitted: if the key is omitted, then the existing value will
+  be unchanged.
+  <Expandable>
+    <Param body="priority" type="number" default="0">
+      Higher value = higher priority. Users with a higher priority will preempt
+      the control of lower priority users.
+    </Param>
+    <Param body="idle_timeout" type="number">
+      Number of milliseconds until a user is considered "idle". Once a user is
+      considered idle, they no longer preempt lower priority users until they
+      interact with the virtual browser again.
+    </Param>
+    <Param
+      body="control_disabled"
+      type="boolean"
+      default="<control_disable_default>"
+    >
+      If control_disabled = true, all control input (mouse movements, keyboard
+      presses) will be ignored. Note that disabling control does not restrict
+      access to any APIs that require admin tokens.
+    </Param>
+  </Expandable>
 </Param>
 
 ---
 
 #### <Heading hidden>sendEvent</Heading>
+
 `hb.sendEvent(event): void`
 
 Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See example.](/client-sdk/javascript/examples#send-events-programmatically)
 
 **Method parameters**
 
-<Param body="event" type="KeyEvent | MouseEvent | WheelEvent">
-</Param>
+<Param body="event" type="KeyEvent | MouseEvent | WheelEvent"></Param>
 
 ---
+
 #### <Heading hidden>resize</Heading>
+
 `hb.resize(width, height): void`
 
 Resizes the virtual browser to the specified width and height, in pixels. The arguments must meet the following conditions, otherwise the function will throw a `RangeError: width * height cannot be greater than hb.maxArea`.
@@ -205,11 +240,11 @@ Resizes the virtual browser to the specified width and height, in pixels. The ar
 **Method parameters**
 
 <Param body="width" type="number">
-	The width of the virtual browser in pixels.
+  The width of the virtual browser in pixels.
 </Param>
 
 <Param body="height" type="number">
-	The height of the virtual browser in pixels.
+  The height of the virtual browser in pixels.
 </Param>
 
 ---
@@ -231,12 +266,12 @@ const regionInfo = await getRegionInfo()
 ### HyperbeamRegionInfo
 
 #### Properties
+
 <br />
 <Param body="region" type="string">
-	Two-letter region code.
+  Two-letter region code.
 </Param>
 
 <Param body="country" type="string" optional>
-	Country code.
+  Country code.
 </Param>
-

@@ -6,28 +6,30 @@ description: "Frequently asked questions from the Hyperbeam community"
 ## Streaming
 
 <AccordionGroup>
-	<Accordion title="Bandwidth requirements">
-   To ensure optimal performance of Hyperbeam virtual computers, it is recommended that your users meet the following bandwidth requirements. Even though users who have less bandwidth available can still stream virtual computers, the image quality or framerate may be suboptimal.
-    ```html
-    | Resolution | Framerate | Bandwidth Required |
-    | ---------- | --------- | ------------------ |
-    | 720p       | 24fps     | 5mbps              |
-    | 720p       | 30fps     | 6.3mbps            |
-    | 900p       | 24fps     | 7.8mbps            |
-    | 900p       | 30fps     | 9.8mbps            |
-    | 1080p      | 24fps     | 11.3mbps           |
-    | 1080p      | 30fps     | 14.1mbps           |
-    ```
-    <Warning>Enabling **sharp mode** triples these bandwidth requirements.</Warning>
+  <Accordion title="Bandwidth requirements">
+    To ensure optimal performance of Hyperbeam virtual computers, it is
+    recommended that your users meet the following bandwidth requirements. Even
+    though users who have less bandwidth available can still stream virtual
+    computers, the image quality or framerate may be suboptimal. ```html |
+    Resolution | Framerate | Bandwidth Required | | ---------- | --------- |
+    ------------------ | | 720p | 24fps | 5mbps | | 720p | 30fps | 6.3mbps | |
+    900p | 24fps | 7.8mbps | | 900p | 30fps | 9.8mbps | | 1080p | 24fps |
+    11.3mbps | | 1080p | 30fps | 14.1mbps | ```
+    <Warning>
+      Enabling **sharp mode** triples these bandwidth requirements.
+    </Warning>
   </Accordion>
 </AccordionGroup>
 
 ## Monitoring
 
 <AccordionGroup>
-	<Accordion title="Can I detect when a user changes the URL in the virtual browser?">
-    Yes, you can detect when a user changes the virtual browser URL by using [Hyperbeam’s tab event listener API](/client-sdk/javascript/examples#listen-to-tab-events) available in our Web SDK.
-    We do not currently provide a way to directly detect this action server-side.
+  <Accordion title="Can I detect when a user changes the URL in the virtual browser?">
+    Yes, you can detect when a user changes the virtual browser URL by using
+    [Hyperbeam’s tab event listener
+    API](/client-sdk/javascript/examples#listen-to-tab-events) available in our
+    Web SDK. We do not currently provide a way to directly detect this action
+    server-side.
   </Accordion>
 </AccordionGroup>
 
@@ -60,9 +62,10 @@ description: "Frequently asked questions from the Hyperbeam community"
 ## Troubleshooting
 
 <AccordionGroup>
-	<Accordion title="My API request fails due to CORS">
-    Requests to the Hyperbeam API should not be made from the client as doing so exposes your
-    API key to users which can easily be abused. Instead, API requests should only be
-    made from a backend such as Vercel, Netlify or Cloudflare.
-	</Accordion>
+  <Accordion title="My API request fails due to CORS">
+    Requests to the Hyperbeam API should not be made from the client as doing so
+    exposes your API key to users which can easily be abused. Instead, API
+    requests should only be made from a backend such as Vercel, Netlify or
+    Cloudflare.
+  </Accordion>
 </AccordionGroup>

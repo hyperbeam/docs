@@ -5,23 +5,25 @@ description: "Granting access to cloud computers"
 
 When a user attempts to connect to a cloud computer, we need to identify the user and determine whether they should be granted access.
 
-## Authentication strategies
+## Authentication Strategies
 
-### Token authentication
+### Token Authentication
 
 - This is the default authentication strategy
 - No additional code is needed
 
-### Webhook authentication
+### Webhook Authentication
 
 - You need to create an endpoint on your backend (i.e. a webhook)
 - The virtual computer will hit your endpoint when a new user tries to connect
 - Your backend's webhook response controls whether the user is granted access
 - To set the authentication strategy, you provide an authentication object when starting a cloud computer session:
 
+### Setting the Authentication Strategy
+
 To set the authentication strategy, you provide an authentication object when starting a cloud computer session:
 
-Token authentication (this is the default, if nothing is passed)
+**Token Authentication (Default)**
 
 ```json
 {
@@ -31,7 +33,7 @@ Token authentication (this is the default, if nothing is passed)
 }
 ```
 
-Webhook authentication
+**Webhook Authentication**
 
 ```json
 {
@@ -45,7 +47,7 @@ Webhook authentication
 }
 ```
 
-### Request body
+#### Request Body
 
 | Property            | Type   | Description                                                                                    |
 | ------------------- | ------ | ---------------------------------------------------------------------------------------------- |
@@ -53,13 +55,13 @@ Webhook authentication
 | `auth.value.url`    | string | The endpoint of your webhook for webhook-based authentication.                                 |
 | `auth.value.bearer` | string | A secret cryptographic key you provide to verify the webhook request is coming from Hyperbeam. |
 
-## In-depth
+## In-Depth
 
-### Token authentication
+### Token Authentication
 
 When using token authentication, a token is added as a query parameter to the cloud computer’s embed URL. This ensures only users that were provided the embed URL have access to the cloud computer—malicious actors cannot gain access via the session ID or brute force.
 
-### Webhook authentication
+### Webhook Authentication
 
 Start a cloud computer session with webhook authentication
 
