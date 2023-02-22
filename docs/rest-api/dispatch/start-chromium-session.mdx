@@ -58,12 +58,13 @@ authMethod: "bearer"
 </Param>
 
 <Param body="profile" type="object">
-  Used to save and load Chrome profiles including bookmarks, history, passwords, cookies etc.
+  Used to save and load Chrome profiles including bookmarks, history, passwords,
+  cookies etc.
   <Expandable>
     <Param body="load" type="string">
       ID of the session you want to load in the cloud browser (a profile is
-      encrypted browser state from a previous session, with the profile ID being its
-      `session_id`, see [response body](#response)).
+      encrypted browser state from a previous session, with the profile ID being
+      its `session_id`, see [response body](#response)).
     </Param>
     <Param body="save" type="boolean" default="false">
       `save` = `true` creates a new persisted profile you can load from.
@@ -76,7 +77,8 @@ authMethod: "bearer"
 </Param>
 
 <Param body="extension" type="object">
-  Used to [install custom Chrome extensions.](/guides/install-chrome-extension) (Max Size 1MB).
+  Used to [install custom Chrome extensions.](/guides/install-chrome-extension)
+  (Max Size 1MB).
   <Expandable>
     <Param body="field" type="string">
       Contains the path to your custom Chrome extension.
@@ -135,8 +137,10 @@ The max number of pixels (width height) is capped at 1920 1080
 </Param>
 
 <Param body="tag" type="string">
-  The `tag` property enforces uniqueness. If a session with tag `"A"` is already running and you attempt to make another
-  session with tag `"A"`, the endpoint will not create a new instance and will instead return the `session_id` and `embed_url` of the existing session.
+  The `tag` property enforces uniqueness. If a session with tag `"A"` is already
+  running and you attempt to make another session with tag `"A"`, the endpoint
+  will not create a new instance and will instead return the `session_id` and
+  `embed_url` of the existing session.
 </Param>
 
 <Param body="quality" type="object">
@@ -150,6 +154,7 @@ The max number of pixels (width height) is capped at 1920 1080
 
       <Warning>Enabling sharp mode triples the required bandwidth. You can view our bandwidth recommendations in the [Streaming FAQ](/home/faq#streaming).</Warning>
     </Param>
+
   </Expandable>
 </Param>
 
@@ -172,7 +177,8 @@ The max number of pixels (width height) is capped at 1920 1080
 </ResponseField>
 
 <ResponseField name="embed_url" type="string">
-  A URL you can load into the [web client](/client-sdk/javascript) on your website
+  A URL you can load into the [web client](/client-sdk/javascript) on your
+  website
 </ResponseField>
 
 <ResponseField name="admin_token" type="string">

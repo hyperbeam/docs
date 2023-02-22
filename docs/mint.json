@@ -34,7 +34,13 @@
   "navigation": [
     {
       "group": "Home",
-      "pages": ["home/introduction", "home/features", "home/examples", "home/getting-started", "home/faq"]
+      "pages": [
+        "home/introduction",
+        "home/features",
+        "home/examples",
+        "home/getting-started",
+        "home/faq"
+      ]
     },
     {
       "group": "Guides",

@@ -17,17 +17,18 @@ function buildForm(extPath, vmConfig) {
   return formData;
 }
 
-const zipPath = path.resolve(__dirname, "./path/to/my/ext.zip");
+const zipPath = path.resolve(\_\_dirname, "./path/to/my/ext.zip");
 const formData = buildForm(zipPath, {
-  extension: {
-    field: "ex"
-  }
+extension: {
+field: "ex"
+}
 });
 
 const headers = formData.getHeaders();
 headers["Authorization"] = `Bearer ${process.env.HB_API_KEY}`;
 const resp = axios.post('https://engine.hyperbeam.com/v0/vm', formData, {headers});
-```
+
+````
 
 ```bash Bash
 curl -X POST \
@@ -38,22 +39,24 @@ curl -X POST \
   --form 'ex=@/tmp/ext.zip;type=application/zip'
   # If using crx rather than zip, make sure to change the MIME-type to x-chrome-extension
   # --form 'ex=@/tmp/ext.crx;type=application/x-chrome-extension'
-```
+````
+
 </CodeGroup>
 
 ## References
 
 For more information on creating `zip` Chrome extensions, refer to the [Publish your extension](https://developer.chrome.com/docs/webstore/publish/#create-your-items-zip-file) guide on the Chrome Developers website.
-  
+
 To learn more about the `crx` format, see [Installing extensions on Linux](https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#packaging). We recommend creating building `crx` extensions with an [unofficial CLI on NPM](https://www.npmjs.com/package/crx#cli-api).
 
 ## Troubleshooting
 
 <Warning>Do **not** put the `manifest.json` file in a subfolder</Warning>
 
-If your extension is not loading in Hyperbeam, *please* double-check that:
-* The `manifest.json` file is a well-formed JSON
-* The `manifest.json` file is in the root directory
+If your extension is not loading in Hyperbeam, _please_ double-check that:
+
+- The `manifest.json` file is a well-formed JSON
+- The `manifest.json` file is in the root directory
 
 The contents of the `zip` file should look like this:
 
@@ -65,6 +68,7 @@ popup.js
 ```
 
 The following file structure is invalid, **do not do this**:
+
 ```
 extension/
 ├─ hello.html

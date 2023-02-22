@@ -78,40 +78,46 @@ const hb = await Hyperbeam(container, embedURL, {
 	onConnectionStateChange: ({ state }) => {}
 })
 ```
+
 The promise returned by the `Hyperbeam` function might be rejected. See example below:
 
 ```js JavaScript
-import Hyperbeam, {TimedOutError, SessionTerminatedError} from "Hyperbeam"
+import Hyperbeam, { TimedOutError, SessionTerminatedError } from "Hyperbeam";
 
 async function main() {
-	let hb
-	try {
-		hb = await Hyperbeam(container, embedURL, options)
-	} catch (e) {
-		switch (e.name) {
-			case "TimedOutError":
-				console.log("Request to load the embed URL timed out", e.message)
-				break
-			case "TypeError":
-				console.log("Invalid options passed into the Hyperbeam constructor", e.message)
-				break
-			case "SessionTerminatedError":
-				console.log("Session has already been terminated", e.message)
-				break
-		}
-		// Alternatively, if you can use instanceof
-		// e.g. if (e instanceof TimedOutError) { ... }
-	}
+  let hb;
+  try {
+    hb = await Hyperbeam(container, embedURL, options);
+  } catch (e) {
+    switch (e.name) {
+      case "TimedOutError":
+        console.log("Request to load the embed URL timed out", e.message);
+        break;
+      case "TypeError":
+        console.log(
+          "Invalid options passed into the Hyperbeam constructor",
+          e.message
+        );
+        break;
+      case "SessionTerminatedError":
+        console.log("Session has already been terminated", e.message);
+        break;
+    }
+    // Alternatively, if you can use instanceof
+    // e.g. if (e instanceof TimedOutError) { ... }
+  }
 }
 
-main()
+main();
 ```
+
 ---
+
 ## 💣 Destroying the embed
 
 `hb.destroy()`
 
-Tears down network connections and browser events. Always call this *before* removing the container element from the page.
+Tears down network connections and browser events. Always call this _before_ removing the container element from the page.
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL)
@@ -131,42 +137,54 @@ beforeUnmount() {
 	this.hb.destroy()
 }
 ```
+
 ---
+
 ## 🔉 Setting video volume
+
 `hb.volume = 0.5`
 
-Sets the volume for the virtual browser *locally*. Volume changes only apply to the local user. This setting is *not* persisted on refreshing the page.
+Sets the volume for the virtual browser _locally_. Volume changes only apply to the local user. This setting is _not_ persisted on refreshing the page.
 
 ```js JavaScript
-const hb = await Hyperbeam(container, embedURL)
+const hb = await Hyperbeam(container, embedURL);
 // Valid values range from 0.0 to 1.0
-hb.volume = 0.5        // default = 1.0
-console.log(hb.volume) // Get the local volume value
+hb.volume = 0.5; // default = 1.0
+console.log(hb.volume); // Get the local volume value
 ```
+
 ---
+
 ## 🆔 Getting user ID
+
 `hb.userId: string`
 
 Gets the client's user ID. A "user" is defined as a single connection to the virtual browser. If a person has multiple tabs connected to the virtual browser, each tab with an active connection will be assigned a different user ID.
 
 ```js JavaScript
-const hb = await Hyperbeam(container, embedURL)
-console.log(hb.userId) // A unique string identifying the user
+const hb = await Hyperbeam(container, embedURL);
+console.log(hb.userId); // A unique string identifying the user
 ```
+
 ---
+
 ## ⏸️ Pausing video stream
+
 `hb.videoPaused = true`
 
-Pauses/resumes the video stream for the virtual browser *locally*. Useful if only the audio component is of interest and you want to minimize CPU usage.
+Pauses/resumes the video stream for the virtual browser _locally_. Useful if only the audio component is of interest and you want to minimize CPU usage.
 
 ```js JavaScript
-const hb = await Hyperbeam(container, embedURL)
-hb.videoPaused = true       // Pause the video stream
-hb.videoPaused = false      // Resume the video stream
-console.log(hb.videoPaused) // Get the video stream pause state
+const hb = await Hyperbeam(container, embedURL);
+hb.videoPaused = true; // Pause the video stream
+hb.videoPaused = false; // Resume the video stream
+console.log(hb.videoPaused); // Get the video stream pause state
 ```
+
 ---
+
 ## 👑 Setting admin token
+
 `hb.adminToken = "adminToken"`
 
 Sets the client's admin token. The client must have an admin token set to manage user permissions and control the tabs programmatically.
@@ -174,16 +192,19 @@ Sets the client's admin token. The client must have an admin token set to manage
 ```js JavaScript
 // You can provide the admin token during initialization
 const hb = await Hyperbeam(container, embedURL, {
-	adminToken: "admin_token_from_rest_api_response"
-})
+  adminToken: "admin_token_from_rest_api_response",
+});
 
 // In some situations, you may want to promote the user to
 // an admin after initialization. For example, promoting a "user" to a "moderator".
-const hb = await Hyperbeam(container, embedURL)
-hb.adminToken = "admin_token_from_rest_api_response"
+const hb = await Hyperbeam(container, embedURL);
+hb.adminToken = "admin_token_from_rest_api_response";
 ```
+
 ---
+
 ## 🔐 Setting permissions
+
 `hb.setPermission(userId: string, permissionData: PermissionData): Promise<void>`
 
 Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions.
@@ -191,42 +212,47 @@ Sets the permission of a user by their ID. The client must have an admin token s
 ```js JavaScript
 // You can provide the admin token during initialization
 const hb = await Hyperbeam(container, embedURL, {
-	adminToken: "admin_token_from_rest_api_response"
-})
+  adminToken: "admin_token_from_rest_api_response",
+});
 
-const targetUserId = "a_user_id"
+const targetUserId = "a_user_id";
 
 // All keys can be omitted: if the key is omitted, then the existing value will be unchanged
 const permissions = {
-	// Higher value = higher priority
-	// Users with a higher priority will preempt the control of lower priority users.
-	priority: 2,           // default = 0
+  // Higher value = higher priority
+  // Users with a higher priority will preempt the control of lower priority users.
+  priority: 2, // default = 0
 
-	// Number of milliseconds until a user is considered "idle". Once a user is considered
-	// idle, they no longer preempt lower priority users until they interact with the
-	// virtual browser again.
-	idle_timeout: 3000,    // default = 0
+  // Number of milliseconds until a user is considered "idle". Once a user is considered
+  // idle, they no longer preempt lower priority users until they interact with the
+  // virtual browser again.
+  idle_timeout: 3000, // default = 0
 
-	// If control_disabled = true, all control input (mouse movements, keyboard presses)
-	// will be ignored. Note that disabling control does not restrict access to any
-	// APIs that require admin tokens.
-	control_disabled: true // default = control_disable_default (see REST API)
-}
+  // If control_disabled = true, all control input (mouse movements, keyboard presses)
+  // will be ignored. Note that disabling control does not restrict access to any
+  // APIs that require admin tokens.
+  control_disabled: true, // default = control_disable_default (see REST API)
+};
 
-hb.setPermissions(targetUserId, permissions)
+hb.setPermissions(targetUserId, permissions);
 ```
+
 ---
+
 ## 🔄 Manual reconnection
+
 `hb.reconnect(): void`
 
 In situations where you need to troubleshoot the browser disconnecting, adding a manual reconnect button may help for debugging.
 
 ```js JavaScript
 manualReconnectBtn.addEventListener("click", () => {
-	hb.reconnect()
-})
+  hb.reconnect();
+});
 ```
+
 ---
+
 ## 📐 Resizing the browser
 
 `hb.resize(width: number, height: number): Promise`
@@ -239,15 +265,16 @@ The arguments must meet the following conditions, otherwise the function will th
 
 ```js JavaScript
 if (width * height > hb.maxArea) {
-	console.log(`width * height must be less than ${hb.maxArea}`)
+  console.log(`width * height must be less than ${hb.maxArea}`);
 } else {
-	hb.resize(width, height)
+  hb.resize(width, height);
 }
 ```
 
 You can retrieve the current width and height by reading `hb.width` and `hb.height`.
 
 ---
+
 ## 📡 Send events programmatically
 
 `hb.sendEvent(event: KeyEvent | MouseEvent | WheelEvent): void`
@@ -282,53 +309,58 @@ hb.sendEvent(keyEvent) // Send CTRL+A keystroke
 hb.sendEvent(mouseEvent) // Right-click the center of the screen (0.5, 0.5)
 hb.sendEvent(wheelEvent) // Scroll down
 ```
+
 ---
+
 ## ⌨️ Tighter control over keyboard events
-By default, the Hyperbeam client forwards global `keydown` and `keyup` events into the embed when an input element is not in focus *outside* the embed. In some cases, you may want to customize this functionality:
+
+By default, the Hyperbeam client forwards global `keydown` and `keyup` events into the embed when an input element is not in focus _outside_ the embed. In some cases, you may want to customize this functionality:
 
 - Your app has key bindings which conflict with Hyperbeam
 - You have UI flows such as overlays and tabs which hide the Hyperbeam embed from view
 
-You can have the Hyperbeam client disregard these events by setting the `delegateKeyboard` option to `false`. Input fields *inside* the embed (e.g. address bar, form fields) will continue to receive input when they are focused.
+You can have the Hyperbeam client disregard these events by setting the `delegateKeyboard` option to `false`. Input fields _inside_ the embed (e.g. address bar, form fields) will continue to receive input when they are focused.
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL, {
-	delegateKeyboard: false
-})
+  delegateKeyboard: false,
+});
 ```
 
 Moreover, you can combine this with [sending keyboard events programmatically](#send-events-programmatically) to selectively forward keyboard events:
 
 ```js JavaScript
 const hb = await Hyperbeam(container, embedURL, {
-	delegateKeyboard: false
-})
+  delegateKeyboard: false,
+});
 
 function onKeyEvent(e) {
-	const {activeElement} = document
-	if (
-		// by default, events are ignored if an input element is in focus
-		(!activeElement ||
-		(activeElement.nodeName !== "INPUT" &&
-			activeElement.nodeName !== "TEXTAREA" &&
-			!activeElement.isContentEditable)) &&
-
-		// your custom checks go here, for example
-		(e.key === " " || e.key === "Enter")
-	) {
-		hb.sendEvent({
-			type: e.type,
-			key: e.key,
-			ctrlKey: e.ctrlKey,
-			metaKey: e.metaKey,
-		})
-	}
+  const { activeElement } = document;
+  if (
+    // by default, events are ignored if an input element is in focus
+    (!activeElement ||
+      (activeElement.nodeName !== "INPUT" &&
+        activeElement.nodeName !== "TEXTAREA" &&
+        !activeElement.isContentEditable)) &&
+    // your custom checks go here, for example
+    (e.key === " " || e.key === "Enter")
+  ) {
+    hb.sendEvent({
+      type: e.type,
+      key: e.key,
+      ctrlKey: e.ctrlKey,
+      metaKey: e.metaKey,
+    });
+  }
 }
-window.addEventListener("keydown", onKeyEvent)
-window.addEventListener("keyup", onKeyEvent)
+window.addEventListener("keydown", onKeyEvent);
+window.addEventListener("keyup", onKeyEvent);
 ```
+
 ---
+
 ## 🎛️ Control tabs programmatically
+
 Hyperbeam's tab API mirrors Chrome extension tab API, found [here](https://developer.chrome.com/docs/extensions/reference/tabs/#method).
 
 Rather than calling `chrome.tabs.create({ active: true })`, you will would call `hb.tabs.create({ active: true })`.
@@ -402,8 +434,11 @@ range.addEventListener("change", (e) => {
 })
 </script>
 ```
+
 ---
+
 ## 👂 Listen to tab events
+
 Hyperbeam's tab event listener API mirrors Chrome extension tab API, found [here](https://developer.chrome.com/docs/extensions/reference/tabs/#event).
 
 Rather than calling `chrome.tabs.onCreated.addListener((tab) => {})`, you will would call `hb.tabs.onCreated.addListener((tab) => {})`.
@@ -420,43 +455,47 @@ We support the following events:
 - [tabs.onZoomChange](https://developer.chrome.com/docs/extensions/reference/tabs/#event-onZoomChange)
 
 ```js JavaScript
-const hb = await Hyperbeam(container, embedURL)
+const hb = await Hyperbeam(container, embedURL);
 
 function onTabCreated(tab) {
-	console.log(tab.id)
+  console.log(tab.id);
 }
 
 // Listen for when a new tab is created
-hb.tabs.onCreated.addListener(onTabCreated)
+hb.tabs.onCreated.addListener(onTabCreated);
 
 // Create a new tab
-await hb.tabs.create({ active: true })
+await hb.tabs.create({ active: true });
 
 // Remove the event listener
-hb.tabs.onCreated.removeListener(onTabCreated)
+hb.tabs.onCreated.removeListener(onTabCreated);
 ```
 
 ---
+
 ## 🗺️ Optimize server location
 
 To create a session with the optimal server location, you first need to use `getRegionInfo()` on the client to retrieve the optimal region information.
 
 From there, you need to send the HyperbeamRegionInfo object's `region` value to your backend, and use it as the argument for the `region` parameter when [creating a session](/rest-api/dispatch/start-chromium-session) and generating an `embed_url`.
 
-<Tip>You may also want to cache the region preference in localStorage, since `getRegionInfo()` fires off a web request.</Tip>
+<Tip>
+  You may also want to cache the region preference in localStorage, since
+  `getRegionInfo()` fires off a web request.
+</Tip>
 
 **Example**
 
 ```js JavaScript
-import Hyperbeam, {getRegionInfo} from "@hyperbeam/web"
+import Hyperbeam, { getRegionInfo } from "@hyperbeam/web";
 
 async function createHyperbeam(container) {
-	const regionInfo = await getRegionInfo()
-	// Pass region code to backend to be used during session creation
-	const embedURL = await fetch(`/myapi?region=${regionInfo.region}`, {
-		method: "POST"
-	})
-	const hb = Hyperbeam(container, embedURL)
-	return hb
+  const regionInfo = await getRegionInfo();
+  // Pass region code to backend to be used during session creation
+  const embedURL = await fetch(`/myapi?region=${regionInfo.region}`, {
+    method: "POST",
+  });
+  const hb = Hyperbeam(container, embedURL);
+  return hb;
 }
 ```
