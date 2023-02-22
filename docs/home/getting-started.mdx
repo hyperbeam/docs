@@ -3,7 +3,7 @@ title: Getting Started
 description: Create a virtual computer
 ---
 
-## Using the command line
+## Using the Command Line
 
 Run the following commands in the terminal to start a virtual computer session running Chromium
 
@@ -28,13 +28,13 @@ To manage the session, you can [end a virtual computer](/rest-api/dispatch/endin
 
 ---
 
-## Creating a simple application
+## Creating a Simple Application
 
 Below is a simple application featuring a NodeJS backend that hits the REST API to start the virtual computer, and a frontend that leverages the [NPM package](https://www.npmjs.com/package/@hyperbeam/web) to programmatically control it.
 
 Check out our [hello-world example on GitHub](https://github.com/hyperbeam/hello-world) for the full example.
 
-### Server-side code
+### Server-Side Code
 
 ```js Node.JS
 const express = require("express");
@@ -61,7 +61,7 @@ app.get("/computer", async (req, res) => {
 app.listen(8080, () => console.log("Server start at http://localhost:8080"));
 ```
 
-### Client-side code
+### Client-Side Code
 
 ```html HTML
 <div style="font-family: sans-serif">

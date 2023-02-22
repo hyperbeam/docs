@@ -4,12 +4,33 @@ api: "GET https://engine.hyperbeam.com/v0/vm"
 authMethod: "bearer"
 ---
 
+## Parameters
+
 <Param query="after_id" type="string">
   Optional query parameter. Maximum number of results per request is fixed to
   100.
 </Param>
 
-### cURL
+## Response
+
+<ResponseField name="results" type="object">
+
+<Expandable>
+  <ResponseField name="creation_date" type="string">
+    The start time of the cloud computer session. Formatted according to RFC3339
+    (e.g. 2006-01-02T15:04:05Z07:00)
+  </ResponseField>
+
+  <ResponseField name="id" type="string">
+    The ID of the cloud com session
+  </ResponseField>
+</Expandable>
+
+</ResponseField>
+
+<ResponseField name="next" type="string">
+  The value after_id should be set to for pagination
+</ResponseField>
 
 <RequestExample>
 
@@ -39,24 +60,3 @@ curl -H 'Authorization: Bearer <your-api-key>' \
 ```
 
 </ResponseExample>
-
-### Response
-
-<ResponseField name="results" type="object">
-
-<Expandable>
-  <ResponseField name="creation_date" type="string">
-    The start time of the cloud computer session. Formatted according to RFC3339
-    (e.g. 2006-01-02T15:04:05Z07:00)
-  </ResponseField>
-
-  <ResponseField name="id" type="string">
-    The ID of the cloud com session
-  </ResponseField>
-</Expandable>
-
-</ResponseField>
-
-<ResponseField name="next" type="string">
-  The value after_id should be set to for pagination
-</ResponseField>
