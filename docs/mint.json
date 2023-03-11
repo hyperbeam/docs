@@ -45,6 +45,7 @@
     {
       "group": "Guides",
       "pages": [
+        "guides/persist-session-state",
         "guides/authenticating-participants",
         "guides/install-chrome-extension",
         "guides/resize-browser-window"

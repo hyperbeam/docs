@@ -1,0 +1,78 @@
+---
+title: "Persist Session State"
+description: ""
+---
+
+The Hyperbeam profile API allows you to persist session state including bookmarks, history,
+passwords, and cookies which can be loaded into another session at a later time. This
+allows you to resume sessions without requiring the user to open up web pages or
+authenticate again.
+
+## Saving a Session
+
+In order to save a session, the `profile.save` parameter must be set to `true` when
+[starting a Chromium session](/rest-api/dispatch/start-chromium-session).
+
+### Example Request:
+
+```curl
+curl --request POST \
+     --url https://engine.hyperbeam.com/v0/vm \
+     --header 'Authorization: Bearer AUTH_VALUE' \
+     --header 'Content-Type: application/json' \
+     --data '{
+ "profile": {
+  "save": true
+ }
+}'
+```
+
+After the session is created, the response object will contain a `session_id` property that you must save
+in order to load the session state again afterwards.
+
+<Info>
+  If you wish to save a session that was already persisted, you do not need to
+  store the new `session_id` in your database. Instead, you can use the initial
+  session's `session_id` to load/save that session. Therefore, you do not need
+  to continually update the `session_id` corresponding to the session.
+</Info>
+
+### Example Response:
+
+```json
+{
+  "session_id": "52f968cb-6739-4197-83d7-2305fe5d6f54",
+  "embed_url": "https://vwdrccwgpv181powg61ggyvy.hyperbeam.com/Uvloy2c5QZeD1yMF_l1vVA?token=c8iw3SmQglOU0ugfLr3dWY2LalSKI_WOGUldEt8knbw",
+  "admin_token": "51JOZEEcMp4trCwbpTS3jjQc0lSmeAZpPfxioDqe73U"
+}
+```
+
+## Loading a Session
+
+In order to load a previous session, the `profile.load` parameter must be set to the `session_id` you would like to resume
+when [starting a Chromium session](/rest-api/dispatch/start-chromium-session).
+
+### Example Request:
+
+```curl
+curl --request POST \
+     --url https://engine.hyperbeam.com/v0/vm \
+     --header 'Authorization: Bearer AUTH_VALUE' \
+     --header 'Content-Type: application/json' \
+     --data '{
+ "profile": {
+  "load": <session_id>
+ }
+}'
+```
+
+## How Do We Persist Sessions?
+
+When `profile.save` is set to `true`, we encrypt and store the Chrome profile of the session in Amazon S3.
+
+This Chrome profile is associated with the `session_id` that was returned to you on session creation.
+
+When `profile.load` is set to a session ID, we look for a stored Chrome profile that corresponds to that `session_id`, and decrypt and
+load the Chrome profile if there is a match.
+
+This results in bookmarks, history, cookies, and passwords being persisted.
