@@ -1,0 +1,109 @@
+---
+title: "Timeouts"
+description: ""
+---
+
+Timeouts determine when a session will be automatically terminated.
+They can be used to prevent excessive usage, terminate inactive sessions,
+add paywalls, and more.
+
+<Note>
+  Want to jump into the code? See our [timeout
+  example.](https://github.com/hyperbeam/examples/tree/master/timeout)
+</Note>
+
+## Types of Timeouts
+
+There are four types of timeouts:
+
+1. Absolute timeout
+2. Offline timeout
+3. Inactive timeout
+4. Warning timeout
+
+### 🛑 Absolute Timeout
+
+The absolute timeout is the amount of time (in seconds) after
+session creation before the virtual browser is automatically terminated.
+It is primarily used to enforce hard limits on session time.
+
+### 💤 Offline Timeout
+
+The offline timeout is the amount of time (in seconds) that no users
+have been connected, after which the virtual browser is automatically
+terminated. It is used to terminate sessions where all users have disconnected.
+
+### 👻 Inactive Timeout
+
+The inactive timeout is the amount of time (in seconds) since the
+last user input, after which the virtual browser is automatically
+terminated. It is used to terminate sessions where users remain connected
+but are not necessarily using the virtual browser.
+
+### ⚠️ Warning Timeout
+
+The warning timeout is the amount of time (in seconds) before the session
+is terminated due to another timeout. It can be used to display a prompt
+to the user notifying them of the upcoming timeout, as well as prompting
+them to upgrade or extend the session.
+
+## How to Set Timeout Values
+
+You can set timeout values during [session creation](/rest-api/dispatch/start-chromium-session) by setting the `timeout`
+object parameter.
+
+```curl
+curl --request POST \
+     --url https://engine.hyperbeam.com/v0/vm \
+     --header 'Authorization: Bearer AUTH_VALUE' \
+     --header 'Content-Type: application/json' \
+     --data '{
+ "timeout": {
+  "absolute": 1000,
+  "inactive": 100,
+  "offline": 3600,
+  "warning": 60,
+  "webhook": {
+   "url": "<webhook url>",
+   "bearer": "<webhook auth>""
+  }
+ },
+}'
+```
+
+### Webhooks
+
+The Hyperbeam timeout system allows you to send webhook events when a timeout is triggered. To use webhooks, add the `webhook.url` and `webhook.bearer` parameters to the request when [starting a session](https://docs.hyperbeam.com/rest-api/dispatch/start-chromium-session) (see example above).
+
+## Updating Timeouts for Active Sessions
+
+You can update timeouts for active sessions by hitting the `<base_url>/timeout` endpoint, and passing in new timeout values.
+
+<Note>
+  When you update the timeouts, the timeout counters are reset e.g. absolute
+  timeout will calculate the amount of time from the timeout update (instead of
+  session creation) before the session is terminated. To prevent the timeout
+  counters from being reset, you must set the `reset` parameter to `false` (see
+  example request).
+</Note>
+
+### Example Request
+
+```curl
+curl --request POST \
+     --url <base_url>/timeout \
+     --header 'Authorization: Bearer AUTH_VALUE' \
+     --header 'Content-Type: application/json' \
+     --data '{
+  "absolute": 1000,
+  "inactive": 100,
+  "offline": 3600,
+  "warning": 60,
+  "reset": false
+}'
+```
+
+<Note>
+  Looking for more detailed examples? See our [timeout
+  example.](https://github.com/hyperbeam/examples/tree/master/timeout)
+</Note>
