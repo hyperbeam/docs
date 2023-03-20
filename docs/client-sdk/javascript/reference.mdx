@@ -249,6 +249,14 @@ Resizes the virtual browser to the specified width and height, in pixels. The ar
 
 ---
 
+#### <Heading hidden>ping</Heading>
+
+`hb.ping(): void`
+
+Resets the `inactive` timeout. Useful for situations where the user is not interacting with the Hyperbeam browser, but is performing actions on other parts of your application.
+
+---
+
 ## getRegionInfo
 
 `getRegionInfo(): Promise<HyperbeamRegionInfo>`
