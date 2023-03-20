@@ -19,7 +19,6 @@ There are four types of timeouts:
 1. Absolute timeout
 2. Offline timeout
 3. Inactive timeout
-4. Warning timeout
 
 ### 🛑 Absolute Timeout
 
@@ -40,12 +39,34 @@ last user input, after which the virtual browser is automatically
 terminated. It is used to terminate sessions where users remain connected
 but are not necessarily using the virtual browser.
 
-### ⚠️ Warning Timeout
+## Default Timeout Values
 
-The warning timeout is the amount of time (in seconds) before the session
-is terminated due to another timeout. It can be used to display a prompt
-to the user notifying them of the upcoming timeout, as well as prompting
-them to upgrade or extend the session.
+| Timeout    | Default Value (in seconds) |
+| ---------- | -------------------------- |
+| Offline    | 3600                       |
+| Inactive   | null                       |
+| Absolute   | null                       |
+
+## ⚠️ Warning Value
+
+You can provide a callback, `onCloseWarning`,
+which can be used used to notify the user of an upcoming timeout.
+
+```js
+const hb = await Hyperbeam(hbContainer, computer.embed_url, {
+  onCloseWarning(e) {
+    if (e.deadline) {
+      showCloseWarning(e.type, e.deadline.delay);
+    } else {
+      hideCloseWarning(e.type);
+    }
+  }
+});
+```
+
+The warning value is the amount of time (in seconds) between
+`onCloseWarning` being called and the session being terminated.
+Its default value is `60`.
 
 ## How to Set Timeout Values
 
