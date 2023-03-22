@@ -1,0 +1,52 @@
+---
+title: WebGL Overview
+---
+
+The Hyperbeam client-side SDK for Unity WebGL.
+
+<Info>
+  Looking for the Unity *Desktop Application* SDK? [Request access
+  here.](https://docs.google.com/forms/d/e/1FAIpQLSdsVFZ4cQ4Q2nHNRhwb6SvmJIekv7fuQVa27zWnk_r5F48B5w/viewform?usp=pp_url&entry.126298931=Unity+SDK)
+</Info>
+
+## Demo
+
+https://unity-example.hyperbeam.com
+
+## SDK
+
+https://github.com/hyperbeam/packages/tree/master/unity-webgl-sdk
+
+## Example
+
+https://github.com/hyperbeam/examples/tree/Soliel/UnityWebGLExample/unity-web-gl
+
+## Required Setup
+
+In order to setup the WebGL SDK you will need a custom [WebGL Template](https://docs.unity3d.com/Manual/webgl-templates.html) in unity.
+We provide an example one in our API download under ``Assets/WebGLTemplates/HyperbeamTemplate`` you can either modify that or copy the steps below into your own template.
+
+### Custom Template 
+
+In ``index.html`` add the folling section.
+
+```js JavaScript
+<script>
+  import Hyperbeam from "./Hyperbeam.js"
+  window.Hyperbeam = Hyperbeam
+</script>
+```
+
+after the call to ``createUnityInstance`` make sure to set the Unity Instance to a variable called unityInstance
+
+```js JavaScript
+createUnityInstance(canvas, config).then((gameInstance) => {
+  unityInstance = gameInstance
+})
+```
+
+
+## Starting up the Hyperbeam Stream
+
+To start the hyperbeam stream in untiy attach the ``HyperbeamController`` script to an object. Then call
+``HyperbeamController.StartHyperbeamStream(embedUrl)`` to learn how to display the stream please look at ``HyperbeamVideoSource``

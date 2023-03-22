@@ -1,0 +1,153 @@
+---
+title: Hyperbeam.cs
+---
+
+The top level object for the Hyperbeam API. This is responsible for calling into the Hyperbeam JSLib and controlling the browser.
+It is not recommended to instantiate this directly, instead it is preferable to call [HyperbeamController.StartHyperbeamStream](/client-sdk/unity/webgl/hyperbeam-controller#starthyperbeamstream) and then access these methods using it's Instance property.
+
+## Properties
+
+<Param body="Volume" type="float">
+Sets the stream's volume in a range of [0, 1]
+</Param>
+
+## Methods
+
+---
+
+### <Heading hidden>GetHyperbeamTexture</Heading>
+`IEnumerator GetHyperbeamTexture(Action<Texture2D> callback)`
+
+A coroutine to be invoked by ``MonoBehaviour.StartCoroutine`` it will check once
+every frame for a texture to be available. When one is found, or if one already exists, calls ``callback``
+
+**Method Params**
+
+<Param body="callback" type="Action<Texture2D>">A callback to be invoked that takes a Texture2D parameter</Param>
+
+---
+
+### <Heading hidden>GetTexttureWidth</Heading>
+`int GetTextureWidth()`
+
+Gets the virtual browser's width in pixels.
+
+---
+
+### <Heading hidden>GetTextureHeight</Heading>
+`int GetTextureHeight()`
+
+Gets the virtual browser's height in pixels.
+
+---
+
+### <Heading hidden>SendKeyDown</Heading>
+`void SendKeyDown(char Key, bool Ctrl, bool Meta)`
+
+Sends a keydown event to the virtual browser.
+
+**Method Params**
+
+<Param body="Key" type="char">The Key to send this event for.</Param>
+<Param body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</Param>
+<Param body="Alt" type="bool">Whether or not alt should be sent with the key.</Param>
+
+---
+
+### <Heading hidden>SendKeyUp</Heading>
+`void SendKeyUp(char Key, bool Ctrl, bool Meta)`
+
+Sends a keyup event to the virtual browser.
+
+**Method Params**
+
+<Param body="Key" type="char">The Key to send this event for.</Param>
+<Param body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</Param>
+<Param body="Alt" type="bool">Whether or not alt should be sent with the key.</Param>
+
+---
+
+### <Heading hidden>SendMouseDown</Heading>
+`void SendMouseDown(float X, float Y,  PointerEventData.InputButton button)`
+
+Sends a mousedown event to the virtual browser.
+
+**Method Params**
+
+<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
+<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
+<Param body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</Param>
+
+---
+
+### <Heading hidden>SendMouseUp</Heading>
+`void SendMouseUp(float X, float Y,  PointerEventData.InputButton button)`
+
+Sends a mouseup event to the virtual browser.
+
+**Method Params**
+
+<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
+<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
+<Param body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</Param>
+
+---
+
+### <Heading hidden>SendMouseMove</Heading>
+`void SendMouseMove(float X, float Y)`
+
+Sends a mousemove event to the virtual browser.
+
+**Method Params**
+
+<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
+<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
+
+---
+
+### <Heading hidden>SendWheel</Heading>
+`void SendWheel(float DeltaY)`
+
+Sends a mouse wheel event to the virtual browser.
+
+**Method Params**
+
+<Param body="DeltaY" type="float">The scroll wheel's delta</Param>
+
+---
+
+### <Heading hidden>SetVideoPause</Heading>
+`void SetVideoPause(bool pause)`
+
+Pauses or unpauses the video stream. While the video stream is paused it is not sending any data, saving on CPU and Bandwidth.
+Prefer to use [HyperbeamController.Paused](/client-sdk/unity/webgl/hyperbeam-controller#properties) where you can as it can be queried easier.
+
+**Method Params**
+
+<Param body="pause" type="bool">Whether to pause or unpause the video stream.</Param>
+
+---
+
+### <Heading hidden>GiveHyperbeamControl</Heading>
+`void GiveHyperbeamControl(string closeKey, bool ctrl, bool meta, bool alt, bool shift)`
+
+This will inform hyperbeam it has 'control' of the browser and make it register event listeners for keypresses.
+Prefer to use [HyperbeamController.PassControlToBrowser](/client-sdk/unity/webgl/hyperbeam-controller#passcontroltobrowser) 
+because it first tells unity to stop listening and will avoid registering multiple listeners. 
+
+**Method Parameters**
+
+<Param body="closeKey" type="string">The Keydown that will trigger unity regaining control</Param>
+<Param body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</Param>
+<Param body="meta" type="bool">Whether or not the meta key must be held down to regain control</Param>
+<Param body="alt" type="bool">Whether or not the alt key must be held down to regain control</Param>
+<Param body="shift" type="bool">Whether or not the shift key must be held down to regain control</Param>
+
+---
+
+### <Heading hidden>TakeBackControl</Heading>
+`void TakeBackControl()`
+
+Forcibly takes control back from the browser and unregisters any event listeners that may have been registered by Hyperbeam.
+
+---
