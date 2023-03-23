@@ -366,8 +366,7 @@ Hyperbeam's tab API mirrors Chrome extension tab API, found [here](https://devel
 Rather than calling `chrome.tabs.create({ active: true })`, you will would call `hb.tabs.create({ active: true })`.
 
 <Warning>
-  Hyperbeam tab API methods return `Promise`s —
-  we do not support callbacks for accessing return values
+  We do not support callbacks for accessing return values — tab methods return a `Promise`
 </Warning>
 
 We support the following methods:
