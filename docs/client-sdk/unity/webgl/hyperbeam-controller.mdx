@@ -1,0 +1,85 @@
+---
+title: HyperbeamController.cs
+---
+
+This is the main point of control for the Hyperbeam API in WebGL. It provides important methods to the JSLib and is REQUIRED in order for the API to function properly.
+Attach this script directly to a game object and call [StartHyperbeamStream](/client-sdk/unity/webgl/hyperbeam-controller#starthyperbeamstream) to use.
+
+<br />
+## Events
+
+---
+
+### <Heading hidden>OnHyperbeamStart</Heading>
+`UnityEvent OnHyperbeamStart`
+
+Will notify any registered handlers when the Instance property is usable. It is eventually called by [StartHyperbeamStream](/client-sdk/unity/webgl/hyperbeam-controller#StartHyperbeamStream) usually before [OnTextureReady](/client-sdk/unity/webgl/hyperbeam-controller#ontextureready) is invoked.
+
+---
+
+### <Heading hidden>OnTextureReady</Heading>
+`Action<Texture2D> OnTextureReady`
+
+Will notify any registered handlers when the Hyperbeam Stream's texture is ready. It is eventually called after [StartHyperbeamStream](/client-sdk/unity/webgl/hyperbeam-controller#starthyperbeamstream)
+
+---
+
+### <Heading hidden>OnControlReturned</Heading>
+`UnityEvent OnControlReturned`
+
+Will notify any registered handlers when control is returned to unity after being handed off by [PassControlToBrowser](/client-sdk/unity/webgl/hyperbeam-controller#passcontroltobrowser)
+
+---
+
+## Properties
+
+<Param body="Instance" type="Hyperbeam">
+The instance of the core Hyperbeam object associated with this controller. 
+Allows access to many of the control methods for interacting with the virtual browser. [See Hyperbeam for more info](/client-sdk/unity/webgl/hyperbeam)
+</Param>
+
+<Param body="Volume" type="float">
+Sets the stream's volume. A convience accessor for [Instance.Volume](/client-sdk/unity/webgl/hyperbeam#properties)
+</Param>
+
+<Param body="Paused" type="bool">
+Pauses the video stream, but not the audio stream. A convience accessor for [Instance.SetVideoPause(value)](/client-sdk/unity/webgl/hyperbeam#properties)
+</Param>
+
+
+## Methods
+
+---
+
+### <Heading hidden>StartHyperbeamStream</Heading>
+`void StartHyperbeamStream(string embedUrl)`
+
+Bootstraps the hyperbeam browser. This will hand off execution the web browsers Javascript runtime in order to setup the stream.
+
+**Method Parameters**
+
+<Param body="embedUrl" type="string">A URL provided by the [Hyperbeam REST API](/rest-api)</Param>
+
+---
+
+### <Heading hidden>PassControlToBrowser</Heading>
+`void PassControlToBrowser(string closeKey, bool ctrl, bool meta, bool alt, bool shift)`
+
+Stops unity from intercepting keyboard events and will start sending them to the virtual browser. 
+It will listen for the closeKey along with any modifiers and when pressed will return control back to unity, which can be detected via [OnControlReturned](/client-sdk/unity/webgl/hyperbeam-controller#oncontrolreturned)
+
+**Method Parameters**
+
+<Param body="closeKey" type="string">The Keydown that will trigger unity regaining control</Param>
+<Param body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</Param>
+<Param body="meta" type="bool">Whether or not the meta key must be held down to regain control</Param>
+<Param body="alt" type="bool">Whether or not the alt key must be held down to regain control</Param>
+<Param body="shift" type="bool">Whether or not the shift key must be held down to regain control</Param>
+
+---
+
+### <Heading hidden>TakeBackControlFromBrowser</Heading>
+`void TakeBackControlFromBrowser()`
+
+Forcibly takes control back from the attached Hyperbeam Instance if [PassControlToBrowser](/client-sdk/unity/webgl/hyperbeam-controller#passcontroltobrowser) was called on it.
+It will unregister any event handlers currently registered.

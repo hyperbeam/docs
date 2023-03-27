@@ -92,7 +92,14 @@
         {
           "group": "Unity SDKs",
           "pages": [
-            "client-sdk/unity/unity-webgl-sdk",
+            {
+              "group": "WebGL SDK",
+              "pages": [
+                "client-sdk/unity/webgl/overview",
+                "client-sdk/unity/webgl/hyperbeam-controller",
+                "client-sdk/unity/webgl/hyperbeam"
+              ]
+            },
             "client-sdk/unity/unity-desktop-sdk"
           ]
         }
