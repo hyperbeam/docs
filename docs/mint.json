@@ -7,6 +7,10 @@
     "light": "#c4b5fd",
     "dark": "#7c3aed"
   },
+  "feedback": {
+    "suggestEdit": true,
+    "raiseIssue": true
+  },
   "topbarCtaButton": {
     "name": "Use Hyperbeam",
     "url": "https://hyperbeam.com/dashboard"
