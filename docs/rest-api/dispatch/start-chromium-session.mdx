@@ -48,6 +48,10 @@ authMethod: "bearer"
   </Expandable>
 </Param>
 
+<Param body="tenant_id" type="string">
+  Custom ID provided for keeping track of usage on a per-tenant basis. See [Get Usage](/rest-api/dispatch/get-usage) for more information.
+</Param>
+
 <Param body="control_disable_default" type="boolean" default={false}>
   If true, users cannot control the browser by default, and need to be manually
   granted access by an admin user

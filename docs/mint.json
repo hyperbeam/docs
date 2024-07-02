@@ -23,6 +23,12 @@
   ],
   "anchors": [
     {
+      "name": "GitHub",
+      "icon": "github",
+      "color": "#a888ff",
+      "url": "https://github.com/hyperbeam"
+    },
+    {
       "name": "Community",
       "icon": "discord",
       "color": "#a888ff",
@@ -68,7 +74,8 @@
             "rest-api/dispatch/start-console-emulator-session",
             "rest-api/dispatch/ending-session",
             "rest-api/dispatch/get-sessions",
-            "rest-api/dispatch/get-session"
+            "rest-api/dispatch/get-session",
+            "rest-api/dispatch/get-usage"
           ]
         },
         {
