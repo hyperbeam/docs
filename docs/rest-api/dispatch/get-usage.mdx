@@ -1,0 +1,56 @@
+---
+title: "Get Usage"
+api: "GET https://engine.hyperbeam.com/v0/vm/usage"
+authMethod: "bearer"
+---
+
+## Parameters
+
+<ParamField query="tenant_id" type="string">
+  Optional query parameter. Returns all usage associated with provided `tenant_id`
+</ParamField>
+
+## Response
+
+<ResponseField name="usage" type="object">
+
+<Expandable>
+  <ResponseField name="date" type="string">
+    The first date of a month grouping. Formatted according to RFC3339
+    (e.g. 2006-01-02T15:04:05Z07:00)
+  </ResponseField>
+
+  <ResponseField name="seconds" type="number">
+		The number of seconds of total usage for the given month.
+  </ResponseField>
+</Expandable>
+
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -H 'Authorization: Bearer <your-api-key>' \
+    https://engine.hyperbeam.com/v0/vm/usage
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response Example
+{
+  "usage": [
+    {
+      "date": "2024-02-01T00:00:00Z",
+      "seconds": 2323
+    },
+    {
+      "date": "2024-01-01T00:00:00Z",
+      "seconds": 23232452
+    }
+  ]
+}
+```
+
+</ResponseExample>
