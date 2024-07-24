@@ -159,7 +159,10 @@ Special thanks to [NSTCG](https://github.com/NSTCG) for the Wonderland Engine ex
   <Card
     title="Wonderland Engine Example"
     icon={
-      <img src="https://mintlify.s3-us-west-1.amazonaws.com/hyperbeam/assets/wonderland-logo.png" />
+      <div>
+        <img className="block dark:hidden" src="https://mintlify.s3-us-west-1.amazonaws.com/hyperbeam/assets/wonderland-logo.png" />
+        <img className="hidden dark:block" src="https://mintlify.s3-us-west-1.amazonaws.com/hyperbeam/assets/wonderland-logo-dark.png" />
+      </div>
     }
     color="#a888ff"
     href="https://github.com/NSTCG/wle-hyperbeam"
