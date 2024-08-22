@@ -140,17 +140,24 @@ The max number of pixels (width height) is capped at 1920*1080.
 </Param>
 
 <Param body="quality" type="object">
-  Used to toggle between **sharp mode** and **smooth mode**.
-  Sharp mode is ideal for situations where reading text is important.
+  Used to toggle between **sharp**, **smooth**, and **blocky** quality modes.
+  Sharp mode is ideal for situations where reading small text is important.
   Smooth mode is ideal for anything involving movement (e.g. videos, dynamic activities).
+  Blocky mode is ideal for clients with poor internet connectivity.
   <Expandable>
-    <Param body="mode" type="string" default='"smooth"'>
-      Possible values are `"smooth"` or `"sharp"`.
-      Sharp mode increases the streaming bitrate, but requires more bandwidth.
-
+    <Param body="mode" type="string" default="smooth">
+      Possible values are `"sharp"`, `"smooth"`, and `"blocky"`.
       <Warning>Enabling sharp mode triples the required bandwidth. You can view our bandwidth recommendations in the [Streaming FAQ](/home/faq#streaming).</Warning>
     </Param>
 
+  </Expandable>
+</Param>
+
+<Param body="locale" type="object">
+  Set the browser's locale and country.
+  <Expandable>
+    <Param body="language" type="string">A comma-delimited list of languages, see the [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header.</Param>
+    <Param body="country" type="string">The [ISO 3166 A-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country code, e.g. US for the United States, CA for Canada. You can retrieve the user's country by using an IP database like [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data).</Param>
   </Expandable>
 </Param>
 
