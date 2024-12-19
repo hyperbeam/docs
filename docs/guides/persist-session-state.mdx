@@ -18,7 +18,7 @@ authenticate again.
 In order to save a session, the `profile` parameter must be set to `true` when
 [starting a Chromium session](/rest-api/dispatch/start-chromium-session).
 
-### Example Request:
+#### Example Request
 
 ```curl
 curl --request POST \
@@ -33,7 +33,7 @@ curl --request POST \
 After the session is created, the response object will contain a `session_id` property that you must save
 in order to load the session state again afterwards.
 
-### Example Response:
+#### Example Response
 
 ```json
 {
@@ -45,8 +45,6 @@ in order to load the session state again afterwards.
 
 In order to load and update a previous session, the `profile` parameter must be set to the `session_id` you would like to resume
 when [starting a Chromium session](/rest-api/dispatch/start-chromium-session).
-
-### Example Request:
 
 ```curl
 curl --request POST \
