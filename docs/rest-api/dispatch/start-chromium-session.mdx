@@ -61,17 +61,23 @@ authMethod: "bearer"
   The server region: `NA` → North America, `EU` → Europe, `AS` → Asia
 </Param>
 
-<Param body="profile" type="object">
+<Param body="profile" type="boolean | string | object">
   Used to save and load Chrome profiles including bookmarks, history, passwords,
-  cookies etc.
+  cookies etc. `true` will create a new profile, while passing in a session ID
+  of an existing profile will load and update the profile. For advanced usage,
+  you can provide an object that specifies the session IDs of the profile you
+  wish to load and the profile you wish to overwrite:
+
   <Expandable>
     <Param body="load" type="string">
       ID of the session you want to load in the cloud browser (a profile is
       encrypted browser state from a previous session, with the profile ID being
       its `session_id`, see [response body](#response)).
     </Param>
-    <Param body="save" type="boolean" default="false">
-      `save` = `true` creates a new persisted profile you can load from.
+    <Param body="save" type="boolean | string" default="false">
+      `save` = `true` creates a new persisted profile you can load from. If a
+      session ID is provided, then the profile associated with the session ID
+      will be overwritten.
     </Param>
   </Expandable>
 </Param>
