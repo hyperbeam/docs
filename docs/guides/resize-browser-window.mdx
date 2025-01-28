@@ -25,18 +25,18 @@ description: "Learn how to set and resize the dimensions of the browser window d
 
 For a resizable browser window, you need to specify the following properties when [creating a new browser instance](/rest-api/dispatch/start-chromium-session).
 
-<Param body="width" type="number" default="1280">
+<ParamField body="width" type="number" default="1280">
   The initial width of the browser window in pixels.
-</Param>
+</ParamField>
 
-<Param body="height" type="number" default="720">
+<ParamField body="height" type="number" default="720">
   The initial height of the browser window in pixels.
-</Param>
+</ParamField>
 
-<Param body="max_area" type="number" default="1280*720">
+<ParamField body="max_area" type="number" default="1280*720">
   The maximum browser window area in pixels. <br /> This limits the browser
   window size when resizing the window.
-</Param>
+</ParamField>
 
 ## Client
 
@@ -58,13 +58,13 @@ To resize the browser window, call the [resize](#hb-resize-width-height) functio
 
 The `resize` method on the [Hyperbeam client](/client-sdk/javascript/reference#the-hyperbeamclient-object) allows you to resize and reposition the browser window dynamically. This can be useful for creating a custom sized browser window for your app or adapting to different screen sizes.
 
-<Param body="width" type="number" required>
+<ParamField body="width" type="number" required>
   The width of the browser window in pixels.
-</Param>
+</ParamField>
 
-<Param body="height" type="number" required>
+<ParamField body="height" type="number" required>
   The height of the browser window in pixels.
-</Param>
+</ParamField>
 
 ### hb.maxArea
 

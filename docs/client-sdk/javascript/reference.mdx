@@ -17,80 +17,80 @@ const hb = await Hyperbeam(container, embedURL, options)
 ### Method Parameters
 
 <br />
-<Param body="container" type="HTMLDivElement | HTMLIFrameElement">
+<ParamField body="container" type="HTMLDivElement | HTMLIFrameElement">
   The container can be either a `div` or an `iframe` element, though it is
   highly advised to use a `div`.
-</Param>
+</ParamField>
 
-<Param body="embedURL" type="string">
+<ParamField body="embedURL" type="string">
   The embedURL is retrieved from the [REST API](/rest-api).
-</Param>
+</ParamField>
 
-<Param body="options" optional type="HyperbeamOptions Object">
+<ParamField body="options" optional type="HyperbeamOptions Object">
   Initialization options. All properties are optional.
   <Expandable>
-      <Param body="adminToken" type="string">
+      <ParamField body="adminToken" type="string">
         An admin token returned from the REST API that will grant this user access to managing user permissions and programmatic navigation.
-      </Param>
+      </ParamField>
 
-      <Param body="timeout" type="number" default="2000">
+      <ParamField body="timeout" type="number" default="2000">
         Number of milliseconds until the request to the virtual browser times out. If the request times out, the returned promise will be rejected.
-      </Param>
+      </ParamField>
 
-      <Param body="volume" type="number" default="1.0">
+      <ParamField body="volume" type="number" default="1.0">
         Starting volume of the virtual browser.
-      </Param>
+      </ParamField>
 
-      <Param body="videoPaused" type="boolean" default="false">
+      <ParamField body="videoPaused" type="boolean" default="false">
         Starting video pause state of the virtual browser.
-      </Param>
+      </ParamField>
 
-      <Param body="hb.playoutDelay" type="boolean" default="false">
+      <ParamField body="hb.playoutDelay" type="boolean" default="false">
         Starting playout delay state of the virtual browser. When `playoutDelay` = `true`, input lag increases but smoothness is improved and frame drops are reduced.
-      </Param>
+      </ParamField>
 
-      <Param body="delegateKeyboard" type="boolean" default="true">
+      <ParamField body="delegateKeyboard" type="boolean" default="true">
         Delegate global keyboard events to the embed.
-      </Param>
+      </ParamField>
 
-      <Param body="webhookUserdata" type="JSONValue">
+      <ParamField body="webhookUserdata" type="JSONValue">
         Data to be provided to your webhook endpoint if you're using webhook authentication.
-      </Param>
+      </ParamField>
 
-      <Param body="frameCb" type="(frame: ImageBitmap | HTMLVideoElement) => void">
+      <ParamField body="frameCb" type="(frame: ImageBitmap | HTMLVideoElement) => void">
         Callback called with the virtual computer's video frame data. For Chromium-based browsers, its type is `ImageBitmap`. For other browsers, it's an `HTMLVideoElement`. Most frameworks like Three.js and Babylon.js can handle both types automatically.
-      </Param>
+      </ParamField>
 
-      <Param body="audioTrackCb" type="(track: MediaStreamTrack) => void">
+      <ParamField body="audioTrackCb" type="(track: MediaStreamTrack) => void">
     		Callback called with a `MediaStreamTrack` of the virtual computer's audio stream.
-      </Param>
+      </ParamField>
 
-      <Param body="onCursor" type="(e: PeerMouseEvent) => void">
+      <ParamField body="onCursor" type="(e: PeerMouseEvent) => void">
     		Callback called when another user moves their mouse cursor on top of the virtual browser. Useful for implementing multiplayer cursors.
-      </Param>
+      </ParamField>
 
-      <Param body="onDisconnect" type="(e: DisconnectEvent) => void">
+      <ParamField body="onDisconnect" type="(e: DisconnectEvent) => void">
       	Callback called when the user disconnects from the virtual browser. `e.type` is an enum with one of the following values:
     			`"request"`  -> virtual browser was manually shut down.
     			`"inactive"` -> inactive timeout was triggered.
     			`"absolute"` -> absolute timeout was triggered.
     			`"kick"`     -> user was kicked from the session.
-      </Param>
+      </ParamField>
 
-      <Param body="onCloseWarning" type="(e: CloseWarningEvent) => void">
+      <ParamField body="onCloseWarning" type="(e: CloseWarningEvent) => void">
     		Callback called when a timeout either surpasses the warning threshold, or has been reset and is no longer passed the warning threshold.
     			`e.type` is an enum that refers to the timeout's type tied to the event. Possible values are `"inactive"` and `"absolute"`.
     			`e.deadline` = `null | { delay: number, closeDate: string }`. If `e.deadline` is `null`, then the timeout was reset and is no longer passed the warning threshold. If `e.deadline` is set, `e.deadline.delay`
     			is the number of milliseconds until the timeout is triggered, and `e.deadline.closeDate` is an RFC3339 formatted string of when the timeout will occur.
-      </Param>
+      </ParamField>
 
-      <Param body="onConnectionStateChange" type="(e: ConnectionStateEvent) => void">
+      <ParamField body="onConnectionStateChange" type="(e: ConnectionStateEvent) => void">
       	Callback called when the connection state of the video stream has changed. `e.state` = `"connecting" | "playing" | "reconnecting"`.
     			You can use this to show custom reconnecting UI, and detecting if a user has a sub-optimal connection to the virtual browser.
-      </Param>
+      </ParamField>
 
   </Expandable>
-</Param>
+</ParamField>
 
 [See initialization example.](/client-sdk/javascript/examples#loading-a-virtual-browser)
 
@@ -111,50 +111,50 @@ const hb: Promise<HyperbeamClient> = await Hyperbeam(
 ### Properties
 
 <br />
-<Param body="hb.userId" type="string">
+<ParamField body="hb.userId" type="string">
   The client's user ID. [See
   example.](/client-sdk/javascript/examples#getting-user-id)
-</Param>
+</ParamField>
 
-<Param body="hb.adminToken" type="string">
+<ParamField body="hb.adminToken" type="string">
   The client’s admin token. [See
   example.](/client-sdk/javascript/examples#setting-admin-token)
-</Param>
+</ParamField>
 
-<Param body="hb.volume" type="number">
+<ParamField body="hb.volume" type="number">
   The local volume of the virtual browser. [See
   example.](/client-sdk/javascript/examples#setting-video-volume)
-</Param>
+</ParamField>
 
-<Param body="hb.width" type="number">
+<ParamField body="hb.width" type="number">
   The width of the virtual browser in pixels. [See
   example.](/client-sdk/javascript/examples#resizing-the-browser)
-</Param>
+</ParamField>
 
-<Param body="hb.height" type="number">
+<ParamField body="hb.height" type="number">
   The height of the virtual browser in pixels. [See
   example.](/client-sdk/javascript/examples#resizing-the-browser)
-</Param>
+</ParamField>
 
-<Param body="hb.maxArea" type="number">
+<ParamField body="hb.maxArea" type="number">
   The maximum virtual browser area that can be allocated in pixels. [See
   example.](//client-sdk/javascript/examples#resizing-the-browser)
-</Param>
+</ParamField>
 
-<Param body="hb.videoPaused" type="boolean">
+<ParamField body="hb.videoPaused" type="boolean">
   Pauses the video stream of the virtual browser locally. [See
   example.](/client-sdk/javascript/examples#pausing-video-stream)
-</Param>
+</ParamField>
 
-<Param body="hb.playoutDelay" type="boolean">
+<ParamField body="hb.playoutDelay" type="boolean">
   When `playoutDelay` = `true`, input lag increases but smoothness is improved
   and frame drops are reduced.
-</Param>
+</ParamField>
 
-<Param body="hb.tabs" type="Tabs Object">
+<ParamField body="hb.tabs" type="Tabs Object">
   The virtual browser Tabs object. [See
   example.](/client-sdk/javascript/examples#control-tabs-programmatically)
-</Param>
+</ParamField>
 
 ### Methods
 
@@ -184,24 +184,24 @@ Sets the permission of a user by their ID. The client must have an admin token s
 
 **Method parameters**
 
-<Param body="userId" type="string">
+<ParamField body="userId" type="string">
   The user ID to set permissions for.
-</Param>
+</ParamField>
 
-<Param body="permissionData" type="object">
+<ParamField body="permissionData" type="object">
   All keys can be omitted: if the key is omitted, then the existing value will
   be unchanged.
   <Expandable>
-    <Param body="priority" type="number" default="0">
+    <ParamField body="priority" type="number" default="0">
       Higher value = higher priority. Users with a higher priority will preempt
       the control of lower priority users.
-    </Param>
-    <Param body="idle_timeout" type="number">
+    </ParamField>
+    <ParamField body="idle_timeout" type="number">
       Number of milliseconds until a user is considered "idle". Once a user is
       considered idle, they no longer preempt lower priority users until they
       interact with the virtual browser again.
-    </Param>
-    <Param
+    </ParamField>
+    <ParamField
       body="control_disabled"
       type="boolean"
       default="<control_disable_default>"
@@ -209,9 +209,9 @@ Sets the permission of a user by their ID. The client must have an admin token s
       If control_disabled = true, all control input (mouse movements, keyboard
       presses) will be ignored. Note that disabling control does not restrict
       access to any APIs that require admin tokens.
-    </Param>
+    </ParamField>
   </Expandable>
-</Param>
+</ParamField>
 
 ---
 
@@ -223,7 +223,7 @@ Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See exa
 
 **Method parameters**
 
-<Param body="event" type="KeyEvent | MouseEvent | WheelEvent"></Param>
+<ParamField body="event" type="KeyEvent | MouseEvent | WheelEvent"></ParamField>
 
 ---
 
@@ -239,13 +239,13 @@ Resizes the virtual browser to the specified width and height, in pixels. The ar
 
 **Method parameters**
 
-<Param body="width" type="number">
+<ParamField body="width" type="number">
   The width of the virtual browser in pixels.
-</Param>
+</ParamField>
 
-<Param body="height" type="number">
+<ParamField body="height" type="number">
   The height of the virtual browser in pixels.
-</Param>
+</ParamField>
 
 ---
 
@@ -276,10 +276,10 @@ const regionInfo = await getRegionInfo()
 #### Properties
 
 <br />
-<Param body="region" type="string">
+<ParamField body="region" type="string">
   Two-letter region code.
-</Param>
+</ParamField>
 
-<Param body="country" type="string" optional>
+<ParamField body="country" type="string" optional>
   Country code.
-</Param>
+</ParamField>

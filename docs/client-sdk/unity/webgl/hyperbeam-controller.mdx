@@ -33,18 +33,18 @@ Will notify any registered handlers when control is returned to unity after bein
 
 ## Properties
 
-<Param body="Instance" type="Hyperbeam">
+<ParamField body="Instance" type="Hyperbeam">
 The instance of the core Hyperbeam object associated with this controller. 
 Allows access to many of the control methods for interacting with the virtual browser. [See Hyperbeam for more info](/client-sdk/unity/webgl/hyperbeam)
-</Param>
+</ParamField>
 
-<Param body="Volume" type="float">
+<ParamField body="Volume" type="float">
 Sets the stream's volume. A convience accessor for [Instance.Volume](/client-sdk/unity/webgl/hyperbeam#properties)
-</Param>
+</ParamField>
 
-<Param body="Paused" type="bool">
+<ParamField body="Paused" type="bool">
 Pauses the video stream, but not the audio stream. A convience accessor for [Instance.SetVideoPause(value)](/client-sdk/unity/webgl/hyperbeam#properties)
-</Param>
+</ParamField>
 
 
 ## Methods
@@ -58,7 +58,7 @@ Bootstraps the hyperbeam browser. This will hand off execution the web browsers 
 
 **Method Parameters**
 
-<Param body="embedUrl" type="string">A URL provided by the [Hyperbeam REST API](/rest-api)</Param>
+<ParamField body="embedUrl" type="string">A URL provided by the [Hyperbeam REST API](/rest-api)</ParamField>
 
 ---
 
@@ -70,11 +70,11 @@ It will listen for the closeKey along with any modifiers and when pressed will r
 
 **Method Parameters**
 
-<Param body="closeKey" type="string">The Keydown that will trigger unity regaining control</Param>
-<Param body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</Param>
-<Param body="meta" type="bool">Whether or not the meta key must be held down to regain control</Param>
-<Param body="alt" type="bool">Whether or not the alt key must be held down to regain control</Param>
-<Param body="shift" type="bool">Whether or not the shift key must be held down to regain control</Param>
+<ParamField body="closeKey" type="string">The Keydown that will trigger unity regaining control</ParamField>
+<ParamField body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</ParamField>
+<ParamField body="meta" type="bool">Whether or not the meta key must be held down to regain control</ParamField>
+<ParamField body="alt" type="bool">Whether or not the alt key must be held down to regain control</ParamField>
+<ParamField body="shift" type="bool">Whether or not the shift key must be held down to regain control</ParamField>
 
 ---
 

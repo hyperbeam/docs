@@ -7,61 +7,61 @@ authMethod: "bearer"
 
 ## Parameters
 
-<Param body="start_url" type="string" default="about:blank">
+<ParamField body="start_url" type="string" default="about:blank">
   The initial URL that is set in the browser. If unset, and a profile is loaded,
   tabs from the profile are restored
-</Param>
+</ParamField>
 
-<Param body="kiosk" type="boolean" default={false}>
+<ParamField body="kiosk" type="boolean" default={false}>
   Flag to enable kiosk mode, which hides the browser navigation UI
-</Param>
+</ParamField>
 
-<Param body="timeout" type="object">
+<ParamField body="timeout" type="object">
   Timeouts determine when a session will be automatically terminated.
   Also, when a timeout (or timeout warning) is triggered, a webhook event will be sent to the URL specified by the `webhook` timeout parameter.
   <Tip>
     You can reset these values for live sessions by hitting the \<embed_url\>/timeout endpoint. [See example.](https://github.com/hyperbeam/examples/tree/master/timeout)
   </Tip>
   <Expandable>
-      <Param body="absolute" type="number">
+      <ParamField body="absolute" type="number">
         The amount of time (in seconds) since creation, after which the session will terminate.
-      </Param>
-      <Param body="inactive" type="number">
+      </ParamField>
+      <ParamField body="inactive" type="number">
         The amount of time (in seconds) since the last user input, after which the session will terminate.
-      </Param>
-      <Param body="offline" type="number" default="3600">
+      </ParamField>
+      <ParamField body="offline" type="number" default="3600">
         The amount of time (in seconds) that no users are connected, after which the session will terminate. Resets when a user connects.
-      </Param>
-      <Param body="warning" type="number" default="60">
+      </ParamField>
+      <ParamField body="warning" type="number" default="60">
         The amount of time (in seconds) before the session is terminated due to another timeout.
-      </Param>
-      <Param body="webhook" type="object">
+      </ParamField>
+      <ParamField body="webhook" type="object">
         <Expandable>
-          <Param body="url" type="string">
+          <ParamField body="url" type="string">
             The URL to send the timeout webhook event to.
-          </Param>
-          <Param body="bearer" type="string">
+          </ParamField>
+          <ParamField body="bearer" type="string">
             The Bearer Token to send with the webhook.
-          </Param>
+          </ParamField>
         </Expandable>
-      </Param>
+      </ParamField>
   </Expandable>
-</Param>
+</ParamField>
 
-<Param body="tenant_id" type="string">
+<ParamField body="tenant_id" type="string">
   Custom ID provided for keeping track of usage on a per-tenant basis. See [Get Usage](/rest-api/dispatch/get-usage) for more information.
-</Param>
+</ParamField>
 
-<Param body="control_disable_default" type="boolean" default={false}>
+<ParamField body="control_disable_default" type="boolean" default={false}>
   If true, users cannot control the browser by default, and need to be manually
   granted access by an admin user
-</Param>
+</ParamField>
 
-<Param body="region" type="string" default="NA">
+<ParamField body="region" type="string" default="NA">
   The server region: `NA` → North America, `EU` → Europe, `AS` → Asia
-</Param>
+</ParamField>
 
-<Param body="profile" type="boolean | string | object">
+<ParamField body="profile" type="boolean | string | object">
   Used to save and load Chrome profiles including bookmarks, history, passwords,
   cookies etc. `true` will create a new profile, while passing in a session ID
   of an existing profile will load and update the profile. For advanced usage,
@@ -69,63 +69,63 @@ authMethod: "bearer"
   wish to load and the profile you wish to overwrite:
 
   <Expandable>
-    <Param body="load" type="string">
+    <ParamField body="load" type="string">
       ID of the session you want to load in the cloud browser (a profile is
       encrypted browser state from a previous session, with the profile ID being
       its `session_id`, see [response body](#response)).
-    </Param>
-    <Param body="save" type="boolean | string" default="false">
+    </ParamField>
+    <ParamField body="save" type="boolean | string" default="false">
       `save` = `true` creates a new persisted profile you can load from. If a
       session ID is provided, then the profile associated with the session ID
       will be overwritten.
-    </Param>
+    </ParamField>
   </Expandable>
-</Param>
+</ParamField>
 
-<Param body="adblock" type="boolean" default={false}>
+<ParamField body="adblock" type="boolean" default={false}>
   Flag to install the an adblock extension on the cloud browser
-</Param>
+</ParamField>
 
-<Param body="draw" type="boolean" default={false}>
+<ParamField body="draw" type="boolean" default={false}>
   Flag to install the a drawing and annotation extension on the cloud browser
-</Param>
+</ParamField>
 
-<Param body="extension" type="object">
+<ParamField body="extension" type="object">
   Used to [install custom Chrome extensions.](/guides/install-chrome-extension)
   (Max Size 1MB).
   <Expandable>
-    <Param body="field" type="string">
+    <ParamField body="field" type="string">
       Contains the path to your custom Chrome extension.
-    </Param>
+    </ParamField>
   </Expandable>
-</Param>
+</ParamField>
 
-<Param body="webgl" type="boolean" default={false}>
+<ParamField body="webgl" type="boolean" default={false}>
   Enables WebGL. Some games and interactive activities require WebGL
-</Param>
+</ParamField>
 
-<Param body="width" type="number" default={1280}>
+<ParamField body="width" type="number" default={1280}>
 Width of the browser in pixels. If set, height must be set as well.
 
 The max number of pixels (width height) is capped at 1920*1080.
-</Param>
+</ParamField>
 
-<Param body="height" type="number" default={720}>
+<ParamField body="height" type="number" default={720}>
 Height of the browser in pixels. If set, width must be set as well.
 
 The max number of pixels (width height) is capped at 1920*1080.
-</Param>
+</ParamField>
 
-<Param body="fps" type="number" default={24}>
+<ParamField body="fps" type="number" default={24}>
   Integer frame rate of the browser. Must be in the range [24, 60]
-</Param>
+</ParamField>
 
-<Param body="hide_cursor" type="boolean" default={false}>
+<ParamField body="hide_cursor" type="boolean" default={false}>
   Hides the system cursor. Useful if you want to implement a multi-cursor user
   interface.
-</Param>
+</ParamField>
 
-<Param body="search_engine" type="string | object" default={"duckduckgo"}>
+<ParamField body="search_engine" type="string | object" default={"duckduckgo"}>
   Sets the default search engine that Chromium uses: `“duckduckgo”` | `“ecosia”` | `“google”` | `“startpage”` | `“brave”`
   <Accordion title="How to use custom search engine">
     You can use a custom search engine by passing in an object as follows:
@@ -136,44 +136,44 @@ The max number of pixels (width height) is capped at 1920*1080.
         “suggestions_url”: “https://foo.com/suggest?q={searchTerms}”
       }`
   </Accordion>
-</Param>
+</ParamField>
 
-<Param body="user_agent" type="string">
+<ParamField body="user_agent" type="string">
   Sets the user agent to a preset value. Currently only `"chrome_android"` is supported.
-</Param>
+</ParamField>
 
-<Param body="dark" type="boolean" default={false}>
+<ParamField body="dark" type="boolean" default={false}>
   Enables dark mode
-</Param>
+</ParamField>
 
-<Param body="tag" type="string">
+<ParamField body="tag" type="string">
   The `tag` property enforces uniqueness. If a session with tag `"A"` is already
   running and you attempt to make another session with tag `"A"`, the endpoint
   will not create a new instance and will instead return the `session_id` and
   `embed_url` of the existing session.
-</Param>
+</ParamField>
 
-<Param body="quality" type="object">
+<ParamField body="quality" type="object">
   Used to toggle between **sharp**, **smooth**, and **blocky** quality modes.
   Sharp mode is ideal for situations where reading small text is important.
   Smooth mode is ideal for anything involving movement (e.g. videos, dynamic activities).
   Blocky mode is ideal for clients with poor internet connectivity.
   <Expandable>
-    <Param body="mode" type="string" default="smooth">
+    <ParamField body="mode" type="string" default="smooth">
       Possible values are `"sharp"`, `"smooth"`, and `"blocky"`.
       <Warning>Enabling sharp mode triples the required bandwidth. You can view our bandwidth recommendations in the [Streaming FAQ](/home/faq#streaming).</Warning>
-    </Param>
+    </ParamField>
 
   </Expandable>
-</Param>
+</ParamField>
 
-<Param body="locale" type="object">
+<ParamField body="locale" type="object">
   Set the browser's locale and country.
   <Expandable>
-    <Param body="language" type="string">A comma-delimited list of languages, see the [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header.</Param>
-    <Param body="country" type="string">The [ISO 3166 A-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country code, e.g. US for the United States, CA for Canada. You can retrieve the user's country by using an IP database like [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data).</Param>
+    <ParamField body="language" type="string">A comma-delimited list of languages, see the [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) header.</ParamField>
+    <ParamField body="country" type="string">The [ISO 3166 A-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) country code, e.g. US for the United States, CA for Canada. You can retrieve the user's country by using an IP database like [MaxMind GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data).</ParamField>
   </Expandable>
-</Param>
+</ParamField>
 
 <ResponseExample>
 

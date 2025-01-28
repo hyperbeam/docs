@@ -11,19 +11,19 @@ This feature is currently in private beta. <a href="https://docs.google.com/form
 
 ## Parameters
 
-<Param body="type" type="string" default="''" required>
+<ParamField body="type" type="string" default="''" required>
   The console type. nes, snes, n64, and ps1 are supported.
-</Param>
+</ParamField>
 
-<Param body="room_url" type="string" default="''" required>
+<ParamField body="room_url" type="string" default="''" required>
   URL to a legal ROM file, which will be downloaded and loaded into the
   emulator.
-</Param>
+</ParamField>
 
-<Param body="auth" type="object" default='"auth": {"type": "token"}}'>
+<ParamField body="auth" type="object" default='"auth": {"type": "token"}}'>
   The authentication system for the cloud computer. See the “cloud computer
   authentication” section for more info.
-</Param>
+</ParamField>
 
 <ResponseExample>
 

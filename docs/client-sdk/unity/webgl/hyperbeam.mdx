@@ -7,9 +7,9 @@ It is not recommended to instantiate this directly, instead it is preferable to 
 
 ## Properties
 
-<Param body="Volume" type="float">
+<ParamField body="Volume" type="float">
 Sets the stream's volume in a range of [0, 1]
-</Param>
+</ParamField>
 
 ## Methods
 
@@ -23,7 +23,7 @@ every frame for a texture to be available. When one is found, or if one already 
 
 **Method Params**
 
-<Param body="callback" type="Action<Texture2D>">A callback to be invoked that takes a Texture2D parameter</Param>
+<ParamField body="callback" type="Action<Texture2D>">A callback to be invoked that takes a Texture2D parameter</ParamField>
 
 ---
 
@@ -48,9 +48,9 @@ Sends a keydown event to the virtual browser.
 
 **Method Params**
 
-<Param body="Key" type="char">The Key to send this event for.</Param>
-<Param body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</Param>
-<Param body="Alt" type="bool">Whether or not alt should be sent with the key.</Param>
+<ParamField body="Key" type="char">The Key to send this event for.</ParamField>
+<ParamField body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</ParamField>
+<ParamField body="Alt" type="bool">Whether or not alt should be sent with the key.</ParamField>
 
 ---
 
@@ -61,9 +61,9 @@ Sends a keyup event to the virtual browser.
 
 **Method Params**
 
-<Param body="Key" type="char">The Key to send this event for.</Param>
-<Param body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</Param>
-<Param body="Alt" type="bool">Whether or not alt should be sent with the key.</Param>
+<ParamField body="Key" type="char">The Key to send this event for.</ParamField>
+<ParamField body="Ctrl" type="bool">Whether or not ctrl should be sent with the key.</ParamField>
+<ParamField body="Alt" type="bool">Whether or not alt should be sent with the key.</ParamField>
 
 ---
 
@@ -74,9 +74,9 @@ Sends a mousedown event to the virtual browser.
 
 **Method Params**
 
-<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
-<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
-<Param body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</Param>
+<ParamField body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</ParamField>
+<ParamField body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</ParamField>
+<ParamField body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</ParamField>
 
 ---
 
@@ -87,9 +87,9 @@ Sends a mouseup event to the virtual browser.
 
 **Method Params**
 
-<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
-<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
-<Param body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</Param>
+<ParamField body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</ParamField>
+<ParamField body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</ParamField>
+<ParamField body="button" type="PointerEventData.InputButton">Which mouse button to send the event for.</ParamField>
 
 ---
 
@@ -100,8 +100,8 @@ Sends a mousemove event to the virtual browser.
 
 **Method Params**
 
-<Param body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</Param>
-<Param body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</Param>
+<ParamField body="x" type="float">The X coordinate in the range \[0, 1\] where 0 is the left edge.</ParamField>
+<ParamField body="y" type="float">The Y coordinate in the range \[0, 1\] where 0 is the top edge.</ParamField>
 
 ---
 
@@ -112,7 +112,7 @@ Sends a mouse wheel event to the virtual browser.
 
 **Method Params**
 
-<Param body="DeltaY" type="float">The scroll wheel's delta</Param>
+<ParamField body="DeltaY" type="float">The scroll wheel's delta</ParamField>
 
 ---
 
@@ -124,7 +124,7 @@ Prefer to use [HyperbeamController.Paused](/client-sdk/unity/webgl/hyperbeam-con
 
 **Method Params**
 
-<Param body="pause" type="bool">Whether to pause or unpause the video stream.</Param>
+<ParamField body="pause" type="bool">Whether to pause or unpause the video stream.</ParamField>
 
 ---
 
@@ -137,11 +137,11 @@ because it first tells unity to stop listening and will avoid registering multip
 
 **Method Parameters**
 
-<Param body="closeKey" type="string">The Keydown that will trigger unity regaining control</Param>
-<Param body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</Param>
-<Param body="meta" type="bool">Whether or not the meta key must be held down to regain control</Param>
-<Param body="alt" type="bool">Whether or not the alt key must be held down to regain control</Param>
-<Param body="shift" type="bool">Whether or not the shift key must be held down to regain control</Param>
+<ParamField body="closeKey" type="string">The Keydown that will trigger unity regaining control</ParamField>
+<ParamField body="ctrl" type="bool">Whether or not the ctrl key must be held down to regain control</ParamField>
+<ParamField body="meta" type="bool">Whether or not the meta key must be held down to regain control</ParamField>
+<ParamField body="alt" type="bool">Whether or not the alt key must be held down to regain control</ParamField>
+<ParamField body="shift" type="bool">Whether or not the shift key must be held down to regain control</ParamField>
 
 ---
 
