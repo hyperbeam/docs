@@ -83,11 +83,15 @@ authMethod: "bearer"
 </ParamField>
 
 <ParamField body="adblock" type="boolean" default={false}>
-  Flag to install the an adblock extension on the cloud browser
+  Flag to install an adblock extension on the cloud browser
+</ParamField>
+
+<ParamField body="ublock" type="boolean" default={false} deprecated={true}>
+  Deprecated. See the `adblock` flag. Flag to install an adblock extension on the cloud browser
 </ParamField>
 
 <ParamField body="draw" type="boolean" default={false}>
-  Flag to install the a drawing and annotation extension on the cloud browser
+  Flag to install a drawing and annotation extension on the cloud browser
 </ParamField>
 
 <ParamField body="extension" type="object">
