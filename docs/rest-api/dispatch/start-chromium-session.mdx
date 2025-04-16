@@ -23,28 +23,40 @@ authMethod: "bearer"
     You can reset these values for live sessions by hitting the \<embed_url\>/timeout endpoint. [See example.](https://github.com/hyperbeam/examples/tree/master/timeout)
   </Tip>
   <Expandable>
-      <ParamField body="absolute" type="number">
-        The amount of time (in seconds) since creation, after which the session will terminate.
-      </ParamField>
-      <ParamField body="inactive" type="number">
-        The amount of time (in seconds) since the last user input, after which the session will terminate.
-      </ParamField>
-      <ParamField body="offline" type="number" default="3600">
-        The amount of time (in seconds) that no users are connected, after which the session will terminate. Resets when a user connects.
-      </ParamField>
-      <ParamField body="warning" type="number" default="60">
-        The amount of time (in seconds) before the session is terminated due to another timeout.
-      </ParamField>
-      <ParamField body="webhook" type="object">
-        <Expandable>
-          <ParamField body="url" type="string">
-            The URL to send the timeout webhook event to.
-          </ParamField>
-          <ParamField body="bearer" type="string">
-            The Bearer Token to send with the webhook.
-          </ParamField>
-        </Expandable>
-      </ParamField>
+    <ParamField body="absolute" type="number">
+      The amount of time (in seconds) since creation, after which the session will terminate.
+    </ParamField>
+    <ParamField body="inactive" type="number">
+      The amount of time (in seconds) since the last user input, after which the session will terminate.
+    </ParamField>
+    <ParamField body="offline" type="number" default={3600}>
+      The amount of time (in seconds) that no users are connected, after which the session will terminate. Resets when a user connects.
+    </ParamField>
+    <ParamField body="warning" type="number" default={60}>
+      The amount of time (in seconds) before the session is terminated due to another timeout.
+    </ParamField>
+    <ParamField body="webhook" type="object">
+      <Expandable>
+        <ParamField body="url" type="string">
+          The URL to send the timeout webhook event to.
+        </ParamField>
+        <ParamField body="bearer" type="string">
+          The Bearer Token to send with the webhook.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+<ParamField body="touch_gestures" type="object">
+  Enables touch gestures, such as pinch to zoom for touch screen devices
+  <Expandable>
+    <ParamField body="swipe" type="boolean" default={false}>
+      Enables switch gestures, which enables features such as swipe left or right for browser history navigation.
+    </ParamField>
+    <ParamField body="pinch" type="boolean" default={false}>
+      Enables the pinch gestures, which enables features such as pinch to zoom. The zoom can be reset on desktop by pressing the `Escape` key or refreshing the browser page.
+    </ParamField>
   </Expandable>
 </ParamField>
 
