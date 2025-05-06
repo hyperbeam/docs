@@ -56,6 +56,8 @@ authMethod: "bearer"
     </ParamField>
     <ParamField body="pinch" type="boolean" default={false}>
       Enables the pinch gestures, which enables features such as pinch to zoom. The zoom can be reset on desktop by pressing the `Escape` key or refreshing the browser page.
+      You will need to disable viewport scaling to enable pinch-to-zoom on the virtual browser. Include the following meta tag in your HTML:
+      `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />`
     </ParamField>
   </Expandable>
 </ParamField>
