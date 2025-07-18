@@ -59,7 +59,8 @@
         "guides/persist-session-state",
         "guides/authenticating-participants",
         "guides/install-chrome-extension",
-        "guides/resize-browser-window"
+        "guides/resize-browser-window",
+        "guides/roles"
       ]
     },
     {
@@ -82,9 +83,11 @@
           "group": "Session API",
           "pages": [
             "rest-api/session/session-overview",
-            "rest-api/session/set-user-permission",
+            "rest-api/session/add-roles",
+            "rest-api/session/remove-roles",
             "rest-api/session/removing-users",
-            "rest-api/session/bookmarks"
+            "rest-api/session/bookmarks",
+            "rest-api/session/set-user-permission"
           ]
         }
       ]

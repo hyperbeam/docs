@@ -1,0 +1,30 @@
+---
+title: "Roles"
+description: ""
+---
+
+Hyperbeam roles are scoped permissions assigned to users. They are similar to Linux groups, where each role corresponds to one permission, and multiple roles can be assigned to a single user.
+
+| Role              | Enabled by default?  | Description                                                                                                  |
+| ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `chrome_apis`     | ✅                   | Allows the user to call functions from the Chrome Tabs API (`hb.tabs`)                                       |
+| `resize`          | ✅                   | Allows user to resize the resolution of the Hyperbeam browser                                                |
+| `control`         | ✅                   | Allows the user to send mouse and keyboard inputs                                                            |
+| `cursor_data`     | ❌                   | Provides cursor data of other users via the `onCursor` callback                                              |
+| `clipboard_copy`  | ❌                   | Allows the user to copy content from the browser using CTRL+C / CMD+C                                        |
+| `file_upload`     | ❌                   | Allows the user to upload files from their local file system                                                 |
+| `field_masking`   | ❌                   | Allows the user to write to [masked fields](https://github.com/hyperbeam/examples/tree/master/field-masking) |
+
+## Overriding default roles
+
+You can override the default roles assigned to a newly connected user when creating the session:
+
+```bash
+curl -X POST -H "Authorization: Bearer $HB_API_KEY" \
+  https://engine.hyperbeam.com/v0/vm --data \
+  '{"default_roles": ["control", "clipboard_copy", "cursor_data"]}'
+```
+
+## Toggling roles
+
+You can toggle the roles of individual users dynamically. See [addRoles](/rest-api/session/add-roles) and [removeRoles](/rest-api/session/remove-roles) endpoints.
