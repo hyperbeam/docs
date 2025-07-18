@@ -1,0 +1,34 @@
+---
+title: "Remove Roles"
+api: "POST https://<embed_url>/removeRoles"
+authMethod: "bearer"
+playground: "none"
+---
+
+## Parameters
+
+Note that the parameters are provided as an array, as opposed to an object.
+
+<ParamField body="0" type="string[]" required={true}>
+  List of user ids
+</ParamField>
+
+<ParamField body="1" type="string[]" required={true}>
+  List of roles to be removed from the provided user ids
+</ParamField>
+
+<ParamField body="2" type="bool" required={false} default={false}>
+  "Exclusive" flag, where if set to true, the roles are removed from all users *except* the provided list of user ids.
+</ParamField>
+
+<RequestExample>
+
+```bash cURL
+curl -X POST -H 'Authorization: Bearer $HB_API_KEY' \
+  https://8e9hs553xoluse47mck4rfxrp.hyperbeam.com/BUPA9uQeTQ2SLRRQZfe0Xg/removeRoles -d \
+  '[["32670ca3-ffe6-4ff6-ae88-be0ef6709784"], ["control"]]'
+```
+
+</RequestExample>
+
+The request body mirrors the function signature of `removeRoles([userIds], [roles], exclusive)` from the [JavaScript SDK.](/client-sdk/javascript)

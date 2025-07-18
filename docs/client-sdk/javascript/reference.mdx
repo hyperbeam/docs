@@ -176,9 +176,53 @@ Tears down network connections and browser events. Always call this _before_ rem
 
 ---
 
+#### <Heading hidden>addRoles</Heading>
+
+`hb.addRoles(userIds, roles, exclusive): Promise<void>`
+
+Adds the list of roles to all the provided user ids.
+
+**Method parameters**
+
+<ParamField body="userIds" type="string[]" required={true}>
+  List of user ids
+</ParamField>
+
+<ParamField body="roles" type="string[]" required={true}>
+  List of roles to be assigned to the provided user ids
+</ParamField>
+
+<ParamField body="exclusive" type="bool" required={false} default={false}>
+  If set to true, the roles are assigned to all users except the provided list of user ids.
+</ParamField>
+
+#### <Heading hidden>removeRoles</Heading>
+
+Removes the list of roles from all the provided user ids.
+
+`hb.removeRoles(userIds, roles, exclusive): Promise<void>`
+
+Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client-sdk/javascript/examples#setting-permissions)
+
+**Method parameters**
+
+<ParamField body="userIds" type="string[]" required={true}>
+  List of user ids
+</ParamField>
+
+<ParamField body="roles" type="string[]" required={true}>
+  List of roles to be removed from the provided user ids
+</ParamField>
+
+<ParamField body="exclusive" type="bool" required={false} default={false}>
+  If set to true, the roles are removed from all users except the provided list of user ids.
+</ParamField>
+
 #### <Heading hidden>setPermissions</Heading>
 
 `hb.setPermissions(userId, permissionData): Promise<void>`
+
+<Warning>`setPermissions` is deprecated, please use `addRoles` and `removeRoles`</Warning>
 
 Sets the permission of a user by their ID. The client must have an admin token set to manage user permissions. [See example.](/client-sdk/javascript/examples#setting-permissions)
 
@@ -213,8 +257,6 @@ Sets the permission of a user by their ID. The client must have an admin token s
   </Expandable>
 </ParamField>
 
----
-
 #### <Heading hidden>sendEvent</Heading>
 
 `hb.sendEvent(event): void`
@@ -224,8 +266,6 @@ Sends a keyboard, mouse, or mouse wheel event to the Hyperbeam browser. [See exa
 **Method parameters**
 
 <ParamField body="event" type="KeyEvent | MouseEvent | WheelEvent"></ParamField>
-
----
 
 #### <Heading hidden>resize</Heading>
 
@@ -246,8 +286,6 @@ Resizes the virtual browser to the specified width and height, in pixels. The ar
 <ParamField body="height" type="number">
   The height of the virtual browser in pixels.
 </ParamField>
-
----
 
 #### <Heading hidden>ping</Heading>
 
