@@ -25,10 +25,16 @@ authMethod: "bearer"
   control.
 </ResponseField>
 
-<ResponseField name="termination_date" type="string or null">
-  The termination time of the cloud computer session. Formatted according to
+<ResponseField name="creation_date" type="string">
+  The creation date of the cloud computer session. Formatted according to
   [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g.
-  2006-01-02T15:04:05Z07:00). null if the session hasn't terminated yet.
+  2006-01-02T15:04:05Z07:00).
+</ResponseField>
+
+<ResponseField name="termination_date" type="string or null">
+  The termination date of the cloud computer session. Formatted according to
+  [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) (e.g.
+  2006-01-02T15:04:05Z07:00). `null` if the session hasn't terminated yet.
 </ResponseField>
 
 <RequestExample>
@@ -47,6 +53,7 @@ curl -H 'Authorization: Bearer <your-api-key>' \
   "session_id": "c5772689-2255-4e59-8cea-b846cda7ad4e",
   "embed_url": "https://96xljbfypmn3ibra366yqapci.hyperbeam.com/AAEjQFOIRnyeb81XbBsHMw?token=VTWsp1KGn4lLySRkUCmmAhsCcqJrPdhTXNS0Y-KPwHU",
   "admin_token": "DrXWd9QguPRSXwhQn4yJ66sExpoV0BZtAfZsseYECKo",
+  "creation_date": "2025-01-02T15:04:05Z07:00",
   "termination_date": null
 }
 ```
