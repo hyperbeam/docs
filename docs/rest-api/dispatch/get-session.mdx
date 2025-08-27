@@ -37,13 +37,21 @@ authMethod: "bearer"
   2006-01-02T15:04:05Z07:00). `null` if the session hasn't terminated yet.
 </ResponseField>
 
-<RequestExample>
+<ResponseField name="participant_duration_secs" type="int or null">
+  The sum of participant connection times, expressed in seconds.
+  `null` if the session hasn't terminated yet.
+</ResponseField>
 
+<ResponseField name="offline_duration_secs" type="int or null">
+  The number of seconds elapsed where the session was online, but no participants were connected.
+  `null` if the session hasn't terminated yet.
+</ResponseField>
+
+<RequestExample>
 ```bash cURL
 curl -H 'Authorization: Bearer <your-api-key>' \
     https://engine.hyperbeam.com/v0/vm/<session_id>
 ```
-
 </RequestExample>
 
 <ResponseExample>
@@ -54,7 +62,9 @@ curl -H 'Authorization: Bearer <your-api-key>' \
   "embed_url": "https://96xljbfypmn3ibra366yqapci.hyperbeam.com/AAEjQFOIRnyeb81XbBsHMw?token=VTWsp1KGn4lLySRkUCmmAhsCcqJrPdhTXNS0Y-KPwHU",
   "admin_token": "DrXWd9QguPRSXwhQn4yJ66sExpoV0BZtAfZsseYECKo",
   "creation_date": "2025-01-02T15:04:05Z07:00",
-  "termination_date": null
+  "termination_date": null,
+  "participant_duration_secs": null,
+  "offline_duration_secs": null
 }
 ```
 
